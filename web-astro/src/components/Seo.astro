@@ -1,0 +1,18 @@
+---
+// src/components/Seo.astro — metadatos de cada página
+interface Props {
+  title: string;          // <title>, máx. 60 caracteres
+  description: string;    // meta description, máx. 155 caracteres
+  noindex?: boolean;      // /gracias/ y landings de campaña
+}
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="es_ES" />

@@ -1,0 +1,30 @@
+---
+// src/layouts/BaseLayout.astro — esqueleto común a todas las páginas
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown>;   // JSON-LD propio de la página
+}
+const { title, description, noindex, schema } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <Seo title={title} description={description} noindex={noindex} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body>
+    <Header />
+    <main><slot /></main>   <!-- aquí se inyecta el contenido de cada página -->
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,14 @@
+---
+// src/components/PriceCard.astro — tarjeta de tramo de precio (600 m² / 1.000 m²)
+import { precioDia } from '../data/negocio';
+interface Props { metros: number; precioAnual: number; destacado?: boolean; }
+const { metros, precioAnual, destacado = false } = Astro.props;
+const incluye = ['Robot, instalación y app', 'Mantenimiento y averías', 'Sustitución en menos de 7 días'];
+---
+<article class:list={['irm-card', 'irm-price-card', { 'irm-bg-negro': destacado }]}>
+  <span class="irm-eyebrow">Jardines hasta {metros.toLocaleString('es-ES')} m²</span>
+  <p class="irm-cifra-tramo">{precioAnual} €<small>/año*</small></p>
+  <p class="irm-nota">Menos de {precioDia(precioAnual)} € al día</p>
+  <ul class="irm-checks">{incluye.map((i) => <li>{i}</li>)}</ul>
+  <a class="irm-btn" href="/demostracion/">Calcula tu cuota</a>
+</article>

@@ -1,0 +1,32 @@
+---
+// src/pages/index.astro — home: «alquiler robot cortacésped madrid»
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import PriceCard from '../components/PriceCard.astro';
+import Faq from '../components/Faq.astro';
+import { TRAMOS, NEGOCIO } from '../data/negocio';
+import heroImg from '../assets/robot-cortacesped-madrid-amanecer-hero.webp';
+
+const schema = {
+  '@context': 'https://schema.org', '@type': 'LocalBusiness', '@id': `${NEGOCIO.url}/#negocio`,
+  name: NEGOCIO.nombre, url: NEGOCIO.url, areaServed: 'Comunidad de Madrid',
+};
+const faqs = [
+  { q: '¿Tengo que comprar el robot?', a: 'No. Es un renting anual: el robot es nuestro y lo mantenemos nosotros.' },
+  { q: '¿Se puede pagar al mes?', a: 'No. Es un único pago anual, por transferencia y una vez instalado.' },
+];
+---
+<BaseLayout
+  title="Alquiler de robots cortacésped en Madrid | Renting todo incluido · IRM"
+  description="Renting anual de robot cortacésped en Madrid desde 660 €/año: instalación sin cable, mantenimiento y averías incluidos. Si falla, otro en menos de 7 días."
+  schema={schema}>
+  <Hero antetitulo="Tu césped se corta solo." titulo="Alquiler de robots cortacésped en Madrid"
+        entradilla="Renting anual con instalación, mantenimiento y averías incluidos."
+        imagen={heroImg} alt="Robot cortacésped de IRM en un jardín de Madrid al amanecer" />
+  <section class="irm-section" id="precios">
+    <div class="irm-container irm-grid">
+      {TRAMOS.map((t) => <PriceCard metros={t.metros} precioAnual={t.precioAnual} destacado={t.destacado} />)}
+    </div>
+  </section>
+  <Faq preguntas={faqs} />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PriceCard from '../components/PriceCard.astro';
+import { TRAMOS } from '../data/negocio';
+---
+<BaseLayout title="Robot cortacésped precio: renting desde 660 €/año · IRM"
+  description="Cuánto cuesta un robot cortacésped en renting: 660 €/año hasta 600 m² y 760 €/año hasta 1.000 m², con instalación, mantenimiento y averías incluidos.">
+  <section class="irm-section"><div class="irm-container">
+    <h1>Robot cortacésped: precio del renting</h1>
+    <div class="irm-grid">{TRAMOS.map((t) => <PriceCard {...t} />)}</div>
+  </div></section>
+</BaseLayout>

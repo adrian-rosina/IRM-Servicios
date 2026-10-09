@@ -1,0 +1,20 @@
+---
+// src/components/Header.astro — cabecera con el menú aprobado en la arquitectura
+const menu = [
+  { texto: 'Cómo funciona', href: '/como-funciona/' },
+  { texto: 'Precios',       href: '/precios/' },
+  { texto: 'Profesionales', href: '/profesionales/' },
+];
+const actual = Astro.url.pathname;
+---
+<header class="irm-header">
+  <div class="irm-container irm-header-inner">
+    <a href="/" class="irm-logo" aria-label="IRM Servicios, inicio"><strong>IRM</strong><span>Servicios</span></a>
+    <nav class="irm-nav" aria-label="Principal">
+      {menu.map((item) => (
+        <a href={item.href} aria-current={actual === item.href ? 'page' : undefined}>{item.texto}</a>
+      ))}
+    </nav>
+    <a href="/demostracion/" class="irm-btn">Reserva tu robot</a>
+  </div>
+</header>

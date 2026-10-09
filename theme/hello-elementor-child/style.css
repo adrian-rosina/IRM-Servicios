@@ -1,0 +1,107 @@
+/*
+Theme Name: Hello Elementor Child · IRM Servicios
+Theme URI: https://irmservicios.com
+Description: Tema hijo de Hello Elementor con los tokens de marca de IRM Servicios (ver docs/07a-brief-marca.md).
+Author: Movetek Group
+Template: hello-elementor
+Version: 1.0.0
+Text Domain: hello-elementor-child
+*/
+
+/* ============================================================
+   IRM Servicios · tokens de marca
+   Regla: ningún color/tipografía/espaciado en línea en widgets.
+   Todo sale de estas variables o de los globales de Elementor.
+   ============================================================ */
+:root{
+  /* Color */
+  --irm-primary:#1F3D3A;
+  --irm-primary-light:#2E5A55;
+  --irm-secondary:#C9D8C5;
+  --irm-accent:#F2A33A;
+  --irm-accent-hover:#D9891F;
+  --irm-bg:#FFFFFF;
+  --irm-bg-alt:#F4F6F2;
+  --irm-text:#1B1F1E;
+  --irm-text-muted:#5B6663;
+  --irm-border:#E3E8E4;
+  --irm-success:#2E7D5B;
+  --irm-warning:#B4532A;
+  --irm-on-dark:#FFFFFF;
+
+  /* Tipografía */
+  --irm-font-heading:"Manrope",system-ui,sans-serif;
+  --irm-font-body:"Inter",system-ui,sans-serif;
+  --irm-h1:clamp(2.125rem,1.5rem + 2.2vw,3.25rem);   /* 34 → 52 px */
+  --irm-h2:clamp(1.75rem,1.35rem + 1.4vw,2.375rem);  /* 28 → 38 px */
+  --irm-h3:clamp(1.25rem,1.1rem + .5vw,1.5rem);      /* 20 → 24 px */
+  --irm-body:clamp(1.0625rem,1rem + .2vw,1.125rem);  /* 17 → 18 px */
+  --irm-small:.9375rem;
+  --irm-price:clamp(2.5rem,1.8rem + 2.5vw,3.5rem);   /* 40 → 56 px */
+  --irm-lh-tight:1.1;
+  --irm-lh-body:1.6;
+  --irm-measure:68ch;
+
+  /* Forma */
+  --irm-radius-btn:10px;
+  --irm-radius-card:16px;
+  --irm-radius-input:10px;
+  --irm-shadow-hover:0 6px 16px rgba(31,61,58,.18);
+  --irm-border-w:1px;
+
+  /* Espaciado */
+  --irm-space-section:clamp(4rem,3rem + 3vw,6rem);   /* 64 → 96 px */
+  --irm-space-card:1.75rem;
+  --irm-gap:1.5rem;
+  --irm-container:1200px;
+
+  /* Movimiento */
+  --irm-ease:150ms ease-out;
+}
+
+/* Base */
+body{font-family:var(--irm-font-body);font-size:var(--irm-body);line-height:var(--irm-lh-body);color:var(--irm-text);background:var(--irm-bg)}
+h1,h2,h3{font-family:var(--irm-font-heading);color:var(--irm-text);line-height:var(--irm-lh-tight);letter-spacing:-.02em;margin:0 0 .5em}
+h1{font-size:var(--irm-h1);font-weight:800}
+h2{font-size:var(--irm-h2);font-weight:700;line-height:1.15}
+h3{font-size:var(--irm-h3);font-weight:700;line-height:1.25}
+p{max-width:var(--irm-measure)}
+a{color:var(--irm-primary-light)}
+a:hover{color:var(--irm-primary)}
+
+/* Botones (añadir la clase CSS al widget Botón de Elementor) */
+.irm-btn-primary .elementor-button{background:var(--irm-accent);color:var(--irm-text);border-radius:var(--irm-radius-btn);padding:16px 28px;font:600 1.0625rem/1 var(--irm-font-body);box-shadow:none;transition:all var(--irm-ease)}
+.irm-btn-primary .elementor-button:hover{background:var(--irm-accent-hover);color:var(--irm-text);transform:translateY(-1px);box-shadow:var(--irm-shadow-hover)}
+.irm-btn-secondary .elementor-button{background:transparent;color:var(--irm-primary);border:2px solid var(--irm-primary);border-radius:var(--irm-radius-btn);padding:14px 26px;font:600 1.0625rem/1 var(--irm-font-body)}
+.irm-btn-secondary .elementor-button:hover{background:var(--irm-primary);color:var(--irm-on-dark)}
+.irm-dark .irm-btn-secondary .elementor-button{color:var(--irm-on-dark);border-color:var(--irm-on-dark)}
+.irm-dark .irm-btn-secondary .elementor-button:hover{background:var(--irm-on-dark);color:var(--irm-primary)}
+
+/* Cards */
+.irm-card{background:var(--irm-bg);border:var(--irm-border-w) solid var(--irm-border);border-radius:var(--irm-radius-card);padding:var(--irm-space-card)}
+.irm-section--alt .irm-card{background:var(--irm-bg)}
+.irm-card--featured{border:2px solid var(--irm-primary)}
+.irm-card--link{transition:all var(--irm-ease)}
+.irm-card--link:hover{border-color:var(--irm-primary);box-shadow:var(--irm-shadow-hover)}
+.irm-icon{width:48px;height:48px;border-radius:50%;background:var(--irm-secondary);display:grid;place-items:center;color:var(--irm-primary)}
+.irm-icon svg{width:28px;height:28px;stroke-width:1.75}
+
+/* Secciones */
+.irm-section{padding-block:var(--irm-space-section)}
+.irm-section--alt{background:var(--irm-bg-alt)}
+.irm-dark{background:var(--irm-primary);color:var(--irm-on-dark)}
+.irm-dark h1,.irm-dark h2,.irm-dark h3,.irm-dark a{color:var(--irm-on-dark)}
+.irm-price{font:800 var(--irm-price)/1 var(--irm-font-heading);color:var(--irm-primary)}
+.irm-dark .irm-price{color:var(--irm-accent)}
+.irm-tag{display:inline-block;background:var(--irm-secondary);color:var(--irm-primary);font:600 .8125rem/1 var(--irm-font-body);padding:6px 12px;border-radius:999px}
+.irm-muted{color:var(--irm-text-muted);font-size:var(--irm-small)}
+
+/* Formularios (Elementor Forms: clase irm-form en el widget) */
+.irm-form .elementor-field-group label{font:500 .875rem/1.4 var(--irm-font-body);color:var(--irm-text);margin-bottom:6px}
+.irm-form .elementor-field{min-height:52px;border:var(--irm-border-w) solid var(--irm-border);border-radius:var(--irm-radius-input);background:var(--irm-bg);font-size:1rem;color:var(--irm-text)}
+.irm-form .elementor-field:focus{border:2px solid var(--irm-primary);outline:none}
+.irm-form .elementor-error .elementor-field{border-color:var(--irm-warning)}
+.irm-form .elementor-message-danger{color:var(--irm-warning)}
+.irm-form .elementor-message-success{color:var(--irm-success)}
+.irm-form .elementor-button{width:100%}
+@media (min-width:768px){.irm-form .elementor-button{width:auto}}

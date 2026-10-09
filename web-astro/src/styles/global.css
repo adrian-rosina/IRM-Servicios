@@ -1,0 +1,26 @@
+/* src/styles/global.css — tokens de marca v3 «Energía» (extracto) */
+@font-face { font-family: 'Space Grotesk'; font-weight: 400; font-display: swap;
+  src: url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Space Grotesk'; font-weight: 700; font-display: swap;
+  src: url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-weight: 400; font-display: swap;
+  src: url('/fonts/space-mono-latin-400-normal.woff2') format('woff2'); }
+
+:root {
+  --irm-lima: #9BDD5F;   --irm-negro: #141615;  --irm-hueso: #F2EFE6;
+  --irm-bosque: #155F06; --irm-gris: #5F625C;   --irm-blanco: #FFFFFF;
+  --font-sans: 'Space Grotesk', Arial, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --irm-h1: clamp(2.5rem, 1.5rem + 4vw, 4rem);   /* 40 px en móvil → 64 px */
+  --irm-radio-pildora: 999px;  --irm-radio-tarjeta: 24px;
+  --irm-container: 1200px;
+}
+body { margin: 0; font-family: var(--font-sans); color: var(--irm-negro); }
+h1 { font-size: var(--irm-h1); line-height: 1; letter-spacing: -.02em; }
+.irm-container { max-width: var(--irm-container); margin-inline: auto; padding-inline: 1.25rem; }
+.irm-btn { display: inline-flex; gap: .5rem; align-items: center; min-height: 52px;
+  padding: 0 1.5rem; border-radius: var(--irm-radio-pildora); font-weight: 600;
+  background: var(--irm-negro); color: var(--irm-blanco); text-decoration: none; }
+.irm-bg-negro .irm-btn { background: var(--irm-lima); color: var(--irm-negro); }
+.irm-bg-negro { background: var(--irm-negro); color: var(--irm-blanco); }
+.irm-bg-negro h1 { color: var(--irm-blanco); }

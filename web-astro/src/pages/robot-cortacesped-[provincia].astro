@@ -1,0 +1,29 @@
+---
+// src/pages/robot-cortacesped-[provincia].astro — UNA plantilla genera las 4 páginas de zona
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+
+export async function getStaticPaths() {
+  const zonas = await getCollection('zonas');
+  return zonas.map((zona) => ({ params: { provincia: zona.id }, props: { zona } }));
+}
+
+const { zona } = Astro.props;
+const { Content } = await render(zona);
+const d = zona.data;
+
+const schema = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  serviceType: 'Renting de robots cortacésped',
+  areaServed: { '@type': 'AdministrativeArea', name: d.provincia },
+  provider: { '@id': 'https://irmservicios.com/#negocio' },   // apunta a la home (Madrid)
+};
+---
+<BaseLayout title={d.title} description={d.description} schema={schema}>
+  <Hero antetitulo={`Renting de robots cortacésped · ${d.provincia}`} titulo={d.h1}
+        entradilla="Instalación, mantenimiento y averías incluidos." imagen={d.imagen} alt={d.alt} />
+  <section class="irm-section"><div class="irm-container"><Content /></div></section>
+  <p class="irm-container">Consulta el <a href="/precios/">precio del renting</a> o vuelve al
+    <a href="/">renting de robots cortacésped</a>.</p>
+</BaseLayout>

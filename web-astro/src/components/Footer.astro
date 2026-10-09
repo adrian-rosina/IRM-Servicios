@@ -1,0 +1,14 @@
+---
+// src/components/Footer.astro — pie con las zonas (enlazado interno hacia las provincias)
+import { getCollection } from 'astro:content';
+const zonas = await getCollection('zonas');
+---
+<footer class="irm-footer irm-bg-negro">
+  <div class="irm-container">
+    <p>Zonas donde instalamos:</p>
+    <ul>
+      {zonas.map((z) => <li><a href={`/robot-cortacesped-${z.id}/`}>{z.data.provincia}</a></li>)}
+    </ul>
+    <p><a href="/aviso-legal/">Aviso legal</a> · <a href="/politica-de-privacidad/">Privacidad</a> · <a href="/politica-de-cookies/">Cookies</a></p>
+  </div>
+</footer>

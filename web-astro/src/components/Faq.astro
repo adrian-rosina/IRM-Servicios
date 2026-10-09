@@ -1,0 +1,19 @@
+---
+// src/components/Faq.astro — preguntas frecuentes sin JavaScript (<details>) + schema FAQPage
+interface Props { preguntas: { q: string; a: string }[] }
+const { preguntas } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: preguntas.map((p) => ({
+    '@type': 'Question', name: p.q, acceptedAnswer: { '@type': 'Answer', text: p.a },
+  })),
+};
+---
+<section class="irm-section">
+  <div class="irm-container">
+    {preguntas.map((p) => (
+      <details class="irm-faq"><summary>{p.q}</summary><p>{p.a}</p></details>
+    ))}
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
