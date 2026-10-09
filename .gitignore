@@ -12,7 +12,7 @@
 Thumbs.db
 desktop.ini
 
-# Lockfiles de Office / Word (ficheros temporales mientras hay un .docx abierto)
+
 ~$*
 
 # Editores
@@ -21,9 +21,7 @@ desktop.ini
 *.swp
 *.swo
 
-# ============================================================
-# Node / Astro (web-astro/)
-# ============================================================
+
 web-astro/node_modules/
 web-astro/dist/
 web-astro/.astro/
@@ -31,60 +29,47 @@ web-astro/.cache/
 web-astro/.vercel/
 web-astro/.netlify/
 
-# Env + secretos (nunca al repo)
+
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 
-# ============================================================
-# Claude Code (todo fuera del repo)
-# ============================================================
+
 CLAUDE.md
 .claude/
 .anthropic/
 
-# ============================================================
-# Material estratégico y de contexto (no para el profesor)
-# ============================================================
-# Prompts internos de Claude Code
+
 prompts/
-# Docs del flujo (brief marca, maquetación, encabezados, buyer personas, pendientes…)
+
 docs/
-# Contenido redactado paso 08-09 en markdown + checklist de keywords
+
 contenido/
-# Datos fuente del keyword research y copys de Meta
+
 data/
-# Research y estructura SEO en Excel/Word (documentos estratégicos)
+
 Kw_Research_*.xlsx
 IRM_Textos_web_Paso*.docx
-# Notas de migración de WordPress
+
 migracion/
-# Google Apps Script del formulario (si contiene credenciales)
+
 apps-script/
 
-# ============================================================
-# Entregables personales fuera del alcance del repo web
-# ============================================================
+
 Memoria_Proyecto_DAW_*.docx
 memoria-figuras/
 
-# ============================================================
-# Backups de staging WordPress (datos de la web real, no al repo público)
-# ============================================================
+
 backups/*.json
 backups/*.sql
 backups/*.gz
 
-# ============================================================
-# Imágenes · originales RAW muy pesadas
-# Las optimizadas (prototipos/assets/img/ y web-astro/src/assets/) sí van.
-# Descomenta la línea de abajo si decides excluir también `imagenes/`.
-# ============================================================
+
 # imagenes/
 
-# Binarios de diseño siempre fuera
+
 *.psd
 *.ai
 *.sketch
