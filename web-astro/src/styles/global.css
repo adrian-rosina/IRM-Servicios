@@ -188,8 +188,8 @@ p{margin:0 0 1rem;max-width:62ch}
 .irm-hero-split-content{max-width:520px;width:100%}
 
 .irm-hero-split-right{position:relative;background:var(--irm-negro);overflow:hidden;min-height:360px}
-@media(min-width:1024px){.irm-hero-split-right{clip-path:polygon(8% 0,100% 0,100% 100%,0 100%)}}
-.irm-hero-split-right video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;display:block}
+@media(min-width:1024px){.irm-hero-split-right{clip-path:polygon(12% 0,100% 0,100% 100%,2% 100%)}}
+.irm-hero-split-right video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;z-index:0;display:block;background:var(--irm-negro)}
 .irm-hero-split-right .irm-hero-chips-abs{position:absolute;top:1.25rem;right:1.25rem;z-index:3;display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;max-width:70%}
 .irm-hero-split-right .irm-insignia{position:absolute;bottom:1.25rem;right:1.25rem;z-index:3;width:90px;height:90px;font-size:.625rem}
 .irm-hero-split-right .irm-insignia strong{font-size:1.25rem}
