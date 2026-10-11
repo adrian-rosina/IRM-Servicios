@@ -155,17 +155,22 @@ p{margin:0 0 1rem;max-width:62ch}
 /* Hero */
 .irm-hero{padding-block:clamp(3rem,2rem + 4vw,5rem)}
 .irm-hero-grid{display:grid;gap:2.5rem;align-items:center}
-@media(min-width:1024px){.irm-hero-grid{grid-template-columns:.9fr 1.15fr;gap:4rem;align-items:stretch}}
+@media(min-width:1024px){.irm-hero-grid{grid-template-columns:1.05fr .95fr;gap:4rem}}
 .irm-hero--big h1{font-size:var(--irm-cifra);line-height:.95;letter-spacing:-.04em;font-weight:700}
 .irm-hero .irm-entradilla{font-size:var(--irm-entradilla);max-width:52ch;margin-bottom:1.75rem}
 .irm-bg-negro .irm-hero .irm-entradilla{color:#D4D7D4}
 .irm-hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-top:2rem}
 .irm-hero-tel{margin-top:1.5rem;display:flex;align-items:center;gap:.75rem;font-family:var(--font-mono);font-size:.875rem;letter-spacing:.1em;text-transform:uppercase}
 .irm-hero-tel a{color:var(--irm-lima);text-decoration:none;font-family:var(--font-sans);font-weight:600;font-size:1.25rem;letter-spacing:0;text-transform:none}
-/* Vídeo/foto del hero: grande y alto en desktop */
-.irm-hero .irm-foto{aspect-ratio:4/5}
-@media(min-width:1024px){.irm-hero .irm-foto{aspect-ratio:auto;min-height:680px;height:100%}}
-.irm-hero .irm-foto video,.irm-hero .irm-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+
+/* Hero full-bleed con vídeo de fondo (resolución nativa) */
+.irm-hero--video{position:relative;padding-block:0;min-height:min(92vh,860px);display:grid;align-items:center;overflow:hidden}
+.irm-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.irm-hero-overlay{position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,22,21,.9) 0%,rgba(20,22,21,.75) 40%,rgba(20,22,21,.35) 70%,rgba(20,22,21,.2) 100%);z-index:1;pointer-events:none}
+.irm-hero--video > .irm-container{position:relative;z-index:2;padding-block:clamp(3rem,2rem + 4vw,6rem)}
+.irm-hero--video .irm-hero-chips-abs{position:absolute;top:1.5rem;right:1.5rem;z-index:3;display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;max-width:60%}
+.irm-hero--video .irm-insignia{position:absolute;bottom:1.5rem;right:1.5rem;z-index:3}
+@media(max-width:767px){.irm-hero--video{min-height:88vh}.irm-hero--video .irm-hero-chips-abs{display:none}.irm-hero--video .irm-insignia{display:none}}
 
 /* Price cards */
 .irm-price-card{display:flex;flex-direction:column;gap:1.25rem;padding:2rem}
