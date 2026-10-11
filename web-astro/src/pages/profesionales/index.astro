@@ -1,23 +1,137 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../../data/negocio';
+
+const title = 'Robot cortacésped para grandes superficies | IRM Madrid';
+const description = 'Renting de robot cortacésped para grandes superficies en Madrid: fincas de bodas, campos de fútbol y comunidades. Coste anual cerrado, averías incluidas.';
+const schema = {
+  '@context':'https://schema.org','@type':'BreadcrumbList',
+  itemListElement:[
+    {'@type':'ListItem',position:1,name:'Inicio',item:NEGOCIO.url+'/'},
+    {'@type':'ListItem',position:2,name:'Profesionales'},
+  ],
+};
 ---
-<BaseLayout
-  title="Robot cortacésped para grandes superficies | IRM Madrid"
-  description="Renting de robot cortacésped para grandes superficies en Madrid: fincas de bodas, campos de fútbol y comunidades. Coste anual cerrado, averías incluidas.">
+<BaseLayout {title} {description} {schema}>
   <section class="irm-section irm-bg-negro irm-hero">
-    <div class="irm-container">
-      <span class="irm-eyebrow">Para profesionales</span>
-      <h1>Robot cortacésped para grandes superficies: renting para profesionales en <span class="irm-destacado">Madrid</span></h1>
-      <p class="irm-entradilla">Coste anual cerrado, césped a punto todos los días y ninguna avería que gestionar.</p>
+    <div class="irm-container irm-hero-grid">
+      <div>
+        <span class="irm-eyebrow">Para profesionales</span>
+        <h1>Robot cortacésped para grandes superficies: renting para profesionales en <span class="irm-destacado">Madrid</span></h1>
+        <p class="irm-entradilla">Coste anual cerrado, césped a punto todos los días y ninguna avería que gestionar.</p>
+        <ul class="irm-checks" data-stagger style="margin:1.5rem 0 2rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Corta solo, todos los días, sin ruido y sin gasolina</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Un pago al año con instalación, mantenimiento y averías incluidos</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro robot en menos de 7 días, también en plena temporada</li>
+        </ul>
+        <div class="irm-hero-ctas"><a href="/demostracion/" class="irm-btn irm-btn-primary">Pide una demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a><a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">Llámanos</a></div>
+      </div>
+      <div class="irm-foto irm-foto--insignia"><img src="/img/robot-cortacesped-grandes-superficies-cenital.webp" alt="Vista cenital de una finca con césped amplio cortado por el robot IRM" loading="eager" fetchpriority="high"><div class="irm-insignia">RENTING<strong>IRM</strong>PROFESIONAL</div></div>
     </div>
   </section>
+
   <section class="irm-section" data-anim>
     <div class="irm-container">
-      <div class="irm-grid irm-grid-3" data-stagger>
-        <a href="/profesionales/fincas-de-bodas-y-eventos/" class="irm-card irm-card--link"><div class="irm-card-body"><h2 style="font-size:1.25rem">Fincas de bodas y eventos</h2><p style="color:var(--irm-gris)">Silencioso en ceremonias, corte diario en temporada, demo en la finca.</p><span class="irm-arrow">Ver →</span></div></a>
-        <a href="/profesionales/campos-de-futbol/" class="irm-card irm-card--link"><div class="irm-card-body"><h2 style="font-size:1.25rem">Campos de fútbol y clubes</h2><p style="color:var(--irm-gris)">Altura uniforme, corte entre entrenamientos y coste anual cerrado.</p><span class="irm-arrow">Ver →</span></div></a>
-        <a href="/profesionales/" class="irm-card irm-card--link"><div class="irm-card-body"><h2 style="font-size:1.25rem">Empresas, hoteles y comunidades</h2><p style="color:var(--irm-gris)">Una línea de presupuesto, un interlocutor, sin activos.</p><span class="irm-arrow">Ver →</span></div></a>
+      <span class="irm-eyebrow">Sectores</span>
+      <h2>Elige tu caso</h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Ya cortamos el césped de fincas de bodas y de campos de fútbol, y el renting funciona igual para cualquier superficie grande de Madrid donde el césped tenga que estar bien sin que nadie se ocupe.</p>
+      <div class="irm-grid irm-grid-3" data-stagger style="margin-top:2.5rem">
+        <a href="/profesionales/fincas-de-bodas-y-eventos/" class="irm-card irm-card--link">
+          <div class="irm-foto irm-foto--card"><img src="/img/finca-bodas-cesped-amplio.webp" alt="Césped amplio de una finca de bodas cliente de IRM" loading="lazy"></div>
+          <div class="irm-card-body">
+            <h3>Fincas de bodas y eventos</h3>
+            <p style="color:var(--irm-gris)">Silencioso en ceremonias, corte diario de abril a octubre, demo en tu propia finca.</p>
+            <span class="irm-arrow">Ver fincas →</span>
+          </div>
+        </a>
+        <a href="/profesionales/campos-de-futbol/" class="irm-card irm-card--link">
+          <div class="irm-foto irm-foto--card"><img src="/img/robot-cortacesped-sustitucion-7-dias.webp" alt="Dos robots cortacésped IRM para campos deportivos" loading="lazy"></div>
+          <div class="irm-card-body">
+            <h3>Campos de fútbol y clubes</h3>
+            <p style="color:var(--irm-gris)">Altura uniforme, corte programado entre entrenamientos y coste anual cerrado para la junta.</p>
+            <span class="irm-arrow">Ver campos →</span>
+          </div>
+        </a>
+        <a href="#empresas" class="irm-card irm-card--link">
+          <div class="irm-foto irm-foto--card"><img src="/img/urbanizacion-piscina-cadiz-costa.webp" alt="Zona verde con piscina de una urbanización" loading="lazy"></div>
+          <div class="irm-card-body">
+            <h3>Empresas, hoteles y comunidades</h3>
+            <p style="color:var(--irm-gris)">Césped de la entrada de la empresa, hotel o urbanización con una línea de presupuesto y un interlocutor.</p>
+            <span class="irm-arrow">Ver cómo lo hacemos →</span>
+          </div>
+        </a>
       </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso" id="empresas" data-anim>
+    <div class="irm-container">
+      <div class="irm-split">
+        <div>
+          <span class="irm-eyebrow">Empresas, hoteles y comunidades</span>
+          <h2>Una línea de presupuesto y un solo <span class="irm-destacado--claro">interlocutor</span></h2>
+          <p style="color:var(--irm-gris)">Si llevas el mantenimiento de zonas verdes de una comunidad en Madrid, de un hotel o del césped de la entrada de una empresa, sabes cómo funciona: una empresa de jardinería que viene cuando puede, facturas que cambian cada mes y quejas que acaban en tu mesa. Con el renting de robot cortacésped para empresas, hoteles o comunidades tienes una línea de presupuesto anual cerrada, un interlocutor con teléfono y ningún equipo en tu inventario.</p>
+          <ul class="irm-checks" style="margin-top:1.5rem">
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Una línea de presupuesto</strong></li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Un interlocutor</strong></li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Sin activos ni almacén</strong></li>
+          </ul>
+        </div>
+        <div class="irm-foto"><img src="/img/jardin-pergola-piscina-chalet.webp" alt="Zona verde de urbanización con piscina y pérgola" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Qué incluye</span>
+      <h2>Qué incluye el renting profesional</h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Lo mismo que en un jardín particular, sin letra pequeña: el alquiler de cortacésped profesional en renting incluye el robot, la instalación sin cable perimetral, la puesta a punto, la app configurada, el mantenimiento y las averías.</p>
+      <ul class="irm-checks" style="max-width:700px;margin-top:1rem" data-stagger>
+        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot cortacésped dimensionado para tu superficie</li>
+        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalación sin cable perimetral y sin obras</li>
+        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Puesta a punto y app configurada el día de la instalación</li>
+        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento durante todo el año</li>
+        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías y sustitución en menos de 7 días</li>
+        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Demostración previa en tus instalaciones: 175 € que se descuentan de la cuota</li>
+      </ul>
+      <p class="irm-nota" style="margin-top:1.5rem">A partir de 660 €/año para superficies de hasta 600 m² y 760 €/año hasta 1.000 m². Para más superficie o varias zonas, presupuesto a medida.</p>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-negro">
+    <div class="irm-container irm-split">
+      <div class="irm-foto"><img src="/img/robot-cortacesped-reparacion-mantenimiento.webp" alt="Pepo reparando un robot cortacésped en el taller" loading="lazy"></div>
+      <div>
+        <span class="irm-eyebrow">Hay una persona detrás</span>
+        <h2>Vengo yo a <span class="irm-destacado">verlo</span></h2>
+        <p>Soy Pepo. Vengo yo a verlo. Me enseñas la finca, el campo o la zona común, miro los metros, los caminos y las cuestas y te digo sobre el terreno qué robot hace falta y cuánto te va a costar al año. Después instalo yo, configuro yo la app y, si un día se para, me llamas a mí. Ya lo hago en fincas de bodas y en campos de fútbol.</p>
+        <ul class="irm-checks" style="margin-top:1rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Vengo yo a verlo</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalo yo</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Un solo teléfono</li>
+        </ul>
+        <a href={`tel:+34${NEGOCIO.telefono}`} style="display:inline-block;margin-top:1rem;font:700 2rem/1 var(--font-sans);color:var(--irm-lima);text-decoration:none">{NEGOCIO.telefonoFormato}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-lima">
+    <div class="irm-container irm-cta-final">
+      <div>
+        <span class="irm-eyebrow" style="color:var(--irm-negro)">Demostración B2B</span>
+        <h2>Solicita una demostración en tus instalaciones</h2>
+        <ul class="irm-checks irm-cta-list">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Visita, estudio e instalación de prueba. 175 € que se descuentan</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Presupuesto anual cerrado y por escrito</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llama Pepo, no un comercial</li>
+        </ul>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem">
+          <a href="/demostracion/" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">{NEGOCIO.telefonoFormato}</a>
+        </div>
+      </div>
+      <div class="irm-foto irm-foto--card" style="aspect-ratio:4/5"><img src="/img/finca-cesped-cenital-dron.webp" alt="Vista aérea del césped de una finca cliente de IRM" loading="lazy"></div>
     </div>
   </section>
 </BaseLayout>

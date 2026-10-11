@@ -1,25 +1,135 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { NEGOCIO, TRAMOS } from '../data/negocio';
+
 const title = 'Robot cortacésped sin cable perimetral: cómo funciona | IRM';
 const description = 'Robot cortacésped sin cable perimetral: sin zanjas ni obras, cortando el mismo día. Para pendientes y céspedes de hasta 1.000 m². Incluido en el renting.';
+const schema = {
+  '@context':'https://schema.org','@type':'BreadcrumbList',
+  itemListElement:[
+    {'@type':'ListItem',position:1,name:'Inicio',item:NEGOCIO.url+'/'},
+    {'@type':'ListItem',position:2,name:'Cómo funciona'},
+  ],
+};
 ---
-<BaseLayout {title} {description}>
+<BaseLayout {title} {description} {schema}>
   <section class="irm-section irm-bg-hueso irm-hero irm-hero--light">
-    <div class="irm-container">
-      <span class="irm-eyebrow">Cómo funciona</span>
-      <h1>Robot cortacésped sin cable perimetral: así funciona y así lo <span class="irm-destacado--claro">instalamos</span></h1>
-      <p class="irm-entradilla" style="color:var(--irm-gris)">Sin zanjas, sin cable enterrado, funcionando el mismo día. Incluido en el renting.</p>
-      <div class="irm-hero-ctas"><a href="/demostracion/" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a><a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a></div>
+    <div class="irm-container irm-hero-grid">
+      <div>
+        <span class="irm-eyebrow">Cómo funciona</span>
+        <h1>Robot cortacésped sin cable perimetral: así funciona y así lo <span class="irm-destacado--claro">instalamos</span></h1>
+        <p class="irm-entradilla" style="color:var(--irm-gris)">Sin zanjas, sin cable enterrado, funcionando el mismo día. Incluido en el renting.</p>
+        <ul class="irm-checks" data-stagger style="margin:1.5rem 0 2rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalación sin obras, en una sola visita</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>También para jardines con pendiente y varias zonas</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro en menos de 7 días</li>
+        </ul>
+        <div class="irm-hero-ctas"><a href="/demostracion/" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a><a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a></div>
+      </div>
+      <div class="irm-foto"><img src="/img/robot-cortacesped-bordes-pasillo-patio.webp" alt="Robot cortacésped sin cable perimetral junto a un borde, listo para empezar a cortar" loading="eager" fetchpriority="high"></div>
     </div>
   </section>
+
   <section class="irm-section" data-anim>
     <div class="irm-container">
-      <h2>Cómo funciona un robot cortacésped sin cable</h2>
-      <p style="color:var(--irm-gris)">El robot sale de su base, corta un poco cada día y vuelve solo a cargarse. No espera a que la hierba esté alta; la mantiene siempre a la misma altura. Sin cable enterrado: Pepo le enseña por dónde puede pasar el día de la instalación.</p>
-      <h2 style="margin-top:3rem">Instalación en una sola visita</h2>
-      <p style="color:var(--irm-gris)">Medimos los metros reales, colocamos la base, mapeamos las zonas, marcamos lo que no debe pisar (piscina, parterres) y te configuramos la app. Salimos de tu casa con el robot cortando.</p>
-      <h2 style="margin-top:3rem">También para pendientes y jardines de hasta 1.000 m²</h2>
-      <p style="color:var(--irm-gris)">Los robots que instalamos aceptan cuesta y terreno irregular. Dos tramos de cuota: 660 €/año hasta 600 m² y 760 €/año hasta 1.000 m².</p>
+      <div class="irm-split">
+        <div>
+          <span class="irm-eyebrow">El funcionamiento</span>
+          <h2>Cómo funciona un robot cortacésped sin cable</h2>
+          <p style="color:var(--irm-gris)">Si te preguntas cómo funciona un robot cortacésped, la idea es sencilla: sale de su base, corta un poco cada día y vuelve solo a cargarse. No espera a que la hierba esté alta; la mantiene siempre a la misma altura, así que no deja montones ni hay que recoger nada. El funcionamiento del robot cortacésped sin cable es igual de simple: no hay cable enterrado que le marque el límite; sabe por dónde pasar porque Pepo se lo enseña el día de la instalación. Un cortacésped automático sin cable perimetral de verdad: sin zanja y sin obra.</p>
+          <div class="irm-grid irm-grid-2" style="margin-top:1.5rem">
+            <article class="irm-card"><h3>Robot cortacésped con GPS: sin zanjas</h3><p style="color:var(--irm-gris)">Conoce tu jardín por satélite y sensores. Cero cable enterrado; las zonas se cambian desde la app.</p></article>
+            <article class="irm-card"><h3>Cable perimetral frente a sin cable</h3><p style="color:var(--irm-gris)">Con cable perimetral hay zanja, obra y un cable que se corta con la azada. Sin cable, lo dejamos cortando el mismo día.</p></article>
+          </div>
+          <p style="margin-top:1.5rem"><a href="/preguntas-frecuentes/">¿Cuál es el mejor robot cortacésped sin cable perimetral? →</a></p>
+        </div>
+        <div class="irm-foto"><img src="/img/corte-diario-cesped-antes-despues.webp" alt="Robot cortacésped mostrando el corte diario en tiempo real sobre el césped" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">La instalación</span>
+      <h2>Instalación del robot cortacésped: qué hacemos el día que vamos a tu casa</h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Instalar el robot cortacésped es cosa de Pepo: lo hace en tu jardín y en una sola visita. No tienes que preparar nada ni levantar césped: llega, monta la base, le enseña al robot por dónde moverse y se va cuando ya está cortando.</p>
+      <div class="irm-steps" data-stagger>
+        <article class="irm-step"><h3>Medimos el jardín</h3><p style="color:var(--irm-gris)">Metros reales de césped, pasos estrechos, cuestas. Confirmamos el tramo de cuota.</p></article>
+        <article class="irm-step"><h3>Colocamos la base</h3><p style="color:var(--irm-gris)">Un sitio con enchufe cerca. La base es pequeña y no necesita obra.</p></article>
+        <article class="irm-step"><h3>Mapeamos el jardín</h3><p style="color:var(--irm-gris)">Pepo recorre el césped con el robot para que aprenda dónde empieza y acaba.</p></article>
+        <article class="irm-step"><h3>Zonas excluidas y bordes</h3><p style="color:var(--irm-gris)">Piscina, parterres, el huerto: lo que no deba pisar queda fuera del mapa.</p></article>
+      </div>
+      <div class="irm-grid irm-grid-2" style="margin-top:2rem">
+        <article class="irm-card"><h3>Precio de la instalación: incluido en el renting</h3><p style="color:var(--irm-gris)">El precio de instalación del robot cortacésped es 0 € aparte: va dentro de la cuota anual.</p><p><a href="/precios/">Ver precios →</a></p></article>
+        <article class="irm-card"><h3>Bordes, pasillos y zonas separadas</h3><p style="color:var(--irm-gris)">Del jardín delantero al trasero por el paso estrecho, y bordes rematados sin franja.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section">
+    <div class="irm-container"><div class="irm-cta-strip"><h3>¿Lo vemos en tu jardín?</h3><a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div></div>
+  </section>
+
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <div class="irm-split">
+        <div>
+          <span class="irm-eyebrow">Terreno</span>
+          <h2>Robot cortacésped para pendientes y terrenos <span class="irm-destacado--claro">irregulares</span></h2>
+          <p style="color:var(--irm-gris)">Un robot cortacésped para pendientes no es un extra: los que instalamos suben cuestas y trabajan en terreno irregular sin que haya que allanar nada. Jardines de la sierra con desnivel, parcelas con escalones de césped, taludes junto a la piscina: lo normal en un chalet de la periferia de Madrid.</p>
+          <article class="irm-card" style="margin-top:1.5rem"><h3>Robot cortacésped 4x4: cuándo hace falta tracción total</h3><p style="color:var(--irm-gris)">Un robot cortacésped todoterreno con tracción total solo hace falta a partir de cierta pendiente. Te decimos cuál en la visita.</p></article>
+        </div>
+        <div class="irm-foto"><img src="/img/robot-cortacesped-pendiente-cuesta.webp" alt="Robot cortacésped subiendo una pendiente en el jardín de un chalet al amanecer" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Tamaño</span>
+      <h2>Qué tamaño de jardín cubre: hasta 1.000 m²</h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Los robots que instalamos cubren céspedes de hasta 1.000 m², que es lo que tiene la mayoría de chalets y adosados de la periferia de Madrid. Son dos tramos de cuota y los dos incluyen lo mismo.</p>
+      <div class="irm-grid irm-grid-2" style="margin-top:2rem">
+        {TRAMOS.map((t) => (
+          <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
+            <span class="irm-etiqueta" style={t.destacado ? 'background:var(--irm-lima);color:var(--irm-negro)' : ''}>{t.etiqueta}</span>
+            <h3 style={t.destacado ? 'color:var(--irm-blanco)' : ''}>{t.destacado ? 'Hasta 1.000 m²' : 'Robot para jardín pequeño'}</h3>
+            <div><span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;color:var(--irm-gris)">/año</span></span></div>
+            <p style={t.destacado ? 'color:#D4D7D4' : 'color:var(--irm-gris)'}>{t.destacado ? 'Para el chalet con césped delante y detrás.' : 'El adosado o la parcela pequeña: un cortacésped pequeño que lo deja hecho cada mañana.'}</p>
+          </article>
+        ))}
+      </div>
+      <p class="irm-nota" style="margin-top:1.5rem">Jardines de más de 1.000 m²: hoy no los cubrimos [CONFIRMAR]. Para fincas, campos o superficies grandes, mira <a href="/profesionales/">la sección de profesionales</a>.</p>
+    </div>
+  </section>
+
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Después</span>
+      <h2>Qué pasa después de la instalación: mantenimiento, invierno y averías</h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">El mantenimiento del robot cortacésped va dentro de la cuota, así que después de la instalación no tienes que hacer nada ni comprar nada. Nosotros nos ocupamos del robot durante el año entero.</p>
+      <div class="irm-grid irm-grid-4" data-stagger style="margin-top:2rem">
+        <article class="irm-card"><h3>Cuchillas y limpieza</h3><p style="color:var(--irm-gris)">Cambiamos las cuchillas y revisamos el robot. Está dentro de la cuota.</p></article>
+        <article class="irm-card"><h3>En invierno</h3><p style="color:var(--irm-gris)">Cuando el césped deja de crecer, el robot descansa y en primavera vuelve a salir solo.</p></article>
+        <article class="irm-card"><h3>Averías</h3><p style="color:var(--irm-gris)">Cualquier fallo que te dé el robot, te despreocupas: Pepo va a tu casa.</p></article>
+        <article class="irm-card"><h3>Sustitución en 7 días</h3><p style="color:var(--irm-gris)">Si no tiene arreglo rápido, otro robot en menos de 7 días.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-lima">
+    <div class="irm-container irm-cta-final">
+      <div>
+        <span class="irm-eyebrow" style="color:var(--irm-negro)">El último paso</span>
+        <h2>Pide una demostración en tu jardín de Madrid</h2>
+        <ul class="irm-checks irm-cta-list">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Vamos a tu casa y dejamos un robot cortando de prueba</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>175 €* que se descuentan de tu cuota si contratas</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llama Pepo, no un comercial</li>
+        </ul>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem"><a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a><a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">{NEGOCIO.telefonoFormato}</a></div>
+      </div>
+      <div class="irm-foto irm-foto--card" style="aspect-ratio:4/5"><img src="/img/robot-cortacesped-reparacion-mantenimiento.webp" alt="Robot cortacésped en reparación con mantenimiento incluido en el renting" loading="lazy"></div>
     </div>
   </section>
 </BaseLayout>
