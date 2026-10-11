@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../../data/negocio';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('articulos', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const published = post.data.fecha.toISOString();
+const updated = (post.data.actualizado ?? post.data.fecha).toISOString();
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.data.titulo,
+    description: post.data.description,
+    datePublished: published,
+    dateModified: updated,
+    author: { '@type': 'Organization', name: post.data.autor, url: NEGOCIO.url },
+    publisher: { '@type': 'Organization', name: NEGOCIO.nombre, url: NEGOCIO.url },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': new URL(`/blog/${post.id}/`, Astro.site).toString() },
+    image: post.data.portada ? new URL(post.data.portada.src, Astro.site).toString() : undefined,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: NEGOCIO.url + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog',   item: NEGOCIO.url + '/blog/' },
+      { '@type': 'ListItem', position: 3, name: post.data.titulo },
+    ],
+  },
+];
+
+const fechaES = post.data.fecha.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+---
+<BaseLayout title={post.data.title} description={post.data.description} {schema}>
+  <section class="irm-section">
+    <div class="irm-container" style="max-width:720px;margin-inline:auto">
+      <nav aria-label="Migas" style="font-family:var(--font-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--irm-gris);margin-bottom:1.5rem">
+        <a href="/" style="color:inherit">Inicio</a> · <a href="/blog/" style="color:inherit">Blog</a>
+      </nav>
+      <span class="irm-eyebrow">Blog · {fechaES}</span>
+      <h1 style="font-size:clamp(2rem,1.5rem + 2.5vw,3rem)">{post.data.titulo}</h1>
+      <p class="irm-entradilla" style="color:var(--irm-gris)">{post.data.extracto}</p>
+    </div>
+  </section>
+  <section class="irm-section" style="padding-top:0">
+    <div class="irm-container">
+      <article class="irm-article"><Content /></article>
+    </div>
+  </section>
+  <section class="irm-section irm-bg-lima">
+    <div class="irm-container" style="text-align:center">
+      <h2>¿Lo vemos en tu jardín?</h2>
+      <p style="color:var(--irm-negro);max-width:52ch;margin-inline:auto">Pepo va a tu casa, mide el césped y deja un robot cortando de prueba. Si contratas, los 175 € de la demostración se descuentan de la cuota.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;justify-content:center">
+        <a href="/demostracion/" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

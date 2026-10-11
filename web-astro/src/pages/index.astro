@@ -1,32 +1,166 @@
 ---
-// src/pages/index.astro — home: «alquiler robot cortacésped madrid»
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import PriceCard from '../components/PriceCard.astro';
-import Faq from '../components/Faq.astro';
-import { TRAMOS, NEGOCIO } from '../data/negocio';
+import { Image } from 'astro:assets';
+import { NEGOCIO, TRAMOS, ZONAS, precioDia } from '../data/negocio';
 import heroImg from '../assets/robot-cortacesped-madrid-amanecer-hero.webp';
 
-const schema = {
-  '@context': 'https://schema.org', '@type': 'LocalBusiness', '@id': `${NEGOCIO.url}/#negocio`,
-  name: NEGOCIO.nombre, url: NEGOCIO.url, areaServed: 'Comunidad de Madrid',
-};
-const faqs = [
-  { q: '¿Tengo que comprar el robot?', a: 'No. Es un renting anual: el robot es nuestro y lo mantenemos nosotros.' },
-  { q: '¿Se puede pagar al mes?', a: 'No. Es un único pago anual, por transferencia y una vez instalado.' },
+const title = 'Alquiler de robots cortacésped en Madrid | Renting · IRM';
+const description = 'Renting anual de robot cortacésped en Madrid desde 660 €/año: instalación sin cable, mantenimiento y averías incluidos. Si falla, otro en menos de 7 días.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${NEGOCIO.url}/#negocio`,
+    name: NEGOCIO.nombre,
+    url: NEGOCIO.url,
+    telephone: `+34${NEGOCIO.telefono}`,
+    areaServed: ['Comunidad de Madrid', 'Valladolid', 'Segovia', 'Toledo', 'Cádiz'],
+    priceRange: '€€',
+    sameAs: [`https://instagram.com/${NEGOCIO.instagram}`],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Renting de robot cortacésped',
+    areaServed: 'Madrid',
+    provider: { '@id': `${NEGOCIO.url}/#negocio` },
+    offers: TRAMOS.map((t) => ({
+      '@type': 'Offer',
+      name: `Hasta ${t.metros} m²`,
+      price: t.precioAnual,
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: '¿Tengo que comprar el robot?', acceptedAnswer: { '@type': 'Answer', text: 'No. Es renting anual: pagas una cuota al año y el robot, la instalación, el mantenimiento y las averías van incluidos.' }},
+      { '@type': 'Question', name: '¿Qué pasa si se estropea?', acceptedAnswer: { '@type': 'Answer', text: 'Nos llamas y en menos de 7 días lo tienes arreglado o te instalamos otro. El mantenimiento y las averías ya están pagados con la cuota.' }},
+      { '@type': 'Question', name: '¿Se puede pagar al mes?', acceptedAnswer: { '@type': 'Answer', text: 'El renting es anual y se paga en un solo pago por transferencia. 660 €/año son menos de 2 € al día.' }},
+    ],
+  },
 ];
 ---
-<BaseLayout
-  title="Alquiler de robots cortacésped en Madrid | Renting todo incluido · IRM"
-  description="Renting anual de robot cortacésped en Madrid desde 660 €/año: instalación sin cable, mantenimiento y averías incluidos. Si falla, otro en menos de 7 días."
-  schema={schema}>
-  <Hero antetitulo="Tu césped se corta solo." titulo="Alquiler de robots cortacésped en Madrid"
-        entradilla="Renting anual con instalación, mantenimiento y averías incluidos."
-        imagen={heroImg} alt="Robot cortacésped de IRM en un jardín de Madrid al amanecer" />
-  <section class="irm-section" id="precios">
-    <div class="irm-container irm-grid">
-      {TRAMOS.map((t) => <PriceCard metros={t.metros} precioAnual={t.precioAnual} destacado={t.destacado} />)}
+<BaseLayout {title} {description} {schema}>
+  <section class="irm-section irm-bg-negro irm-hero irm-hero--big">
+    <div class="irm-container irm-hero-grid">
+      <div>
+        <span class="irm-eyebrow">Tu césped se corta <span class="irm-destacado">solo.</span></span>
+        <h1>Alquiler de robots cortacésped en Madrid</h1>
+        <p class="irm-entradilla">Renting anual con instalación, mantenimiento y averías incluidos. Sin cable perimetral y también para jardines con pendiente.</p>
+        <ul class="irm-checks" data-stagger style="margin:1.5rem 0 1rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Corta solo, todos los días</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Silencioso y sin gasolina</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro en menos de 7 días</li>
+        </ul>
+        <div class="irm-pill-precio"><span class="irm-nota" style="color:#D4D7D4">Desde</span><strong>660 €/año*</strong></div>
+        <p class="irm-nota" style="color:#9BA09C;margin-top:.5rem">* Hasta 600 m². Menos de 2 € al día.</p>
+        <div class="irm-hero-ctas">
+          <a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a>
+        </div>
+        <div class="irm-hero-tel"><span>Llama a</span> <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></div>
+      </div>
+      <div class="irm-foto irm-foto--insignia">
+        <Image src={heroImg} alt="Robot cortacésped IRM instalado en un jardín de Madrid al amanecer, sin cable perimetral" widths={[600,1200,1600]} sizes="(max-width:1024px) 100vw, 50vw" loading="eager" fetchpriority="high" />
+        <div class="irm-chips-flotantes" data-stagger>
+          <span class="irm-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Corta cada día</span>
+          <span class="irm-chip"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencioso</span>
+          <span class="irm-chip"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> Desde el móvil</span>
+        </div>
+        <div class="irm-insignia">RENTING<strong>IRM</strong>CON SERVICIO</div>
+      </div>
     </div>
   </section>
-  <Faq preguntas={faqs} />
+
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">El renting</span>
+      <h2>Tu robot cortacésped en Madrid, sin <span class="irm-destacado--claro">comprarlo</span></h2>
+      <p style="max-width:60ch;color:var(--irm-gris)">Pagas una cuota al año y te olvidas del césped. El robot es nuestro: lo instalamos, lo mantenemos y, si se estropea, lo cambiamos. Lo llaman cortacésped automático, robot segadora o cortacésped que va solo; nosotros lo llamamos la forma más fácil de tener el césped bien en Madrid.</p>
+      <div class="irm-grid irm-grid-4" data-stagger style="margin-top:2.5rem">
+        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Diario</span><h3>Corta solo, todos los días</h3><p style="color:var(--irm-gris)">Sale cada día, corta un poco y vuelve a su base. El césped siempre a la misma altura.</p></article>
+        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencio</span><h3>Silencioso</h3><p style="color:var(--irm-gris)">No molesta a tus vecinos ni a tu siesta: puede cortar temprano o mientras no estás.</p></article>
+        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Eléctrico</span><h3>Sin gasolina ni cables</h3><p style="color:var(--irm-gris)">Robot cortacésped eléctrico, con batería y sin cable perimetral. Nada de zanjas en el jardín.</p></article>
+        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> App</span><h3>Lo controlas desde el móvil</h3><p style="color:var(--irm-gris)">Horarios, zonas y altura desde la app, que Pepo te deja configurada.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Si falla, no es tu problema</span>
+      <h2>Un robot cortacésped con mantenimiento y averías <span class="irm-destacado--claro">incluidos</span></h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Nadie en el sector da un plazo por escrito cuando algo se rompe. Nosotros sí. Cuchillas, limpieza, ajustes, piezas de desgaste y cualquier avería entran en la cuota. Si no tiene arreglo rápido, en menos de 7 días tienes otro robot cortando.</p>
+      <div class="irm-reparacion" style="margin-top:2.5rem">
+        <article class="irm-reparacion-card">
+          <span class="irm-eyebrow" style="color:var(--irm-lima)">Plazo máximo de sustitución</span>
+          <div class="irm-cifra-grande">7<small>días como máximo si no se arregla antes</small></div>
+          <ul class="irm-checks">
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento del robot incluido todo el año</li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Avería cubierta: la factura es nuestra</li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot de sustitución en menos de 7 días</li>
+          </ul>
+        </article>
+        <div class="irm-foto"><img src="/img/robot-cortacesped-reparacion-mantenimiento.webp" alt="Robot cortacésped IRM abierto en el taller durante una reparación: mantenimiento y averías incluidos en el renting" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Precio</span>
+      <h2>Cuánto cuesta el alquiler de un robot cortacésped: menos de 2 € al día</h2>
+      <div class="irm-grid irm-grid-2" style="margin-top:2.5rem">
+        {TRAMOS.map((t) => (
+          <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
+            {t.destacado && <span class="irm-etiqueta">La más contratada</span>}
+            <span class="irm-etiqueta" style={t.destacado ? 'background:transparent;color:#D4D7D4;padding:0' : ''}>{t.etiqueta}</span>
+            <div>
+              <span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;font-weight:500;color:var(--irm-gris)">/año</span></span>
+              <p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día · pago anual*</p>
+            </div>
+            <ul class="irm-checks">
+              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot e instalación sin cable</li>
+              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>App configurada</li>
+              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento todo el año</li>
+              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías y sustitución en 7 días</li>
+            </ul>
+            <a href="/demostracion/" class={`irm-btn ${t.destacado ? 'irm-btn-primary irm-on-dark' : 'irm-btn-secondary'}`}>Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          </article>
+        ))}
+      </div>
+      <p class="irm-nota" style="margin-top:1.5rem">*Precio anual, IVA incluido [CONFIRMAR]. Jardines de más de 1.000 m²: consúltanos.</p>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Dónde instalamos</span>
+      <h2>Zonas donde instalamos robots cortacésped</h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Toda la Comunidad de Madrid: norte, oeste, sur y sierra. Si buscas alquiler de cortacésped en Madrid que vaya solo y no tengas que tocar, te lo llevamos a casa. También instalamos en {ZONAS.filter(z=>z.fase===1).map((z,i)=>(<><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a>{i<2?', ':' y '}</>))}{ZONAS.filter(z=>z.fase===2).map(z=><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a>)}.</p>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-lima">
+    <div class="irm-container irm-cta-final">
+      <div>
+        <span class="irm-eyebrow" style="color:var(--irm-negro)">El último paso</span>
+        <h2>Reserva tu robot cortacésped en Madrid</h2>
+        <ul class="irm-checks irm-cta-list">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Todo incluido: robot, instalación, mantenimiento y averías</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llama Pepo, no un comercial</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Sin compromiso hasta la demostración</li>
+        </ul>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem">
+          <a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">{NEGOCIO.telefonoFormato}</a>
+        </div>
+      </div>
+      <div class="irm-foto irm-foto--card" style="aspect-ratio:4/5"><img src="/img/robot-cortacesped-sustitucion-7-dias.webp" alt="Dos robots cortacésped IRM listos para la sustitución en menos de 7 días si uno falla" loading="lazy"></div>
+    </div>
+  </section>
 </BaseLayout>

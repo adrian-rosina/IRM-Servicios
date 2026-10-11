@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../data/negocio';
+const title = 'Reserva tu robot cortacésped en Madrid: demostración | IRM';
+const description = 'Reserva tu robot cortacésped en Madrid con una demostración en tu jardín: visita, estudio e instalación de prueba por 175 € que se descuentan de tu cuota.';
+---
+<BaseLayout {title} {description}>
+  <section class="irm-section irm-bg-negro irm-hero">
+    <div class="irm-container">
+      <span class="irm-eyebrow">Demostración</span>
+      <h1>Reserva tu robot cortacésped en Madrid: pide una demostración en tu <span class="irm-destacado">jardín</span></h1>
+      <p class="irm-entradilla">Vamos a tu casa, estudiamos el césped y dejamos un robot cortando de prueba. 175 € que se descuentan de la cuota si contratas.</p>
+      <div class="irm-hero-ctas"><a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-primary">Llama · {NEGOCIO.telefonoFormato}</a><a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">WhatsApp</a></div>
+    </div>
+  </section>
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <h2>Qué incluye la demostración</h2>
+      <p style="color:var(--irm-gris)">Visita, estudio del jardín, instalación de prueba y cuota confirmada. Los 175 € se descuentan íntegros de la cuota anual si contratas.</p>
+    </div>
+  </section>
+</BaseLayout>

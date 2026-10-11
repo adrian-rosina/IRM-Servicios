@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('articulos', ({ data }) => !data.draft))
+  .sort((a, b) => +b.data.fecha - +a.data.fecha);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Blog · IRM Servicios',
+  url: new URL('/blog/', Astro.site).toString(),
+};
+---
+<BaseLayout
+  title="Blog sobre robots cortacésped y jardinería en Madrid · IRM"
+  description="Guías honestas sobre robots cortacésped: cuál elegir, qué precio tienen, cómo se comparan con un jardinero y cómo se instalan sin cable perimetral."
+  schema={schema}>
+  <section class="irm-section">
+    <div class="irm-container">
+      <span class="irm-eyebrow">Blog</span>
+      <h1>Robots cortacésped y jardinería en Madrid</h1>
+      <p style="max-width:62ch;color:var(--irm-gris)">Las dudas que nos llegan por teléfono, respondidas con cifras reales y sin rodeos: precios, comparativas con jardinero, cómo funciona el renting y qué robot encaja con cada jardín.</p>
+
+      <div class="irm-blog-grid" data-stagger>
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}/`} class="irm-card irm-card--link">
+            {post.data.portada && (
+              <div class="irm-foto irm-foto--card"><img src={post.data.portada.src} alt={post.data.alt ?? post.data.titulo} loading="lazy" /></div>
+            )}
+            <div class="irm-card-body">
+              <h2 style="font-size:1.25rem;margin-bottom:.75rem">{post.data.titulo}</h2>
+              <p style="color:var(--irm-gris)">{post.data.extracto}</p>
+              <span class="irm-arrow">Leer artículo →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

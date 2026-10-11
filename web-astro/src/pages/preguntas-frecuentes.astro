@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = '¿Cuál es el mejor robot cortacésped? FAQ y opiniones | IRM';
+const description = 'El mejor robot cortacésped depende de tus metros, pendiente y zonas. Respuestas sobre el renting en Madrid, opiniones de clientes y qué pasa si falla.';
+const faqs = [
+  {q:'¿Cuál es el mejor robot cortacésped para tu jardín?', a:'No hay uno mejor para todo el mundo: hay el que encaja con tu jardín. Mandan tres cosas: los metros de césped, la pendiente y las zonas separadas. Con el renting de IRM elegimos nosotros el que encaja, lo instalamos y, si no rinde, lo cambiamos.'},
+  {q:'¿Cuál es el mejor robot cortacésped sin cable perimetral?', a:'El que cubre tus metros, sube tu pendiente y pasa de una zona a otra sin enterrar nada. Sin cable no hay zanja ni obra, y las zonas se cambian desde la app.'},
+  {q:'¿Merece la pena un robot cortacésped?', a:'Si tienes entre 200 y 1.000 m² y lo cortas tú o pagas a un jardinero, merece la pena desde el primer mes: el césped siempre a la misma altura y dejas de pagar 40-80 € por visita.'},
+  {q:'¿Renting o comprar un robot cortacésped?', a:'Comprar: 950-6.000 € de golpe + instalación aparte + mantenimiento de pago + averías. Renting con IRM: 660 €/año (≤600 m²) con todo incluido y otro robot en menos de 7 días si falla.'},
+  {q:'¿Tengo que comprar el robot?', a:'No. Es renting anual: pagas una cuota al año y el robot, la instalación, la app, el mantenimiento y las averías van incluidos.'},
+  {q:'¿Qué pasa si se estropea? ¿Está incluido el mantenimiento?', a:'Sí: mantenimiento todo el año y averías dentro de la cuota. Si no tiene arreglo rápido, en menos de 7 días hay otro cortando.'},
+  {q:'¿Se puede pagar al mes o solo en verano?', a:'No. El renting es anual y se paga en un solo pago por transferencia. 660 €/año son unos 55 €/mes para comparar, pero el pago es anual. El servicio también es anual: en invierno el robot descansa y la garantía sigue activa.'},
+  {q:'¿Vale para pendiente, varias zonas o piscina?', a:'En la mayoría de jardines de Madrid, sí. Los robots que instalamos aceptan pendiente y trabajan en zonas separadas. Lo comprobamos en la demostración antes de que pagues nada.'},
+  {q:'¿Y si mi jardín tiene más de 1.000 m²?', a:'Hoy los tramos de IRM llegan hasta 1.000 m². Si tienes más, cuéntanoslo: según el caso te preparamos un presupuesto o te orientamos al apartado profesional.'},
+  {q:'¿Hace ruido? ¿Me lo pueden robar? ¿Funciona con lluvia o en invierno?', a:'Ruido mínimo (eléctrico, puede salir a las siete). Robo y antirrobo: lo hablamos antes de instalar. Lluvia: según el modelo. Invierno: el robot descansa y la garantía sigue activa.'},
+  {q:'¿Qué pasa al terminar el año de renting?', a:'No hay permanencia más allá del año. Si renuevas, todo sigue igual. Si no, retiramos el robot y la base y tu jardín queda como estaba.'},
+  {q:'¿Dónde instaláis?', a:'Toda la Comunidad de Madrid y también Valladolid, Segovia, Toledo y Cádiz. Si no estás en estas zonas, llámanos igualmente.'},
+];
+const schema = {
+  '@context':'https://schema.org','@type':'FAQPage',
+  mainEntity: faqs.map(f=>({'@type':'Question',name:f.q,acceptedAnswer:{'@type':'Answer',text:f.a}})),
+};
+---
+<BaseLayout {title} {description} {schema}>
+  <section class="irm-section">
+    <div class="irm-container">
+      <span class="irm-eyebrow">Preguntas frecuentes</span>
+      <h1>Preguntas frecuentes: cuál es el mejor robot cortacésped para tu jardín y cómo funciona el <span class="irm-destacado--claro">renting</span></h1>
+      <p class="irm-entradilla" style="color:var(--irm-gris)">Las preguntas que nos hacen por teléfono antes de reservar, respondidas como las responde Pepo: sin marcas, sin fichas técnicas y sin rodeos.</p>
+      <div class="irm-faq" style="margin-top:2.5rem">
+        {faqs.map((f,i)=>(<details open={i===0}><summary>{f.q}</summary><div class="irm-faq-body"><p>{f.a}</p></div></details>))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

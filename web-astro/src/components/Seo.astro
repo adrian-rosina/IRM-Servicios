@@ -1,12 +1,13 @@
 ---
-// src/components/Seo.astro — metadatos de cada página
 interface Props {
-  title: string;          // <title>, máx. 60 caracteres
-  description: string;    // meta description, máx. 155 caracteres
-  noindex?: boolean;      // /gracias/ y landings de campaña
+  title: string;
+  description: string;
+  noindex?: boolean;
+  ogImage?: string;
 }
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, ogImage = '/og-default.jpg' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
@@ -15,4 +16,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
+<meta property="og:type" content="website" />
 <meta property="og:locale" content="es_ES" />
+<meta property="og:site_name" content="IRM Servicios" />
+<meta property="og:image" content={ogImageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />

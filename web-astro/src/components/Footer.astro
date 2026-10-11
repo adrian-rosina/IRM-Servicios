@@ -1,14 +1,50 @@
 ---
-// src/components/Footer.astro — pie con las zonas (enlazado interno hacia las provincias)
-import { getCollection } from 'astro:content';
-const zonas = await getCollection('zonas');
+import { NEGOCIO, ZONAS } from '../data/negocio';
+const year = new Date().getFullYear();
 ---
-<footer class="irm-footer irm-bg-negro">
+<footer class="irm-footer">
   <div class="irm-container">
-    <p>Zonas donde instalamos:</p>
-    <ul>
-      {zonas.map((z) => <li><a href={`/robot-cortacesped-${z.id}/`}>{z.data.provincia}</a></li>)}
-    </ul>
-    <p><a href="/aviso-legal/">Aviso legal</a> · <a href="/politica-de-privacidad/">Privacidad</a> · <a href="/politica-de-cookies/">Cookies</a></p>
+    <div class="irm-footer-grid">
+      <div>
+        <div class="irm-footer-logo"><strong>IRM</strong><span>Servicios</span></div>
+        <p style="color:#9BA09C;max-width:38ch;font-size:.9375rem">Renting anual de robots cortacésped en Madrid. Instalación, mantenimiento y averías incluidos.</p>
+        <p class="irm-nota" style="margin-top:1rem;color:var(--irm-lima)">{NEGOCIO.claim}</p>
+      </div>
+      <div>
+        <h4>Servicio</h4>
+        <ul>
+          <li><a href="/como-funciona/">Cómo funciona</a></li>
+          <li><a href="/precios/">Precios</a></li>
+          <li><a href="/profesionales/">Profesionales</a></li>
+          <li><a href="/preguntas-frecuentes/">Preguntas frecuentes</a></li>
+          <li><a href="/demostracion/">Pide tu demostración</a></li>
+          <li><a href="/blog/">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Zonas</h4>
+        <ul>
+          {ZONAS.filter(z=>z.fase===1).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a></li>)}
+          {ZONAS.filter(z=>z.fase===2).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></li>
+          <li><a href={`https://wa.me/${NEGOCIO.whatsapp}`}>WhatsApp</a></li>
+          <li><a href={`https://instagram.com/${NEGOCIO.instagram}`}>@{NEGOCIO.instagram}</a></li>
+          <li>Sede · {NEGOCIO.sede}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="irm-footer-bottom">
+      <span>© {year} {NEGOCIO.nombre}</span>
+      <span>
+        <a href="/aviso-legal/">Aviso legal</a> ·
+        <a href="/politica-de-privacidad/">Privacidad</a> ·
+        <a href="/politica-de-cookies/">Cookies</a>
+      </span>
+    </div>
   </div>
 </footer>

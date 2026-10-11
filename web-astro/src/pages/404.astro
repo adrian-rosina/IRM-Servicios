@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Página no encontrada · IRM Servicios" description="La página que buscas no existe." noindex={true}>
+  <section class="irm-section" style="text-align:center">
+    <div class="irm-container">
+      <span class="irm-eyebrow">Error 404</span>
+      <h1>No encontramos esa página.</h1>
+      <p style="color:var(--irm-gris)">Puede que el enlace esté roto o que la página haya cambiado.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;justify-content:center">
+        <a href="/" class="irm-btn irm-btn-primary">Volver al inicio <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

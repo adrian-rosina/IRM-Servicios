@@ -1,5 +1,4 @@
 ---
-// src/layouts/BaseLayout.astro — esqueleto común a todas las páginas
 import Seo from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -9,9 +8,11 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
-  schema?: Record<string, unknown>;   // JSON-LD propio de la página
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  ogImage?: string;
 }
-const { title, description, noindex, schema } = Astro.props;
+const { title, description, noindex, schema, ogImage } = Astro.props;
+const schemas = Array.isArray(schema) ? schema : (schema ? [schema] : []);
 ---
 <!doctype html>
 <html lang="es">
@@ -19,12 +20,15 @@ const { title, description, noindex, schema } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <Seo title={title} description={description} noindex={noindex} />
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#141615" />
+    <Seo title={title} description={description} noindex={noindex} ogImage={ogImage} />
+    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
     <Header />
-    <main><slot /></main>   <!-- aquí se inyecta el contenido de cada página -->
+    <main id="main"><slot /></main>
     <Footer />
+    <script src="/anim.js" defer></script>
   </body>
 </html>
