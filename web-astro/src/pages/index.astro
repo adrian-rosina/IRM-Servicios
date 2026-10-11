@@ -44,15 +44,10 @@ const schema = [
 ---
 <BaseLayout {title} {description} {schema}>
 
-  <!-- S1 · HERO full-bleed con vídeo de fondo a resolución nativa -->
-  <section class="irm-section irm-bg-negro irm-hero irm-hero--big irm-hero--video">
-    <video class="irm-hero-video" autoplay muted loop playsinline preload="metadata" poster={heroImg.src} aria-hidden="true">
-      <source src="/video/hero.mp4" type="video/mp4">
-    </video>
-    <div class="irm-hero-overlay"></div>
-
-    <div class="irm-container">
-      <div style="max-width:640px">
+  <!-- S1 · HERO split: texto a la izquierda sobre blanco, vídeo a la derecha sobre negro con diagonal -->
+  <section class="irm-hero irm-hero--big irm-hero--split">
+    <div class="irm-hero-split-left">
+      <div class="irm-hero-split-content">
         <span class="irm-eyebrow">Tu césped se corta <span class="irm-destacado">solo.</span></span>
         <h1>Alquiler de robots cortacésped en Madrid</h1>
         <p class="irm-entradilla">Renting anual con instalación, mantenimiento y averías incluidos. Sin cable perimetral y también para jardines con pendiente.</p>
@@ -62,21 +57,25 @@ const schema = [
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro en menos de 7 días</li>
         </ul>
         <div class="irm-pill-precio"><span class="irm-nota" style="color:#D4D7D4">Desde</span><strong>660 €/año*</strong></div>
-        <p class="irm-nota" style="color:#D4D7D4;margin-top:.5rem">* Hasta 600 m². Menos de 2 € al día.</p>
+        <p class="irm-nota" style="margin-top:.5rem">* Hasta 600 m². Menos de 2 € al día.</p>
         <div class="irm-hero-ctas">
-          <a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a>
         </div>
         <div class="irm-hero-tel"><span>Llama a</span> <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></div>
       </div>
     </div>
-
-    <div class="irm-hero-chips-abs" data-stagger>
-      <span class="irm-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Corta cada día</span>
-      <span class="irm-chip"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencioso</span>
-      <span class="irm-chip"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> Desde el móvil</span>
+    <div class="irm-hero-split-right">
+      <video autoplay muted loop playsinline preload="metadata" poster={heroImg.src} aria-hidden="true">
+        <source src="/video/hero.mp4" type="video/mp4">
+      </video>
+      <div class="irm-hero-chips-abs" data-stagger>
+        <span class="irm-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Corta cada día</span>
+        <span class="irm-chip"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencioso</span>
+        <span class="irm-chip"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> Desde el móvil</span>
+      </div>
+      <div class="irm-insignia">RENTING<strong>IRM</strong>CON SERVICIO</div>
     </div>
-    <div class="irm-insignia">RENTING<strong>IRM</strong>CON SERVICIO</div>
   </section>
 
   <!-- S2 · QUÉ ES (4 cards) -->
