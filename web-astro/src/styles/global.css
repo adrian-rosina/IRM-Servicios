@@ -163,23 +163,37 @@ p{margin:0 0 1rem;max-width:62ch}
 .irm-hero-tel{margin-top:1.5rem;display:flex;align-items:center;gap:.75rem;font-family:var(--font-mono);font-size:.875rem;letter-spacing:.1em;text-transform:uppercase}
 .irm-hero-tel a{color:var(--irm-lima);text-decoration:none;font-family:var(--font-sans);font-weight:600;font-size:1.25rem;letter-spacing:0;text-transform:none}
 
-/* Hero split: texto a la izquierda sobre blanco, vídeo a la derecha sobre negro con diagonal */
-.irm-hero--split{display:grid;background:var(--irm-blanco);padding:0;min-height:min(85vh,780px)}
-@media(min-width:1024px){.irm-hero--split{grid-template-columns:1fr 1fr}}
-.irm-hero-split-left{display:flex;align-items:center;padding:3rem clamp(1rem,4vw,4rem);background:var(--irm-blanco);color:var(--irm-negro)}
+/* Hero split: texto a la izquierda (blanco) · vídeo a la derecha (negro) con diagonal */
+.irm-hero--split{display:grid;background:var(--irm-blanco);padding:0;min-height:min(72vh,620px)}
+@media(min-width:1024px){.irm-hero--split{grid-template-columns:.95fr 1.05fr;min-height:min(78vh,640px)}}
+@media(min-width:1280px){.irm-hero--split{grid-template-columns:1fr 1.1fr;min-height:min(80vh,700px)}}
+
+.irm-hero-split-left{display:flex;align-items:center;padding:clamp(2rem,3vw,3.5rem) clamp(1.25rem,3.5vw,3.5rem);background:var(--irm-blanco);color:var(--irm-negro)}
 .irm-hero-split-left h1,.irm-hero-split-left h2,.irm-hero-split-left h3{color:var(--irm-negro)}
-.irm-hero-split-left .irm-entradilla{color:var(--irm-gris)}
-.irm-hero-split-left .irm-eyebrow{color:var(--irm-gris)}
+.irm-hero-split-left .irm-entradilla{color:var(--irm-gris);font-size:clamp(1rem,.95rem + .2vw,1.125rem);margin-bottom:1.25rem}
+.irm-hero-split-left .irm-eyebrow{color:var(--irm-gris);margin-bottom:.75rem}
 .irm-hero-split-left .irm-destacado{color:var(--irm-bosque)}
 .irm-hero-split-left .irm-hero-tel a{color:var(--irm-bosque)}
 .irm-hero-split-left .irm-nota:not(.irm-pill-precio .irm-nota){color:var(--irm-gris)}
-.irm-hero-split-content{max-width:560px;width:100%}
-.irm-hero-split-right{position:relative;background:var(--irm-negro);overflow:hidden;min-height:420px}
+.irm-hero-split-left h1{font-size:clamp(1.875rem,1.1rem + 2.5vw,3rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:.75rem}
+.irm-hero-split-left .irm-checks{gap:.5rem;margin:1rem 0 .75rem !important;font-size:.9375rem}
+.irm-hero-split-left .irm-check-ico{width:20px;height:20px}
+.irm-hero-split-left .irm-check-ico svg{width:12px;height:12px}
+.irm-hero-split-left .irm-pill-precio{padding:.6rem 1rem}
+.irm-hero-split-left .irm-pill-precio strong{font-size:1.5rem}
+.irm-hero-split-left .irm-hero-ctas{margin-top:1.25rem}
+.irm-hero-split-left .irm-btn{height:46px;padding:0 1.25rem;font-size:1rem}
+.irm-hero-split-left .irm-hero-tel{margin-top:1rem;font-size:.75rem}
+.irm-hero-split-left .irm-hero-tel a{font-size:1rem}
+.irm-hero-split-content{max-width:520px;width:100%}
+
+.irm-hero-split-right{position:relative;background:var(--irm-negro);overflow:hidden;min-height:360px}
 @media(min-width:1024px){.irm-hero-split-right{clip-path:polygon(8% 0,100% 0,100% 100%,0 100%)}}
-.irm-hero-split-right video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
-.irm-hero-split-right .irm-hero-chips-abs{position:absolute;top:1.5rem;right:1.5rem;z-index:3;display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;max-width:70%}
-.irm-hero-split-right .irm-insignia{position:absolute;bottom:1.5rem;right:1.5rem;z-index:3}
-@media(max-width:1023px){.irm-hero-split-right .irm-hero-chips-abs{display:none}.irm-hero-split-right .irm-insignia{display:none}}
+.irm-hero-split-right video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;display:block}
+.irm-hero-split-right .irm-hero-chips-abs{position:absolute;top:1.25rem;right:1.25rem;z-index:3;display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;max-width:70%}
+.irm-hero-split-right .irm-insignia{position:absolute;bottom:1.25rem;right:1.25rem;z-index:3;width:90px;height:90px;font-size:.625rem}
+.irm-hero-split-right .irm-insignia strong{font-size:1.25rem}
+@media(max-width:1023px){.irm-hero-split-right .irm-hero-chips-abs,.irm-hero-split-right .irm-insignia{display:none}}
 
 /* Price cards */
 .irm-price-card{display:flex;flex-direction:column;gap:1.25rem;padding:2rem}
