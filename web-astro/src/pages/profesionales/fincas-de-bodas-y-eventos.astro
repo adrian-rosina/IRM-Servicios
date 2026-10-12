@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RobotTrail from '../../components/RobotTrail.astro';
 import { NEGOCIO } from '../../data/negocio';
 
 const title = 'Robot cortacésped para fincas de bodas y eventos | IRM';
@@ -30,6 +31,8 @@ const schema = {
       <div class="irm-foto irm-foto--insignia"><img src="/img/finca-bodas-cesped-amplio.webp" alt="Césped amplio de una finca de bodas cliente de IRM con robot cortando" loading="eager" fetchpriority="high"><div class="irm-insignia">RENTING<strong>IRM</strong>FINCAS</div></div>
     </div>
   </section>
+
+  <RobotTrail />
 
   <section class="irm-section" data-anim>
     <div class="irm-container">
@@ -63,7 +66,7 @@ const schema = {
         <div>
           <span class="irm-eyebrow">Varias zonas</span>
           <h2>Varias zonas de césped, caminos y <span class="irm-destacado--claro">desniveles</span></h2>
-          <p style="color:var(--irm-gris)">Pocas fincas tienen un césped de una pieza, aunque sumen 1.000 m²: hay un prado para la ceremonia, otro para el cóctel, caminos de grava en medio, parterres y alguna cuesta hacia la zona de fotos. Los robots que instalamos no necesitan cable perimetral, así que Pepo marca cada zona por separado y lo que el robot no debe pisar, y lo deja cortando el mismo día. Es el mismo robot cortacésped para grandes superficies que instalamos en el resto de Madrid, sin obra.</p>
+          <p style="color:var(--irm-gris)">Pocas fincas tienen un césped de una pieza, aunque sumen 1.000 m²: hay un prado para la ceremonia, otro para el cóctel, caminos de grava en medio, parterres y alguna cuesta hacia la zona de fotos. Los robots que instalamos no necesitan cable perimetral, así que marcamos cada zona por separado y lo que el robot no debe pisar, y lo dejamos cortando el mismo día. Es el mismo robot cortacésped para grandes superficies que instalamos en el resto de Madrid, sin obra.</p>
           <div class="irm-grid irm-grid-2" style="margin-top:1.5rem">
             <article class="irm-card"><h3>Robot para varias zonas</h3><p style="color:var(--irm-gris)">Va de un prado a otro por el paso que le enseñamos; si tus zonas no se tocan, lo resolvemos en la demostración.</p></article>
             <article class="irm-card"><h3>Cuestas y terreno irregular</h3><p style="color:var(--irm-gris)">El robot cortacésped acepta terreno irregular y pendiente: la bajada a la zona de fotos también queda cortada.</p></article>
@@ -80,7 +83,7 @@ const schema = {
       <article class="irm-card irm-card--featured" style="max-width:900px;margin-inline:auto">
         <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Protege tu temporada</span>
         <h2 style="font-size:var(--irm-h3);margin-top:.5rem">Si falla en plena temporada, otro robot en menos de <span class="irm-destacado--claro">7 días</span></h2>
-        <p style="color:var(--irm-gris)">Una boda no se aplaza porque el robot no arranque. Si falla, llamas a Pepo y en menos de 7 días lo tienes arreglado o sustituido por otro, con el mantenimiento y la avería incluidos en la cuota. Es la sustitución de robot cortacésped que protege tu temporada: de abril a octubre, ninguna semana sin robot.</p>
+        <p style="color:var(--irm-gris)">Una boda no se aplaza porque el robot no arranque. Si falla, nos llamas y en menos de 7 días lo tienes arreglado o sustituido por otro, con el mantenimiento y la avería incluidos en la cuota. Es la sustitución de robot cortacésped que protege tu temporada: de abril a octubre, ninguna semana sin robot.</p>
         <ul class="irm-checks" style="margin-top:1rem">
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento incluido</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías incluidas</li>
@@ -102,7 +105,7 @@ const schema = {
         <ul class="irm-checks irm-cta-list">
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Visita, estudio e instalación de prueba. 175 € que se descuentan</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Presupuesto anual cerrado antes de que empiece la temporada</li>
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llama Pepo, que ya instala en otras fincas</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llamamos nosotros, con experiencia en otras fincas</li>
         </ul>
         <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem">
           <a href="/demostracion/" class="irm-btn irm-btn-primary">Solicita tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RobotTrail from '../../components/RobotTrail.astro';
 import { NEGOCIO } from '../../data/negocio';
 
 const title = 'Robot cortacésped para campos de fútbol | Renting IRM Madrid';
@@ -31,6 +32,8 @@ const schema = {
     </div>
   </section>
 
+  <RobotTrail />
+
   <section class="irm-section" data-anim>
     <div class="irm-container">
       <div class="irm-split">
@@ -51,7 +54,7 @@ const schema = {
       <p style="max-width:62ch;color:var(--irm-gris)">Si eres quien lleva el presupuesto del club, el renting de robot cortacésped te quita dos problemas: el gasto variable del césped y tener que explicar cada factura. Es un único pago al año, por transferencia, que incluye robot, instalación, mantenimiento y averías.</p>
       <div class="irm-grid irm-grid-3" data-stagger style="margin-top:2.5rem">
         <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Presupuesto</span><h3>Una línea de presupuesto</h3><p style="color:var(--irm-gris)">Un importe anual cerrado que presentas a la junta una vez y no vuelve a moverse: sin visitas extra, sin recambios, sin sorpresas.</p></article>
-        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Todo incluido</span><h3>Todo incluido</h3><p style="color:var(--irm-gris)">Robot, instalación sin cable perimetral ni obras, app configurada, mantenimiento de todo el año y averías. Un interlocutor: Pepo.</p></article>
+        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Todo incluido</span><h3>Todo incluido</h3><p style="color:var(--irm-gris)">Robot, instalación sin cable perimetral ni obras, app configurada, mantenimiento de todo el año y averías. Un único interlocutor: IRM.</p></article>
         <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg> Sin activos</span><h3>Sin activos ni almacén</h3><p style="color:var(--irm-gris)">El robot es de IRM: el club no inmoviliza dinero en una máquina ni la amortiza ni la guarda. Paga el servicio y punto.</p></article>
       </div>
       <p class="irm-nota" style="margin-top:1.5rem">Un campo de fútbol tiene unos 7.000 m², muy por encima de los tramos de jardín. Cuántos robots hacen falta y el precio anual: presupuesto a medida tras la demostración.</p>
@@ -63,7 +66,7 @@ const schema = {
       <article class="irm-card irm-card--featured" style="max-width:900px;margin-inline:auto">
         <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Protege al que firma</span>
         <h2 style="font-size:var(--irm-h3);margin-top:.5rem">Averías y sustitución en menos de <span class="irm-destacado--claro">7 días</span>, también en temporada</h2>
-        <p style="color:var(--irm-gris)">Es el argumento que protege a quien firma. Si el robot se para a mitad de liga, llamas a Pepo y en menos de 7 días está arreglado o hay otro cortando. La sustitución del robot cortacésped, el mantenimiento y las averías van dentro de la cuota: nadie en el club tiene que explicar un gasto que no estaba previsto.</p>
+        <p style="color:var(--irm-gris)">Es el argumento que protege a quien firma. Si el robot se para a mitad de liga, nos llamas y en menos de 7 días está arreglado o hay otro cortando. La sustitución del robot cortacésped, el mantenimiento y las averías van dentro de la cuota: nadie en el club tiene que explicar un gasto que no estaba previsto.</p>
       </article>
     </div>
   </section>
@@ -80,7 +83,7 @@ const schema = {
         <ul class="irm-checks irm-cta-list">
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Visita, medición e instalación de prueba. 175 € que se descuentan</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Presupuesto anual cerrado y por escrito para la junta</li>
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llama Pepo, que ya corta campos de fútbol</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llamamos nosotros, con experiencia en campos de fútbol</li>
         </ul>
         <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem">
           <a href="/demostracion/" class="irm-btn irm-btn-primary">Solicita tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>

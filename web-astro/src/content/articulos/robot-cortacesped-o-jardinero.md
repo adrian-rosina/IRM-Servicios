@@ -74,7 +74,7 @@ Mucha gente de Madrid **se queda con el jardinero para lo demás** (podar setos,
 
 **¿Y si solo quiero el robot en verano?** No. El servicio es anual: en invierno el robot descansa en la base y el mantenimiento, la app y la sustitución siguen activos. Un robot que solo trabaja tres meses no te quita el problema.
 
-**¿Puedo probarlo antes de pagar la cuota?** Sí. Pepo va a tu casa, mide el jardín, deja un robot cortando de prueba y te dice si tu césped es apto. La demostración cuesta 175 € **que se descuentan íntegros de la cuota anual si contratas**. No pagas la cuota hasta que el robot está instalado.
+**¿Puedo probarlo antes de pagar la cuota?** Sí. Vamos a tu casa, medimos el jardín, dejamos un robot cortando de prueba y te decimos si tu césped es apto. La demostración cuesta 175 € **que se descuentan íntegros de la cuota anual si contratas**. No pagas la cuota hasta que el robot está instalado.
 
 ## En resumen
 

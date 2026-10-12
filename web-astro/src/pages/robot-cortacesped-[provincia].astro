@@ -3,6 +3,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import RobotTrail from '../components/RobotTrail.astro';
 
 export async function getStaticPaths() {
   const zonas = await getCollection('zonas');
@@ -23,6 +24,7 @@ const schema = {
 <BaseLayout title={d.title} description={d.description} schema={schema}>
   <Hero antetitulo={`Renting de robots cortacésped · ${d.provincia}`} titulo={d.h1}
         entradilla="Instalación, mantenimiento y averías incluidos." imagen={d.imagen} alt={d.alt} />
+  <RobotTrail />
   <section class="irm-section"><div class="irm-container"><Content /></div></section>
   <p class="irm-container">Consulta el <a href="/precios/">precio del renting</a> o vuelve al
     <a href="/">renting de robots cortacésped</a>.</p>

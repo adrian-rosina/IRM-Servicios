@@ -48,7 +48,7 @@ Lo típico en un chalet: **jardín delantero y jardín trasero**, unidos por un 
 
 - **Niños**, **mascotas**, **invitados**: busca sensores de choque + parada por elevación.
 - **Zonas con pinares**: el robot trabaja bien con alguna acícula suelta, aunque conviene que no se acumulen.
-- **Zonas de costa**: viento, arena y salitre; eso lo ve Pepo en la demostración.
+- **Zonas de costa**: viento, arena y salitre; eso lo vemos nosotros en la demostración.
 - **Vecinos muy cerca**: busca un robot con horarios programables para cortar temprano o de noche sin molestar.
 
 ## Las comparativas que te saltas (y por qué)
@@ -65,7 +65,7 @@ Nada de eso lo arregla un buen modelo si está mal puesto. Y lo arregla un model
 
 ## Cómo lo resolvemos en IRM
 
-En vez de darte una lista para que elijas tú, lo elegimos nosotros. Pepo va a tu casa, mide los metros, mira la pendiente y las zonas y te dice **qué modelo encaja con tu jardín**. Lo instala, te configura la app y lo deja cortando el mismo día. Y si no rinde en tu césped, **lo cambiamos**. El robot sigue siendo nuestro durante todo el renting.
+En vez de darte una lista para que elijas tú, lo elegimos nosotros. Vamos a tu casa, medimos los metros, miramos la pendiente y las zonas y te decimos **qué modelo encaja con tu jardín**. Lo instalamos, te configuramos la app y lo dejamos cortando el mismo día. Y si no rinde en tu césped, **lo cambiamos**. El robot sigue siendo nuestro durante todo el renting.
 
 ### Qué está incluido en los 660 €/año
 

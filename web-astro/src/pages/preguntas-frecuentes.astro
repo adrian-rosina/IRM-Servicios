@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RobotTrail from '../components/RobotTrail.astro';
 const title = '¿Cuál es el mejor robot cortacésped? FAQ y opiniones | IRM';
 const description = 'El mejor robot cortacésped depende de tus metros, pendiente y zonas. Respuestas sobre el renting en Madrid, opiniones de clientes y qué pasa si falla.';
 const faqs = [
@@ -26,7 +27,14 @@ const schema = {
     <div class="irm-container">
       <span class="irm-eyebrow">Preguntas frecuentes</span>
       <h1>Preguntas frecuentes: cuál es el mejor robot cortacésped para tu jardín y cómo funciona el <span class="irm-destacado--claro">renting</span></h1>
-      <p class="irm-entradilla" style="color:var(--irm-gris)">Las preguntas que nos hacen por teléfono antes de reservar, respondidas como las responde Pepo: sin marcas, sin fichas técnicas y sin rodeos.</p>
+      <p class="irm-entradilla" style="color:var(--irm-gris)">Las preguntas que nos hacen por teléfono antes de reservar, respondidas como las respondemos nosotros: sin marcas, sin fichas técnicas y sin rodeos.</p>
+    </div>
+  </section>
+
+  <RobotTrail />
+
+  <section class="irm-section">
+    <div class="irm-container">
       <div class="irm-faq" style="margin-top:2.5rem">
         {faqs.map((f,i)=>(<details open={i===0}><summary>{f.q}</summary><div class="irm-faq-body"><p>{f.a}</p></div></details>))}
       </div>

@@ -1,15 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RobotTrail from '../components/RobotTrail.astro';
 import { NEGOCIO } from '../data/negocio';
 ---
 <BaseLayout
   title="Contacto IRM Servicios · robot cortacésped en Madrid"
-  description="Llámanos, escríbenos por WhatsApp o rellena el formulario. Te contesta Pepo, no un comercial.">
+  description="Llámanos, escríbenos por WhatsApp o rellena el formulario. Te contestamos nosotros, no un comercial.">
   <section class="irm-section">
     <div class="irm-container">
       <span class="irm-eyebrow">Contacto</span>
       <h1>Hablamos cuando tú quieras</h1>
-      <p style="color:var(--irm-gris)">Te atiende Pepo. Teléfono o WhatsApp al <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a>, Instagram <a href={`https://instagram.com/${NEGOCIO.instagram}`}>@{NEGOCIO.instagram}</a>, o pide una demostración desde <a href="/demostracion/">/demostracion/</a>.</p>
+      <p style="color:var(--irm-gris)">Te atendemos nosotros. Teléfono o WhatsApp al <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a>, Instagram <a href={`https://instagram.com/${NEGOCIO.instagram}`}>@{NEGOCIO.instagram}</a>, o pide una demostración desde <a href="/demostracion/">/demostracion/</a>.</p>
     </div>
   </section>
+
+  <RobotTrail />
 </BaseLayout>

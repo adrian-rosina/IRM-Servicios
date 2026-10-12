@@ -1,0 +1,52 @@
+---
+// src/components/RobotTrail.astro — banda minimalista con robot line-art que recorre la carretera
+// Scroll-driven: `--robot-p` (0→1) se actualiza en JS según posición en el viewport
+---
+<section class="irm-robot-trail" aria-hidden="true" data-robot-trail>
+  <div class="irm-robot-trail__scene">
+    <!-- Línea de suelo discontinua, estilo plano técnico -->
+    <div class="irm-robot-trail__ground"></div>
+
+    <!-- Robot (background-image con crop para ocultar la marca de agua inferior) -->
+    <div class="irm-robot-trail__robot-wrap">
+      <div class="irm-robot-trail__robot" role="img" aria-label="Robot cortacésped en movimiento"></div>
+      <!-- Fragmentos de césped que saltan al pasar el robot -->
+      <span class="irm-robot-trail__chip" style="--d:0s;--dx:-18px;--dh:-28px;--rot:120deg"></span>
+      <span class="irm-robot-trail__chip" style="--d:.12s;--dx:-28px;--dh:-22px;--rot:-80deg"></span>
+      <span class="irm-robot-trail__chip" style="--d:.24s;--dx:-14px;--dh:-34px;--rot:210deg"></span>
+      <span class="irm-robot-trail__chip" style="--d:.36s;--dx:-34px;--dh:-18px;--rot:-150deg"></span>
+      <span class="irm-robot-trail__chip" style="--d:.48s;--dx:-22px;--dh:-30px;--rot:60deg"></span>
+      <span class="irm-robot-trail__chip" style="--d:.6s;--dx:-10px;--dh:-24px;--rot:-200deg"></span>
+      <span class="irm-robot-trail__chip" style="--d:.72s;--dx:-26px;--dh:-26px;--rot:90deg"></span>
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const trails = document.querySelectorAll('[data-robot-trail]');
+    if (!trails.length) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      for (const el of trails) {
+        const rect = el.getBoundingClientRect();
+        const total = vh + rect.height;
+        const traveled = vh - rect.top;
+        const p = Math.max(0, Math.min(1, traveled / total));
+        el.style.setProperty('--robot-p', String(p));
+      }
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>

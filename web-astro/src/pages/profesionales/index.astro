@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RobotTrail from '../../components/RobotTrail.astro';
 import { NEGOCIO } from '../../data/negocio';
 
 const title = 'Robot cortacésped para grandes superficies | IRM Madrid';
@@ -29,6 +30,8 @@ const schema = {
       <div class="irm-foto irm-foto--insignia"><img src="/img/robot-cortacesped-grandes-superficies-cenital.webp" alt="Vista cenital de una finca con césped amplio cortado por el robot IRM" loading="eager" fetchpriority="high"><div class="irm-insignia">RENTING<strong>IRM</strong>PROFESIONAL</div></div>
     </div>
   </section>
+
+  <RobotTrail />
 
   <section class="irm-section" data-anim>
     <div class="irm-container">
@@ -101,14 +104,14 @@ const schema = {
 
   <section class="irm-section irm-bg-negro">
     <div class="irm-container irm-split">
-      <div class="irm-foto"><img src="/img/robot-cortacesped-reparacion-mantenimiento.webp" alt="Pepo reparando un robot cortacésped en el taller" loading="lazy"></div>
+      <div class="irm-foto"><img src="/img/robot-cortacesped-reparacion-mantenimiento.webp" alt="Equipo técnico de IRM reparando un robot cortacésped en el taller" loading="lazy"></div>
       <div>
-        <span class="irm-eyebrow">Hay una persona detrás</span>
-        <h2>Vengo yo a <span class="irm-destacado">verlo</span></h2>
-        <p>Soy Pepo. Vengo yo a verlo. Me enseñas la finca, el campo o la zona común, miro los metros, los caminos y las cuestas y te digo sobre el terreno qué robot hace falta y cuánto te va a costar al año. Después instalo yo, configuro yo la app y, si un día se para, me llamas a mí. Ya lo hago en fincas de bodas y en campos de fútbol.</p>
+        <span class="irm-eyebrow">Hay un equipo detrás</span>
+        <h2>Vamos a <span class="irm-destacado">verlo</span></h2>
+        <p>Vamos nosotros a verlo. Nos enseñas la finca, el campo o la zona común, miramos los metros, los caminos y las cuestas y te decimos sobre el terreno qué robot hace falta y cuánto te va a costar al año. Después instalamos nosotros, configuramos la app y, si un día se para, nos llamas directamente. Ya lo hacemos en fincas de bodas y en campos de fútbol.</p>
         <ul class="irm-checks" style="margin-top:1rem">
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Vengo yo a verlo</li>
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalo yo</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Vamos a verlo</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalamos nosotros</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Un solo teléfono</li>
         </ul>
         <a href={`tel:+34${NEGOCIO.telefono}`} style="display:inline-block;margin-top:1rem;font:700 2rem/1 var(--font-sans);color:var(--irm-lima);text-decoration:none">{NEGOCIO.telefonoFormato}</a>
@@ -124,7 +127,7 @@ const schema = {
         <ul class="irm-checks irm-cta-list">
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Visita, estudio e instalación de prueba. 175 € que se descuentan</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Presupuesto anual cerrado y por escrito</li>
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llama Pepo, no un comercial</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llamamos nosotros, no un comercial</li>
         </ul>
         <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem">
           <a href="/demostracion/" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
