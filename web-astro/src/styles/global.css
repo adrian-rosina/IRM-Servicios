@@ -479,10 +479,10 @@ p{margin:0 0 1rem;max-width:62ch}
 /* ============================================================
    FAB WhatsApp flotante (desktop + móvil)
    ============================================================ */
-.irm-fab-wa{position:fixed;right:1.25rem;bottom:1.25rem;z-index:48;width:58px;height:58px;border-radius:50%;background:#25D366;color:var(--irm-blanco);display:grid;place-items:center;text-decoration:none;box-shadow:0 10px 30px -6px rgba(37,211,102,.5),0 4px 10px rgba(20,22,21,.2);transition:transform var(--irm-ease),box-shadow var(--irm-ease);cursor:pointer}
-.irm-fab-wa:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 16px 40px -6px rgba(37,211,102,.6),0 6px 14px rgba(20,22,21,.25);color:var(--irm-blanco)}
-.irm-fab-wa svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.15))}
-.irm-fab-wa__pulse{position:absolute;inset:0;border-radius:50%;background:#25D366;opacity:.4;animation:fab-pulse 2.4s cubic-bezier(.16,1,.3,1) infinite;z-index:-1}
+.irm-fab-wa{position:fixed;right:1.25rem;bottom:1.25rem;z-index:48;width:58px;height:58px;border-radius:50%;background:var(--irm-lima);color:var(--irm-negro);display:grid;place-items:center;text-decoration:none;box-shadow:0 10px 30px -6px rgba(155,221,95,.5),0 4px 10px rgba(20,22,21,.2);transition:transform var(--irm-ease),box-shadow var(--irm-ease),background var(--irm-ease);cursor:pointer}
+.irm-fab-wa:hover{transform:scale(1.08) translateY(-2px);background:var(--irm-lima-claro);box-shadow:0 16px 40px -6px rgba(155,221,95,.6),0 6px 14px rgba(20,22,21,.25);color:var(--irm-negro)}
+.irm-fab-wa svg{filter:drop-shadow(0 1px 2px rgba(20,22,21,.15))}
+.irm-fab-wa__pulse{position:absolute;inset:0;border-radius:50%;background:var(--irm-lima);opacity:.4;animation:fab-pulse 2.4s cubic-bezier(.16,1,.3,1) infinite;z-index:-1}
 @keyframes fab-pulse{0%{transform:scale(1);opacity:.4}80%{transform:scale(1.75);opacity:0}100%{transform:scale(1.75);opacity:0}}
 .irm-fab-wa__tooltip{position:absolute;right:calc(100% + .75rem);top:50%;transform:translateY(-50%) translateX(8px);background:var(--irm-negro);color:var(--irm-blanco);padding:.55rem .85rem;border-radius:8px;font-family:var(--font-sans);font-size:.8125rem;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s cubic-bezier(.16,1,.3,1);box-shadow:0 10px 24px rgba(0,0,0,.3)}
 .irm-fab-wa__tooltip::after{content:"";position:absolute;top:50%;left:100%;transform:translateY(-50%);border:6px solid transparent;border-left-color:var(--irm-negro)}
