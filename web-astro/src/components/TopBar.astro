@@ -1,0 +1,19 @@
+---
+import { NEGOCIO } from '../data/negocio';
+---
+<aside class="irm-topbar" aria-label="Información de contacto y redes sociales">
+  <div class="irm-container irm-topbar__inner">
+    <a href={`mailto:${NEGOCIO.email}`} class="irm-topbar__email">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg>
+      <span>{NEGOCIO.email}</span>
+    </a>
+    <div class="irm-topbar__social" aria-label="Redes sociales">
+      <a href={`https://instagram.com/${NEGOCIO.instagram}`} target="_blank" rel="noopener" aria-label="IRM Servicios en Instagram">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href={`https://facebook.com/${NEGOCIO.facebook}`} target="_blank" rel="noopener" aria-label="IRM Servicios en Facebook">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+      </a>
+    </div>
+  </div>
+</aside>

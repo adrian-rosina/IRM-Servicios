@@ -1,5 +1,6 @@
 ---
 import Seo from '../components/Seo.astro';
+import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyMobileCta from '../components/StickyMobileCta.astro';
@@ -29,6 +30,7 @@ const schemas = Array.isArray(schema) ? schema : (schema ? [schema] : []);
     {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body>
+    <TopBar />
     <Header />
     <main id="main"><slot /></main>
     <Footer />

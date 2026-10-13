@@ -144,6 +144,22 @@ p{margin:0 0 1rem;max-width:62ch}
 @media(min-width:768px){.irm-grid-2{grid-template-columns:1fr 1fr}.irm-grid-3{grid-template-columns:repeat(3,1fr)}.irm-grid-4{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.irm-grid-4{grid-template-columns:repeat(4,1fr)}}
 
+/* Top bar — bosque sobre header negro */
+.irm-topbar{background:var(--irm-bosque);color:var(--irm-blanco);font-size:.8125rem;line-height:1;border-bottom:1px solid rgba(155,221,95,.2)}
+.irm-topbar__inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.5rem;min-height:36px}
+.irm-topbar__email{display:inline-flex;align-items:center;gap:.5rem;color:currentColor;text-decoration:none;font-weight:500;letter-spacing:.01em;transition:color var(--irm-ease)}
+.irm-topbar__email svg{color:var(--irm-lima);flex-shrink:0}
+.irm-topbar__email:hover{color:var(--irm-lima)}
+.irm-topbar__social{display:inline-flex;align-items:center;gap:.5rem}
+.irm-topbar__social a{display:grid;place-items:center;width:28px;height:28px;color:var(--irm-blanco);text-decoration:none;border-radius:50%;transition:background var(--irm-ease),color var(--irm-ease),transform var(--irm-ease)}
+.irm-topbar__social a:hover{background:var(--irm-lima);color:var(--irm-negro);transform:translateY(-1px)}
+@media(max-width:520px){
+  .irm-topbar{font-size:.75rem}
+  .irm-topbar__email span{display:none}
+  .irm-topbar__email::after{content:"Escríbenos";font-weight:500}
+  .irm-topbar__inner{min-height:32px;padding-block:.4rem}
+}
+
 /* Header sticky — tema oscuro con acentos lima */
 .irm-header{position:sticky;top:0;z-index:50;background:rgba(20,22,21,.92);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(155,221,95,.14);color:var(--irm-blanco)}
 .irm-header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.875rem}
