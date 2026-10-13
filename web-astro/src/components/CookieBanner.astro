@@ -1,0 +1,112 @@
+---
+// src/components/CookieBanner.astro — banner de cookies RGPD / LSSI
+// Guarda el consentimiento en localStorage y expone window.irmConsent + evento 'irm:consent'
+// Las etiquetas (GA4, Meta Pixel) deben comprobar window.irmConsent?.analytics / .marketing antes de ejecutarse
+---
+<div id="irm-cookies" class="irm-cookies" data-cookie-banner role="dialog" aria-label="Preferencias de cookies" aria-live="polite" hidden>
+  <div class="irm-cookies__card">
+    <div class="irm-cookies__view" data-view="intro">
+      <div class="irm-cookies__header">
+        <h2 class="irm-cookies__title">Cookies en irmservicios.com</h2>
+        <p class="irm-cookies__text">Usamos cookies <strong>técnicas</strong> para que la web funcione y, con tu permiso, cookies de <strong>análisis</strong> (Google Analytics) y <strong>marketing</strong> (Meta Pixel) para mejorar el servicio y medir campañas. Puedes aceptar, rechazar o configurar cuáles aceptar. Más detalle en nuestra <a href="/politica-de-cookies/">política de cookies</a>.</p>
+      </div>
+      <div class="irm-cookies__actions">
+        <button type="button" class="irm-btn irm-btn-secondary irm-cookies__btn" data-action="reject">Rechazar todas</button>
+        <button type="button" class="irm-btn irm-btn-secondary irm-cookies__btn" data-action="settings">Configurar</button>
+        <button type="button" class="irm-btn irm-btn-primary irm-cookies__btn" data-action="accept-all">Aceptar todas</button>
+      </div>
+    </div>
+
+    <div class="irm-cookies__view" data-view="settings" hidden>
+      <div class="irm-cookies__header">
+        <h2 class="irm-cookies__title">Configurar cookies</h2>
+        <p class="irm-cookies__text">Elige qué categorías de cookies quieres permitir. Puedes cambiar tu elección en cualquier momento desde el enlace "Preferencias de cookies" en el pie de página.</p>
+      </div>
+      <div class="irm-cookies__options">
+        <label class="irm-cookies__opt">
+          <input type="checkbox" checked disabled aria-describedby="irm-cat-necesarias" />
+          <span>
+            <strong>Técnicas (necesarias)</strong>
+            <small id="irm-cat-necesarias">Permiten el funcionamiento del sitio. Siempre activas.</small>
+          </span>
+        </label>
+        <label class="irm-cookies__opt">
+          <input type="checkbox" data-cat="analytics" aria-describedby="irm-cat-analitica" />
+          <span>
+            <strong>Analítica</strong>
+            <small id="irm-cat-analitica">Google Analytics 4: estadísticas de uso para mejorar la web.</small>
+          </span>
+        </label>
+        <label class="irm-cookies__opt">
+          <input type="checkbox" data-cat="marketing" aria-describedby="irm-cat-marketing" />
+          <span>
+            <strong>Marketing</strong>
+            <small id="irm-cat-marketing">Meta Pixel: medición y personalización de campañas.</small>
+          </span>
+        </label>
+      </div>
+      <div class="irm-cookies__actions">
+        <button type="button" class="irm-btn irm-btn-secondary irm-cookies__btn" data-action="back">Volver</button>
+        <button type="button" class="irm-btn irm-btn-primary irm-cookies__btn" data-action="save">Guardar preferencias</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(() => {
+  const KEY = 'irm_consent';
+  const VER = 1;
+  const banner = document.getElementById('irm-cookies');
+  if (!banner) return;
+  const views = banner.querySelectorAll('[data-view]');
+  const show = (name) => views.forEach(v => v.hidden = v.dataset.view !== name);
+  const read = () => {
+    try { const raw = localStorage.getItem(KEY); if (!raw) return null; const p = JSON.parse(raw); return p && p.v === VER ? p : null; }
+    catch (_) { return null; }
+  };
+  const save = (consent) => {
+    const payload = { v: VER, ts: Date.now(), necessary: true, analytics: !!consent.analytics, marketing: !!consent.marketing };
+    try { localStorage.setItem(KEY, JSON.stringify(payload)); } catch (_) {}
+    window.irmConsent = payload;
+    window.dispatchEvent(new CustomEvent('irm:consent', { detail: payload }));
+    banner.hidden = true;
+  };
+  const open = () => {
+    const existing = read();
+    if (existing) {
+      banner.querySelector('[data-cat="analytics"]').checked = !!existing.analytics;
+      banner.querySelector('[data-cat="marketing"]').checked = !!existing.marketing;
+    }
+    banner.hidden = false;
+    show('intro');
+  };
+  // Banner inicial si no hay consentimiento guardado
+  const stored = read();
+  if (stored) {
+    window.irmConsent = stored;
+  } else {
+    requestAnimationFrame(open);
+  }
+  // Click handlers
+  banner.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-action]');
+    if (!t) return;
+    const a = t.dataset.action;
+    if (a === 'accept-all') return save({ analytics: true, marketing: true });
+    if (a === 'reject') return save({ analytics: false, marketing: false });
+    if (a === 'settings') return show('settings');
+    if (a === 'back') return show('intro');
+    if (a === 'save') {
+      const an = banner.querySelector('[data-cat="analytics"]').checked;
+      const mk = banner.querySelector('[data-cat="marketing"]').checked;
+      return save({ analytics: an, marketing: mk });
+    }
+  });
+  // Botón global "Preferencias de cookies" (footer o política de cookies)
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-open-cookie-settings]');
+    if (t) { e.preventDefault(); open(); show('settings'); }
+  });
+})();
+</script>

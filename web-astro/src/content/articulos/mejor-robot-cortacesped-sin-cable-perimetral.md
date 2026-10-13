@@ -3,13 +3,17 @@ titulo: "Mejor robot cortacésped sin cable perimetral: cómo elegirlo"
 title: "Mejor robot cortacésped sin cable: cómo elegir | IRM"
 description: "Qué mirar antes de elegir el mejor robot cortacésped sin cable perimetral: metros, pendiente, zonas, instalación y servicio. Guía honesta, sin fichas técnicas."
 keyword: "mejor robot cortacésped sin cable perimetral"
+categoria: "Guía"
+minutos: 8
+portada: "/img/robot-cortacesped-bordes-pasillo-patio.webp"
+alt: "Robot cortacésped sin cable perimetral trabajando junto a un borde en un jardín de Madrid"
 fecha: 2026-10-11
 autor: "IRM Servicios"
 extracto: "No hay un mejor robot cortacésped sin cable perimetral del mercado. Hay el que encaja con tu jardín. Mandan tres cosas: los metros, la pendiente y las zonas separadas. Lo demás, lo ponemos nosotros."
 tags: ["mejor robot", "sin cable", "guía"]
 ---
 
-Si tecleas en Google "mejor robot cortacésped sin cable perimetral" te saldrán listas de modelos con tablas comparativas y fichas técnicas que probablemente ya has leído. Lo que no te dicen esas listas es que un robot bueno en el adosado llano de un vecino se queda corto en un chalet de la sierra con cuesta. **El mejor robot cortacésped no depende solo del robot: depende sobre todo de tu jardín.**
+Si tecleas en Google "mejor robot cortacésped sin cable perimetral" te saldrán listas de modelos con tablas comparativas y fichas técnicas que probablemente ya has leído. Lo que no te dicen esas listas es que un robot bueno en el adosado llano de un vecino se queda corto en un chalet de la sierra con cuesta. **El mejor robot cortacésped no depende solo del robot: depende sobre todo de tu jardín.** En [IRM Servicios](/) elegimos nosotros el robot que encaja con tu caso dentro del [alquiler anual de robots cortacésped en Madrid](/).
 
 En este artículo te decimos qué mirar antes de elegir (o antes de que alguien lo elija por ti) y por qué el servicio pesa tanto como el modelo.
 
@@ -38,7 +42,7 @@ Todos los robots tienen un rango recomendado. Si pones un robot pequeño en un j
 
 ### 2 · La pendiente
 
-En la ficha técnica siempre te sale un **porcentaje máximo de pendiente**. Lo importante no es ese número en abstracto: lo importante es si tu cuesta real lo cumple y en qué dirección va (si el robot tiene que cortar subiendo o cruzando). Jardines de la sierra con desnivel, taludes de piscina y escalones de césped son terreno habitual en la periferia de Madrid: el robot que elijas tiene que llegar.
+En la ficha técnica siempre te sale un **porcentaje máximo de pendiente**. Lo importante no es ese número en abstracto: lo importante es si tu cuesta real lo cumple y en qué dirección va (si el robot tiene que cortar subiendo o cruzando). Jardines de la sierra con desnivel, taludes de piscina y escalones de césped son terreno habitual en la periferia de Madrid: el robot que elijas tiene que llegar. Tienes más detalle en nuestra guía de [robot cortacésped para jardines con pendiente](/como-funciona/jardines-con-pendiente/).
 
 ### 3 · Las zonas separadas
 
@@ -84,4 +88,4 @@ Lo que oímos repetir en el teléfono (y pronto en las [opiniones de clientes](/
 
 ## En resumen
 
-El mejor robot cortacésped sin cable perimetral **no existe en abstracto**: hay el que cubre tus metros, sube tu pendiente, pasa de una zona a otra y está bien instalado y bien atendido. Si quieres que te quitemos la elección y respondamos por él todo el año, [pide una demostración](/demostracion/) y lo vemos en tu jardín.
+El mejor robot cortacésped sin cable perimetral **no existe en abstracto**: hay el que cubre tus metros, sube tu pendiente, pasa de una zona a otra y está bien instalado y bien atendido. Si quieres que te quitemos la elección y respondamos por él todo el año, reserva una [demostración robot cortacésped](/demostracion/) y lo vemos en tu jardín.

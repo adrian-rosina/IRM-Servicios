@@ -1,11 +1,80 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../data/negocio';
 ---
-<BaseLayout title="politica de cookies · IRM Servicios" description="Página legal del sitio irmservicios.com." noindex={false}>
+<BaseLayout
+  title="Política de cookies · IRM Servicios"
+  description="Política de cookies: tipos de cookies que usamos, finalidades, duración, terceros y cómo gestionar tus preferencias."
+>
   <section class="irm-section">
-    <div class="irm-container" style="max-width:720px;margin-inline:auto">
-      <h1>politica de cookies</h1>
-      <p style="color:var(--irm-gris)">[Texto legal pendiente de redacción.]</p>
+    <div class="irm-container irm-legal">
+      <span class="irm-eyebrow">Legal</span>
+      <h1>Política de cookies</h1>
+      <p class="irm-nota" style="margin-bottom:2rem">Última actualización: {new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+
+      <p>Esta política de cookies informa sobre el uso de cookies y tecnologías similares en el sitio web <a href={NEGOCIO.url}>{NEGOCIO.url}</a>, conforme al artículo 22.2 de la Ley 34/2002 de Servicios de la Sociedad de la Información (LSSI) y a la Guía sobre uso de cookies de la Agencia Española de Protección de Datos.</p>
+
+      <h2>1. ¿Qué son las cookies?</h2>
+      <p>Las cookies son pequeños archivos de texto que los sitios web guardan en el navegador del Usuario para almacenar información sobre su visita (preferencias, idioma, estadísticas, etc.). Pueden ser instaladas por el propio sitio ("cookies propias") o por terceros ("cookies de terceros").</p>
+
+      <h2>2. Tipos de cookies que utilizamos</h2>
+      <p>En función de su finalidad, utilizamos los siguientes tipos de cookies:</p>
+
+      <h3>2.1 Cookies técnicas (necesarias)</h3>
+      <p>Son <strong>estrictamente necesarias</strong> para el funcionamiento del sitio web. No requieren consentimiento del Usuario y están siempre activas.</p>
+      <table class="irm-tabla">
+        <thead><tr><th>Cookie</th><th>Finalidad</th><th>Duración</th><th>Titular</th></tr></thead>
+        <tbody>
+          <tr><td>irm_consent</td><td>Guardar la elección del Usuario en el banner de cookies</td><td>12 meses</td><td>Propia</td></tr>
+          <tr><td>Session cookies de Hostinger / CDN</td><td>Mantener la sesión y servir el sitio</td><td>Sesión</td><td>Hostinger</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.2 Cookies de análisis</h3>
+      <p>Permiten contar visitas, fuentes de tráfico y comportamiento para mejorar el sitio. <strong>Requieren consentimiento</strong>. Si no las aceptas, no se instalarán.</p>
+      <table class="irm-tabla">
+        <thead><tr><th>Cookie</th><th>Finalidad</th><th>Duración</th><th>Titular</th></tr></thead>
+        <tbody>
+          <tr><td>_ga, _ga_*</td><td>Google Analytics 4: distinguir usuarios y sesiones</td><td>24 meses</td><td>Google LLC</td></tr>
+          <tr><td>_gid</td><td>Google Analytics: identificar al Usuario</td><td>24 horas</td><td>Google LLC</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.3 Cookies de marketing</h3>
+      <p>Permiten mostrar publicidad personalizada y medir campañas en redes sociales. <strong>Requieren consentimiento</strong>.</p>
+      <table class="irm-tabla">
+        <thead><tr><th>Cookie</th><th>Finalidad</th><th>Duración</th><th>Titular</th></tr></thead>
+        <tbody>
+          <tr><td>_fbp</td><td>Meta Pixel: medir campañas de Facebook/Instagram</td><td>3 meses</td><td>Meta Platforms</td></tr>
+          <tr><td>fr</td><td>Meta: entregar publicidad relevante y medición</td><td>3 meses</td><td>Meta Platforms</td></tr>
+        </tbody>
+      </table>
+
+      <h2>3. Gestión del consentimiento</h2>
+      <p>La primera vez que accedes al sitio web se te muestra un <strong>banner de cookies</strong> con tres opciones:</p>
+      <ul>
+        <li><strong>Aceptar todas:</strong> habilitas las cookies técnicas, de análisis y de marketing.</li>
+        <li><strong>Rechazar todas:</strong> solo se instalan las cookies técnicas estrictamente necesarias.</li>
+        <li><strong>Configurar:</strong> seleccionas qué categorías aceptar.</li>
+      </ul>
+      <p>Puedes modificar o retirar tu consentimiento en cualquier momento desde el enlace <button type="button" class="irm-link" data-open-cookie-settings>Preferencias de cookies</button> situado al final de cada página o volviendo a esta política.</p>
+
+      <h2>4. Deshabilitar cookies desde el navegador</h2>
+      <p>También puedes bloquear o eliminar las cookies desde la configuración de tu navegador. A continuación facilitamos los enlaces oficiales:</p>
+      <ul>
+        <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+        <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+        <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+        <li><a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li>
+      </ul>
+
+      <h2>5. Transferencias internacionales</h2>
+      <p>Google Analytics y Meta Pixel pueden implicar transferencias de datos a Estados Unidos. Estas transferencias están amparadas por el Marco de Privacidad de Datos UE-EE.UU. (EU-US Data Privacy Framework) y por cláusulas contractuales tipo aprobadas por la Comisión Europea.</p>
+
+      <h2>6. Modificaciones</h2>
+      <p>Esta política puede actualizarse para adaptarse a cambios normativos o a la incorporación de nuevos servicios. La fecha de la última actualización figura al inicio.</p>
+
+      <p style="margin-top:3rem"><a href="/aviso-legal/">Aviso legal</a> · <a href="/politica-de-privacidad/">Política de privacidad</a> · <a href="/contacto/">Contacto</a></p>
     </div>
   </section>
 </BaseLayout>

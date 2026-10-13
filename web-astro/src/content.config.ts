@@ -19,7 +19,7 @@ const zonas = defineCollection({
 
 const articulos = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/articulos' }),
-  schema: ({ image }) => z.object({
+  schema: () => z.object({
     titulo: z.string(),
     title: z.string().max(60),
     description: z.string().max(160),
@@ -27,8 +27,10 @@ const articulos = defineCollection({
     fecha: z.date(),
     actualizado: z.date().optional(),
     autor: z.string().default('IRM Servicios'),
-    portada: image().optional(),
+    portada: z.string().optional(),
     alt: z.string().optional(),
+    categoria: z.string().default('Guía'),
+    minutos: z.number().int().positive().optional(),
     extracto: z.string(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),

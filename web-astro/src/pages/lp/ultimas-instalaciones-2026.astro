@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../../data/negocio';
+
+const title = 'Últimas instalaciones de 2026 · robot cortacésped Madrid | IRM';
+const description = 'Últimas plazas de instalación de robot cortacésped para 2026 en Madrid. Reserva antes de fin de año y asegura tu robot para la temporada que viene.';
+---
+<BaseLayout {title} {description} noindex>
+  <section class="irm-section irm-bg-negro irm-hero">
+    <div class="irm-container irm-hero-grid">
+      <div>
+        <span class="irm-eyebrow" style="color:var(--irm-lima)">Campaña · diciembre 2026</span>
+        <h1>Últimas instalaciones de 2026: deja el césped listo para la próxima <span class="irm-destacado">temporada</span></h1>
+        <p class="irm-entradilla">Cerramos agenda de instalación para 2026. Si reservas ahora, en enero el robot ya corta solo en tu jardín.</p>
+        <ul class="irm-checks" data-stagger style="margin:1.5rem 0 2rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Precio bloqueado 2026 · 660 €/año hasta 600 m²</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Demostración incluida y descontada de la cuota</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro robot en menos de 7 días</li>
+        </ul>
+        <div class="irm-hero-ctas">
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-primary">Reserva ahora · {NEGOCIO.telefonoFormato} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">WhatsApp</a>
+        </div>
+      </div>
+      <form class="irm-form-card" action="#" method="post">
+        <h3 style="margin-top:0">Reserva tu plaza de 2026</h3>
+        <div class="irm-form-grid">
+          <div class="irm-field"><label for="n">Nombre</label><input id="n" name="nombre" type="text" required></div>
+          <div class="irm-field"><label for="t">Teléfono</label><input id="t" name="telefono" type="tel" required></div>
+          <div class="irm-field"><label for="mp">Municipio</label><input id="mp" name="municipio" type="text" required></div>
+          <div class="irm-field"><label for="m2">Metros de césped</label>
+            <select id="m2" name="m2" required>
+              <option value="">Elige una opción</option>
+              <option>Hasta 600 m²</option><option>De 600 a 1.000 m²</option><option>Más de 1.000 m²</option>
+            </select>
+          </div>
+          <div class="irm-field irm-field-check"><input id="rgpd" name="rgpd" type="checkbox" required><label for="rgpd">He leído y acepto la <a href="/politica-de-privacidad/">política de privacidad</a>.</label></div>
+          <input type="hidden" name="utm_source"><input type="hidden" name="utm_campaign" value="ultimas-instalaciones-2026">
+          <button type="submit" class="irm-btn irm-btn-primary">Reserva ahora <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+          <p class="irm-nota" style="text-align:center">Te llamamos nosotros antes de 24 horas.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso">
+    <div class="irm-container">
+      <span class="irm-eyebrow">Por qué cerrar ahora</span>
+      <h2>Cuatro razones para no esperar a marzo</h2>
+      <div class="irm-grid irm-grid-4" data-stagger style="margin-top:2.5rem">
+        <article class="irm-card"><h3>Precio bloqueado</h3><p style="color:var(--irm-gris)">Si firmas en diciembre, mantienes la cuota de 2026 para la temporada 2027.</p></article>
+        <article class="irm-card"><h3>Agenda de enero</h3><p style="color:var(--irm-gris)">Instalamos en enero, antes de que el césped empiece a crecer, para que esté listo en marzo.</p></article>
+        <article class="irm-card"><h3>Demostración rápida</h3><p style="color:var(--irm-gris)">Nos pasamos esta semana, medimos el jardín y te dejamos el presupuesto cerrado.</p></article>
+        <article class="irm-card"><h3>Sin compromiso</h3><p style="color:var(--irm-gris)">Si no te convence en la demostración, no pagas la cuota anual. Solo los 175 € de la visita.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-lima">
+    <div class="irm-container" style="text-align:center">
+      <h2>Nos quedan pocas plazas antes de fin de año</h2>
+      <p style="color:var(--irm-negro);max-width:52ch;margin-inline:auto">Llámanos y te decimos cuántas instalaciones nos quedan antes de cerrar agenda de 2026.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;justify-content:center">
+        <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-primary">Llama · {NEGOCIO.telefonoFormato} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

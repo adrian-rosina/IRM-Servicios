@@ -1,11 +1,89 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../data/negocio';
 ---
-<BaseLayout title="politica de privacidad · IRM Servicios" description="Página legal del sitio irmservicios.com." noindex={false}>
+<BaseLayout
+  title="Política de privacidad · IRM Servicios"
+  description="Política de privacidad conforme al RGPD y la LOPDGDD: finalidades, base jurídica, destinatarios, plazos y derechos."
+>
   <section class="irm-section">
-    <div class="irm-container" style="max-width:720px;margin-inline:auto">
-      <h1>politica de privacidad</h1>
-      <p style="color:var(--irm-gris)">[Texto legal pendiente de redacción.]</p>
+    <div class="irm-container irm-legal">
+      <span class="irm-eyebrow">Legal</span>
+      <h1>Política de privacidad</h1>
+      <p class="irm-nota" style="margin-bottom:2rem">Última actualización: {new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+
+      <p>{NEGOCIO.nombre} se compromete a proteger la privacidad de los usuarios y a cumplir con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <ul>
+        <li><strong>Titular:</strong> {NEGOCIO.titular}</li>
+        <li><strong>NIF:</strong> {NEGOCIO.nif}</li>
+        <li><strong>Dirección:</strong> {NEGOCIO.direccion}</li>
+        <li><strong>Teléfono:</strong> <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></li>
+        <li><strong>Correo electrónico:</strong> <a href={`mailto:${NEGOCIO.email}`}>{NEGOCIO.email}</a></li>
+        <li><strong>Horario de atención:</strong> {NEGOCIO.horario}</li>
+      </ul>
+      <p>Si tiene cualquier duda sobre esta política o quiere ejercer sus derechos, puede escribirnos a <a href="mailto:info@irmservicios.com">info@irmservicios.com</a>.</p>
+
+      <h2>2. Finalidades del tratamiento</h2>
+      <p>Tratamos los datos personales que nos facilita el Usuario con las siguientes finalidades:</p>
+      <ul>
+        <li><strong>Gestión de solicitudes de información y demostración:</strong> atender y responder las consultas realizadas a través de los formularios, el teléfono, WhatsApp o el correo electrónico.</li>
+        <li><strong>Gestión de la relación contractual:</strong> cuando contrates el servicio de renting de robot cortacésped, para formalizar y gestionar el contrato, facturación, cobros, instalación, mantenimiento y averías.</li>
+        <li><strong>Envío de comunicaciones comerciales:</strong> únicamente si el Usuario presta su consentimiento expreso para ello.</li>
+        <li><strong>Analítica web y mejora del Sitio Web:</strong> conocer el uso que se hace del Sitio Web y mejorar los servicios, cuando el Usuario preste su consentimiento mediante el banner de cookies.</li>
+      </ul>
+
+      <h2>3. Base jurídica</h2>
+      <ul>
+        <li>Para la gestión de solicitudes: el <strong>consentimiento</strong> del Usuario (art. 6.1.a RGPD) y las medidas precontractuales (art. 6.1.b RGPD).</li>
+        <li>Para la relación contractual: la <strong>ejecución del contrato</strong> suscrito con el Usuario (art. 6.1.b RGPD).</li>
+        <li>Para comunicaciones comerciales: el <strong>consentimiento expreso</strong> del Usuario (art. 6.1.a RGPD).</li>
+        <li>Para analítica: el <strong>consentimiento</strong> del Usuario prestado mediante el banner de cookies (art. 6.1.a RGPD).</li>
+        <li>Para el cumplimiento de obligaciones legales (facturación, fiscalidad, etc.): el <strong>cumplimiento de una obligación legal</strong> (art. 6.1.c RGPD).</li>
+      </ul>
+
+      <h2>4. Datos recabados</h2>
+      <p>Recabamos únicamente los datos estrictamente necesarios: nombre, apellidos, teléfono, correo electrónico, municipio y metros de césped. En caso de contratación, además, dirección completa, DNI/NIF para la facturación y datos bancarios para el pago.</p>
+
+      <h2>5. Plazo de conservación</h2>
+      <p>Los datos se conservarán durante el tiempo necesario para cumplir con la finalidad para la que se recabaron y para determinar las posibles responsabilidades derivadas:</p>
+      <ul>
+        <li>Solicitudes sin contratación: hasta <strong>12 meses</strong> desde la última comunicación.</li>
+        <li>Clientes: durante toda la vigencia del contrato y, posteriormente, durante los plazos legales obligatorios (6 años mercantiles, 4 años fiscales, 5 años civiles).</li>
+        <li>Comunicaciones comerciales: hasta que el Usuario retire el consentimiento.</li>
+      </ul>
+
+      <h2>6. Destinatarios y encargados del tratamiento</h2>
+      <p>No cedemos tus datos a terceros salvo obligación legal. Para la prestación del servicio contamos con los siguientes proveedores (encargados del tratamiento) que acceden a datos personales bajo contrato de encargo conforme al art. 28 RGPD:</p>
+      <ul>
+        <li><strong>Hostinger International Ltd.</strong> (hosting del sitio web). Transferencia internacional cubierta por cláusulas tipo de la Comisión Europea.</li>
+        <li><strong>Google LLC</strong> (Google Analytics 4, Google Tag Manager): análisis estadístico. Transferencia internacional bajo el Marco de Privacidad de Datos UE-EE.UU.</li>
+        <li><strong>Meta Platforms Ireland Limited</strong> (Meta Pixel, remarketing): sólo si el Usuario acepta cookies de marketing.</li>
+        <li><strong>Google Ireland Limited</strong> (Google Workspace): correo electrónico y almacenamiento de datos de clientes.</li>
+      </ul>
+
+      <h2>7. Derechos del Usuario</h2>
+      <p>Como titular de los datos, puede ejercer en cualquier momento los siguientes derechos:</p>
+      <ul>
+        <li><strong>Acceso:</strong> conocer qué datos tratamos y con qué finalidades.</li>
+        <li><strong>Rectificación:</strong> modificar datos inexactos o incompletos.</li>
+        <li><strong>Supresión ("derecho al olvido"):</strong> solicitar la eliminación de sus datos cuando ya no sean necesarios.</li>
+        <li><strong>Oposición:</strong> oponerse al tratamiento basado en interés legítimo.</li>
+        <li><strong>Limitación:</strong> solicitar que se limite el tratamiento en determinados supuestos.</li>
+        <li><strong>Portabilidad:</strong> recibir los datos en formato estructurado o solicitar su envío a otro responsable.</li>
+        <li><strong>Retirar el consentimiento</strong> en cualquier momento, sin que ello afecte a la licitud del tratamiento basado en el consentimiento previo a su retirada.</li>
+      </ul>
+      <p>Para ejercer estos derechos, puede escribirnos a <a href="mailto:info@irmservicios.com">info@irmservicios.com</a> adjuntando copia del DNI o documento identificativo equivalente.</p>
+      <p>Asimismo, el Usuario tiene derecho a presentar una reclamación ante la <strong>Agencia Española de Protección de Datos</strong> (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>) si considera que el tratamiento de sus datos personales infringe la normativa.</p>
+
+      <h2>8. Seguridad de los datos</h2>
+      <p>Hemos implantado las medidas de seguridad técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo del tratamiento, conforme al art. 32 RGPD. Nuestro sitio web utiliza cifrado HTTPS para proteger la transmisión de los datos.</p>
+
+      <h2>9. Modificaciones</h2>
+      <p>Nos reservamos el derecho a modificar esta política para adaptarla a cambios legislativos o jurisprudenciales. La fecha de la última actualización figura al inicio del documento.</p>
+
+      <p style="margin-top:3rem"><a href="/aviso-legal/">Aviso legal</a> · <a href="/politica-de-cookies/">Política de cookies</a> · <a href="/contacto/">Contacto</a></p>
     </div>
   </section>
 </BaseLayout>

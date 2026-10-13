@@ -6,12 +6,29 @@ const isCurrent = (href: string) => actual === href || (href !== '/' && actual.s
 <header class="irm-header">
   <div class="irm-container irm-header-inner">
     <a href="/" class="irm-logo" aria-label={`${NEGOCIO.nombre}, inicio`}>
-      <strong>IRM</strong><span>Servicios</span>
+      <strong class="irm-logo__mark">IRM</strong>
+      <span class="irm-logo__bar" aria-hidden="true"></span>
+      <span class="irm-logo__sub">Servicios</span>
     </a>
     <nav class="irm-nav" aria-label="Principal">
-      {NAV.map((item) => (
-        <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
-      ))}
+      {NAV.map((item) => {
+        const hasSub = 'sub' in item && Array.isArray((item as any).sub) && (item as any).sub.length > 0;
+        return hasSub ? (
+          <div class="irm-nav__item">
+            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined} aria-haspopup="true">
+              {item.label}
+              <svg class="irm-nav__caret" viewBox="0 0 24 24" width="10" height="10" aria-hidden="true"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="irm-nav__submenu" role="menu">
+              {(item as any).sub.map((s: {label: string; href: string}) => (
+                <a href={s.href} role="menuitem" aria-current={isCurrent(s.href) ? 'page' : undefined}>{s.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+        );
+      })}
     </nav>
     <div class="irm-header-cta">
       <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-tel-header" aria-label={`Llamar al ${NEGOCIO.telefonoFormato}`}>
@@ -22,6 +39,78 @@ const isCurrent = (href: string) => actual === href || (href !== '/' && actual.s
         Reserva tu robot
         <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
+      <button type="button" class="irm-hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="irm-mobile-nav" data-hamburger>
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- Drawer móvil -->
+<div class="irm-drawer" id="irm-mobile-nav" aria-hidden="true" data-drawer>
+  <div class="irm-drawer__backdrop" data-drawer-close></div>
+  <nav class="irm-drawer__panel" aria-label="Principal móvil">
+    <div class="irm-drawer__head">
+      <a href="/" class="irm-logo" aria-label={`${NEGOCIO.nombre}, inicio`}>
+        <strong class="irm-logo__mark">IRM</strong>
+        <span class="irm-logo__bar" aria-hidden="true"></span>
+        <span class="irm-logo__sub">Servicios</span>
+      </a>
+      <button type="button" class="irm-drawer__close" aria-label="Cerrar menú" data-drawer-close>
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <ul class="irm-drawer__nav">
+      {NAV.map((item) => {
+        const hasSub = 'sub' in item && Array.isArray((item as any).sub) && (item as any).sub.length > 0;
+        return (
+          <li>
+            <a href={item.href} class="irm-drawer__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+            {hasSub && (
+              <ul class="irm-drawer__sub">
+                {(item as any).sub.map((s: {label: string; href: string}) => (
+                  <li><a href={s.href} aria-current={isCurrent(s.href) ? 'page' : undefined}>{s.label}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+    <div class="irm-drawer__foot">
+      <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-drawer__tel">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72a2 2 0 0 1 1.72 2z"/></svg>
+        {NEGOCIO.telefonoFormato}
+      </a>
+      <a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+    </div>
+  </nav>
+</div>
+
+<script is:inline>
+(() => {
+  const btn = document.querySelector('[data-hamburger]');
+  const drawer = document.querySelector('[data-drawer]');
+  if (!btn || !drawer) return;
+  const open = () => {
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.classList.remove('is-open');
+    document.body.style.overflow = '';
+  };
+  btn.addEventListener('click', () => drawer.classList.contains('is-open') ? close() : open());
+  drawer.addEventListener('click', (e) => {
+    if (e.target.closest('[data-drawer-close]')) close();
+    if (e.target.closest('.irm-drawer__link, .irm-drawer__sub a')) close();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawer.classList.contains('is-open')) close(); });
+})();
+</script>

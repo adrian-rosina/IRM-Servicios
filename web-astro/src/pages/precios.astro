@@ -1,7 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
+import FaqSection from '../components/FaqSection.astro';
 import { NEGOCIO, TRAMOS, precioDia, precioMes } from '../data/negocio';
+
+const faqs = [
+  {q:'¿Cuánto cuesta el renting de un robot cortacésped?',a:'660 €/año hasta 600 m² de césped y 760 €/año hasta 1.000 m². Un solo pago anual por transferencia con robot, instalación, mantenimiento y averías incluidos. Menos de 2 € al día.'},
+  {q:'¿Qué incluye el precio?',a:'El robot, la instalación sin cable perimetral, la puesta a punto, la app configurada en tu móvil, el mantenimiento durante todo el año y las averías. Si falla, otro robot en menos de 7 días.'},
+  {q:'¿Se puede pagar al mes o solo en verano?',a:'No. El renting es anual y se paga en un solo pago por transferencia una vez instalado el robot. 660 €/año son unos 55 €/mes para comparar, pero el pago es anual para que la cuota salga lo más baja posible.'},
+  {q:'¿Hay permanencia?',a:'No hay permanencia más allá del año contratado. Al terminar: si renuevas, seguimos igual; si no, retiramos el robot y la base y tu jardín queda como estaba.'},
+  {q:'¿Y si mi jardín tiene más de 1.000 m²?',a:'Los tramos estándar llegan hasta 1.000 m². Para más superficie (fincas de bodas, campos de fútbol, comunidades) hacemos un presupuesto anual cerrado tras la demostración.'},
+  {q:'¿Comprar un robot cortacésped o alquilarlo?',a:'Comprado cuesta entre 950 y 6.000 € más instalación y mantenimiento aparte. Con el renting son 660-760 €/año todo incluido y, si se estropea, lo cambiamos nosotros. Sin inmovilizar dinero ni gestionar averías.'},
+];
 
 const title = 'Robot cortacésped: precio del renting todo incluido | IRM';
 const description = 'Precio del robot cortacésped en renting: 660 €/año hasta 600 m², 760 €/año hasta 1.000 m². Instalación, mantenimiento y averías incluidos. Menos de 2 €/día.';
@@ -40,6 +50,10 @@ const schema = [
         <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro robot en menos de 7 días</li>
       </ul>
 
+      <figure class="irm-foto irm-foto--banner" style="margin:0 0 2.5rem">
+        <img src="/img/robot-cortacesped-valladolid-chalet.webp" alt="Robot cortacésped IRM instalado en el jardín de un chalet con césped recién cortado" loading="eager" fetchpriority="high">
+      </figure>
+
       <div class="irm-grid irm-grid-2" data-stagger style="margin-top:2rem">
         {TRAMOS.map((t) => (
           <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
@@ -66,36 +80,42 @@ const schema = [
   <RobotTrail />
 
   <section class="irm-section irm-bg-hueso" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">Según tu jardín</span>
-      <h2>Cuánto cuesta un robot cortacésped según tu jardín</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Cuánto cuesta un robot cortacésped depende de una sola cosa: los metros de césped que tienes. Si has buscado «robot cortacésped precio» o «cortacésped automático precio» y solo te han salido tiendas, esta es la otra opción: no lo compras, lo tienes en renting con todo incluido durante un año.</p>
-      <table class="irm-tabla">
-        <thead><tr><th>Metros de césped</th><th>Cuota anual</th><th>Al día</th></tr></thead>
-        <tbody>
-          {TRAMOS.map((t) => (<tr><td><strong>Hasta {t.metros} m²</strong></td><td>{t.precioAnual} €/año*</td><td>{precioDia(t.precioAnual)} €</td></tr>))}
-          <tr><td><strong>Más de 1.000 m²</strong></td><td colspan="2">Consúltanos [CONFIRMAR]</td></tr>
-        </tbody>
-      </table>
-      <h3 style="margin-top:2rem">Robot cortacésped: precio al mes equivalente</h3>
-      <p style="color:var(--irm-gris)">Si te ayuda verlo como cuota mensual: {TRAMOS[0].precioAnual} € al año son unos {precioMes(TRAMOS[0].precioAnual)} €/mes, y {TRAMOS[1].precioAnual} € al año, unos {precioMes(TRAMOS[1].precioAnual)} €/mes. Lo decimos para que compares, no porque se pague así. El renting se paga en un único pago anual.</p>
+    <div class="irm-container irm-split">
+      <div>
+        <span class="irm-eyebrow">Según tu jardín</span>
+        <h2>Cuánto cuesta un robot cortacésped según tu jardín</h2>
+        <p style="max-width:62ch;color:var(--irm-gris)">Cuánto cuesta un robot cortacésped depende de una sola cosa: los metros de césped que tienes. Si has buscado «robot cortacésped precio» o «cortacésped automático precio» y solo te han salido tiendas, esta es la otra opción: no lo compras, lo tienes en renting con todo incluido durante un año.</p>
+        <table class="irm-tabla">
+          <thead><tr><th>Metros</th><th>Cuota anual</th><th>Al día</th></tr></thead>
+          <tbody>
+            {TRAMOS.map((t) => (<tr><td><strong>Hasta {t.metros} m²</strong></td><td>{t.precioAnual} €/año*</td><td>{precioDia(t.precioAnual)} €</td></tr>))}
+            <tr><td><strong>+1.000 m²</strong></td><td colspan="2">Consúltanos [CONFIRMAR]</td></tr>
+          </tbody>
+        </table>
+        <h3 style="margin-top:2rem">Robot cortacésped: precio al mes equivalente</h3>
+        <p style="color:var(--irm-gris)">{TRAMOS[0].precioAnual} €/año son unos {precioMes(TRAMOS[0].precioAnual)} €/mes y {TRAMOS[1].precioAnual} €/año unos {precioMes(TRAMOS[1].precioAnual)} €/mes. Lo decimos para que compares, no porque se pague así. El renting se paga en un único pago anual.</p>
+      </div>
+      <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;min-height:500px"><img src="/img/urbanizacion-piscina-cadiz-costa.webp" alt="Zona verde amplia con piscina y césped cortado por robot cortacésped IRM" loading="lazy" style="height:100%;object-fit:cover"></div>
     </div>
   </section>
 
   <section class="irm-section" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">Qué incluye</span>
-      <h2>Qué incluye el precio del renting</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">El precio del renting del robot de jardín es cerrado: lo que ves en la tabla es lo que pagas al año. No hay cuota de instalación, no hay mantenimiento aparte y no hay factura cuando se estropea.</p>
-      <ul class="irm-checks" style="max-width:700px;margin-top:1rem">
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>El robot cortacésped que encaja con tus metros</li>
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalación sin cable perimetral y sin obras</li>
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Puesta a punto el mismo día</li>
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>La app configurada en tu móvil</li>
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento durante todo el año</li>
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías y reparaciones, sin coste aparte</li>
-        <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Sustitución en menos de 7 días si no tiene arreglo rápido</li>
-      </ul>
+    <div class="irm-container irm-split">
+      <div>
+        <span class="irm-eyebrow">Qué incluye</span>
+        <h2>Qué incluye el precio del renting</h2>
+        <p style="max-width:62ch;color:var(--irm-gris)">El precio del renting del robot de jardín es cerrado: lo que ves en la tabla es lo que pagas al año. No hay cuota de instalación, no hay mantenimiento aparte y no hay factura cuando se estropea.</p>
+        <ul class="irm-checks" style="margin-top:1.5rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>El robot cortacésped que encaja con tus metros</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instalación sin cable perimetral y sin obras</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Puesta a punto el mismo día</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>La app configurada en tu móvil</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento durante todo el año</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías y reparaciones, sin coste aparte</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Sustitución en menos de 7 días si no tiene arreglo rápido</li>
+        </ul>
+      </div>
+      <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;height:100%;min-height:460px"><img src="/img/robot-cortacesped-sustitucion-7-dias.webp" alt="Equipo IRM entregando un robot cortacésped de sustitución al cliente dentro del plazo de 7 días" loading="lazy" style="height:100%;object-fit:cover"></div>
     </div>
   </section>
 
@@ -127,31 +147,45 @@ const schema = [
         </article>
       </div>
       <p style="margin-top:1.5rem;color:var(--irm-gris)">Tampoco tienes que buscar el mejor robot cortacésped calidad precio ni comparar fichas técnicas: elegimos nosotros el que encaja y respondemos por él todo el año.</p>
+      <figure class="irm-foto irm-foto--banner" style="margin:2.5rem 0 0"><img src="/img/robot-cortacesped-grandes-superficies-cenital.webp" alt="Vista cenital de una gran superficie con césped uniforme cortado por robots cortacésped IRM" loading="lazy"></figure>
     </div>
   </section>
 
   <section class="irm-section" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">Alternativa</span>
-      <h2>Robot cortacésped o jardinero: cuánto te ahorras al año</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Un jardinero en Madrid cobra entre 40 y 80 € por visita y en temporada viene cada dos semanas: entre 15 y 20 visitas de marzo a noviembre. Eso son entre 600 y 1.600 € al año solo por cortar el césped.</p>
-      <p style="margin-top:1rem"><a href="/blog/robot-cortacesped-o-jardinero/">Lee la comparativa completa con cifras año a año →</a></p>
+    <div class="irm-container irm-split">
+      <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;min-height:460px"><img src="/img/robot-cortacesped-cadiz-piscina.webp" alt="Robot cortacésped cortando el césped junto a una piscina sin ruido ni gasolina" loading="lazy" style="height:100%;object-fit:cover"></div>
+      <div>
+        <span class="irm-eyebrow">Alternativa</span>
+        <h2>Robot cortacésped o jardinero: cuánto te ahorras al año</h2>
+        <p style="color:var(--irm-gris)">Un jardinero en Madrid cobra entre <strong>40 y 80 € por visita</strong> y en temporada viene cada dos semanas: entre 15 y 20 visitas de marzo a noviembre. Eso son entre <strong>600 y 1.600 € al año</strong> solo por cortar el césped.</p>
+        <ul class="irm-checks" style="margin-top:1.5rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot IRM: 660 €/año, todo incluido</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>El robot corta todos los días, no cada dos semanas</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Y no se olvida ni se va de vacaciones en agosto</li>
+        </ul>
+        <p style="margin-top:1.5rem"><a href="/blog/robot-cortacesped-o-jardinero/">Lee la comparativa completa con cifras año a año →</a></p>
+      </div>
     </div>
   </section>
 
   <section class="irm-section irm-bg-hueso" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">Pago</span>
-      <h2>Cómo se paga el alquiler del robot cortacésped</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Un pago una vez al año, por transferencia y normalmente cuando ya está instalado y cortando. Sin domiciliaciones, sin cuotas mensuales y sin pagar la cuota antes de ver el robot funcionando en tu jardín.</p>
-      <div class="irm-steps" style="grid-template-columns:1fr;margin-top:2rem">
-        <article class="irm-step"><h3>Demostración: {NEGOCIO.demoEuros} €*</h3><p style="color:var(--irm-gris)">Vamos a tu casa, estudiamos el jardín y dejamos un robot cortando de prueba. Los {NEGOCIO.demoEuros} € se descuentan íntegros si sigues adelante.</p></article>
-        <article class="irm-step"><h3>Instalación</h3><p style="color:var(--irm-gris)">Instalamos el robot sin cable perimetral, lo dejamos a punto y te configuramos la app. 0 € aparte.</p></article>
-        <article class="irm-step"><h3>Transferencia anual</h3><p style="color:var(--irm-gris)">Con el robot ya cortando, pagas la cuota del año por transferencia y te olvidas del césped.</p></article>
+    <div class="irm-container irm-split">
+      <div>
+        <span class="irm-eyebrow">Pago</span>
+        <h2>Cómo se paga el alquiler del robot cortacésped</h2>
+        <p style="color:var(--irm-gris)">Un pago una vez al año, por transferencia y normalmente cuando ya está instalado y cortando. Sin domiciliaciones, sin cuotas mensuales y sin pagar la cuota antes de ver el robot funcionando en tu jardín.</p>
+        <div class="irm-steps" style="grid-template-columns:1fr;margin-top:2rem">
+          <article class="irm-step"><h3>Demostración: {NEGOCIO.demoEuros} €*</h3><p style="color:var(--irm-gris)">Vamos a tu casa, estudiamos el jardín y dejamos un robot cortando de prueba. Los {NEGOCIO.demoEuros} € se descuentan íntegros si sigues adelante.</p></article>
+          <article class="irm-step"><h3>Instalación</h3><p style="color:var(--irm-gris)">Instalamos el robot sin cable perimetral, lo dejamos a punto y te configuramos la app. 0 € aparte.</p></article>
+          <article class="irm-step"><h3>Transferencia anual</h3><p style="color:var(--irm-gris)">Con el robot ya cortando, pagas la cuota del año por transferencia y te olvidas del césped.</p></article>
+        </div>
+        <p class="irm-nota" style="margin-top:1.5rem">Al terminar el año, [CONFIRMAR renovación/retirada/cambio]. No hay permanencia más allá del año.</p>
       </div>
-      <p class="irm-nota" style="margin-top:1.5rem">Al terminar el año, [CONFIRMAR renovación/retirada/cambio]. No hay permanencia más allá del año.</p>
+      <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;min-height:520px"><img src="/img/robot-cortacesped-interior-electronica.webp" alt="Interior electrónico de un robot cortacésped IRM durante el mantenimiento incluido en el renting" loading="lazy" style="height:100%;object-fit:cover"></div>
     </div>
   </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ · Precios" title="Preguntas frecuentes sobre el precio del renting" intro="Lo que nos preguntan antes de cerrar el presupuesto anual." />
 
   <section class="irm-section irm-bg-lima">
     <div class="irm-container irm-cta-final">

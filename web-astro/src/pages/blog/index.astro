@@ -1,40 +1,141 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RobotTrail from '../../components/RobotTrail.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import { getCollection } from 'astro:content';
+import { NEGOCIO } from '../../data/negocio';
+
 const posts = (await getCollection('articulos', ({ data }) => !data.draft))
   .sort((a, b) => +b.data.fecha - +a.data.fecha);
+const featured = posts[0];
+const rest = posts.slice(1);
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: 'Blog · IRM Servicios',
-  url: new URL('/blog/', Astro.site).toString(),
-};
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Blog · IRM Servicios',
+    url: new URL('/blog/', Astro.site).toString(),
+    description: 'Guías y comparativas sobre robots cortacésped en renting en Madrid.',
+    publisher: { '@type': 'Organization', name: NEGOCIO.nombre, url: NEGOCIO.url },
+    blogPost: posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.data.titulo,
+      datePublished: p.data.fecha.toISOString(),
+      url: new URL(`/blog/${p.id}/`, Astro.site).toString(),
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: NEGOCIO.url + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog' },
+    ],
+  },
+];
+
+const fechaES = (d: Date) => d.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+
+const faqs = [
+  {q:'¿Qué temas se tratan en el blog de IRM Servicios?',a:'Guías honestas sobre robots cortacésped en Madrid: precio del renting, comparativas con jardinero, cómo elegir modelo, instalación sin cable perimetral, pendientes y zonas separadas.'},
+  {q:'¿Cada cuánto publicáis artículos nuevos?',a:'Publicamos cuando tenemos algo útil que decir. Mejor pocos artículos con datos reales que mucho contenido vacío. Guarda la página o suscríbete a nuestro Instagram para no perderte las novedades.'},
+  {q:'¿Puedo citar artículos del blog en redes o en otra web?',a:'Sí, con atribución y enlace al artículo original. Los datos y cifras los puedes usar; el texto literal, con cita.'},
+];
 ---
 <BaseLayout
-  title="Blog sobre robots cortacésped y jardinería en Madrid · IRM"
-  description="Guías honestas sobre robots cortacésped: cuál elegir, qué precio tienen, cómo se comparan con un jardinero y cómo se instalan sin cable perimetral."
-  schema={schema}>
-  <section class="irm-section">
-    <div class="irm-container">
-      <span class="irm-eyebrow">Blog</span>
-      <h1>Robots cortacésped y jardinería en Madrid</h1>
-      <p style="max-width:62ch;color:var(--irm-gris)">Las dudas que nos llegan por teléfono, respondidas con cifras reales y sin rodeos: precios, comparativas con jardinero, cómo funciona el renting y qué robot encaja con cada jardín.</p>
+  title="Blog sobre robots cortacésped en Madrid · IRM Servicios"
+  description="Guías honestas sobre robots cortacésped en renting en Madrid: precios, comparativas con jardinero, cómo elegir modelo, instalación sin cable perimetral."
+  {schema}>
 
-      <div class="irm-blog-grid" data-stagger>
-        {posts.map((post) => (
-          <a href={`/blog/${post.id}/`} class="irm-card irm-card--link">
-            {post.data.portada && (
-              <div class="irm-foto irm-foto--card"><img src={post.data.portada.src} alt={post.data.alt ?? post.data.titulo} loading="lazy" /></div>
-            )}
-            <div class="irm-card-body">
-              <h2 style="font-size:1.25rem;margin-bottom:.75rem">{post.data.titulo}</h2>
-              <p style="color:var(--irm-gris)">{post.data.extracto}</p>
-              <span class="irm-arrow">Leer artículo →</span>
-            </div>
-          </a>
-        ))}
+  <!-- HERO blog -->
+  <section class="irm-section irm-bg-hueso irm-blog-hero" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Blog · IRM Servicios</span>
+      <h1>Todo lo que necesitas saber sobre <span class="irm-destacado--claro">robots cortacésped</span> en Madrid</h1>
+      <p class="irm-entradilla" style="color:var(--irm-gris);max-width:62ch">Las dudas que nos llegan por teléfono, respondidas con cifras reales y sin rodeos: precios del alquiler anual, comparativas con jardinero, cómo funciona el renting y qué robot encaja con cada jardín.</p>
+      <div class="irm-blog-hero-meta">
+        <span class="irm-blog-hero-meta__item"><strong>{posts.length}</strong> artículos</span>
+        <span class="irm-blog-hero-meta__sep">·</span>
+        <span class="irm-blog-hero-meta__item">Actualizado {fechaES(new Date())}</span>
+        <span class="irm-blog-hero-meta__sep">·</span>
+        <span class="irm-blog-hero-meta__item">Por el equipo de IRM</span>
       </div>
     </div>
   </section>
+
+  <RobotTrail />
+
+  <!-- Post destacado -->
+  {featured && (
+    <section class="irm-section" data-anim>
+      <div class="irm-container">
+        <span class="irm-eyebrow">Destacado</span>
+        <h2>Lo último</h2>
+        <a href={`/blog/${featured.id}/`} class="irm-blog-featured">
+          <div class="irm-blog-featured__img">
+            {featured.data.portada && <img src={featured.data.portada} alt={featured.data.alt ?? featured.data.titulo} loading="eager" fetchpriority="high" />}
+            <span class="irm-blog-featured__badge">{featured.data.categoria}</span>
+          </div>
+          <div class="irm-blog-featured__body">
+            <div class="irm-blog-meta">
+              <time datetime={featured.data.fecha.toISOString()}>{fechaES(featured.data.fecha)}</time>
+              {featured.data.minutos && <><span>·</span><span>{featured.data.minutos} min de lectura</span></>}
+              <span>·</span>
+              <span>{featured.data.autor}</span>
+            </div>
+            <h3>{featured.data.titulo}</h3>
+            <p>{featured.data.extracto}</p>
+            <span class="irm-blog-featured__cta">Leer el artículo <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- Grid resto -->
+  {rest.length > 0 && (
+    <section class="irm-section irm-bg-hueso" data-anim>
+      <div class="irm-container">
+        <span class="irm-eyebrow">Todos los artículos</span>
+        <h2>Más guías sobre robots cortacésped</h2>
+        <div class="irm-blog-grid" data-stagger>
+          {rest.map((post) => (
+            <a href={`/blog/${post.id}/`} class="irm-blog-card">
+              <div class="irm-blog-card__img">
+                {post.data.portada && <img src={post.data.portada} alt={post.data.alt ?? post.data.titulo} loading="lazy" />}
+                <span class="irm-blog-card__badge">{post.data.categoria}</span>
+              </div>
+              <div class="irm-blog-card__body">
+                <div class="irm-blog-meta">
+                  <time datetime={post.data.fecha.toISOString()}>{fechaES(post.data.fecha)}</time>
+                  {post.data.minutos && <><span>·</span><span>{post.data.minutos} min</span></>}
+                </div>
+                <h3>{post.data.titulo}</h3>
+                <p>{post.data.extracto}</p>
+                <span class="irm-blog-card__cta">Leer artículo →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="irm-section irm-bg-negro" data-anim>
+    <div class="irm-container irm-cta-final">
+      <div>
+        <span class="irm-eyebrow">¿Lo probamos en tu jardín?</span>
+        <h2>Mejor que leer sobre robots: ver <span class="irm-destacado">uno cortando</span> tu césped</h2>
+        <p style="color:#B5B9B2">Vamos a tu casa, medimos el jardín y te dejamos un robot cortando de prueba. Si contratas, los {NEGOCIO.demoEuros} € de la demostración se descuentan de la cuota anual.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem">
+          <a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">{NEGOCIO.telefonoFormato}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ · Blog" title="Preguntas frecuentes sobre el blog" />
 </BaseLayout>

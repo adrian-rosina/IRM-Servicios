@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import RobotTrail from '../components/RobotTrail.astro';
+import FaqSection from '../components/FaqSection.astro';
 
 export async function getStaticPaths() {
   const zonas = await getCollection('zonas');
@@ -13,6 +14,13 @@ export async function getStaticPaths() {
 const { zona } = Astro.props;
 const { Content } = await render(zona);
 const d = zona.data;
+
+const faqs = [
+  {q:`¿Hacéis instalación de robot cortacésped en ${d.provincia}?`,a:`Sí. Vamos nosotros desde Madrid: medimos el jardín, instalamos el robot sin cable perimetral y lo dejamos cortando el mismo día. Después mantenimiento y averías entran en la cuota anual.`},
+  {q:`¿Cuánto cuesta el renting de robot cortacésped en ${d.provincia}?`,a:'660 €/año hasta 600 m² de césped y 760 €/año hasta 1.000 m². Un solo pago anual con robot, instalación, mantenimiento y averías incluidos.'},
+  {q:'¿Qué pasa si el robot falla y vosotros estáis en Madrid?',a:'Nos llamas y en menos de 7 días está arreglado o te instalamos otro. El desplazamiento está incluido en la cuota: no te cobramos la visita.'},
+  {q:`¿Se puede ver una demostración antes de contratar en ${d.provincia}?`,a:'Sí. Vamos a tu casa, estudiamos el jardín y te dejamos un robot cortando de prueba. Son 175 € que se descuentan íntegros de la cuota anual si contratas.'},
+];
 
 const schema = {
   '@context': 'https://schema.org', '@type': 'Service',
@@ -26,6 +34,7 @@ const schema = {
         entradilla="Instalación, mantenimiento y averías incluidos." imagen={d.imagen} alt={d.alt} />
   <RobotTrail />
   <section class="irm-section"><div class="irm-container"><Content /></div></section>
+  <FaqSection faqs={faqs} eyebrow={`FAQ · ${d.provincia}`} title={`Preguntas frecuentes sobre robots cortacésped en ${d.provincia}`} intro={`Lo que nos preguntan quienes buscan robot cortacésped en ${d.provincia}.`} />
   <p class="irm-container">Consulta el <a href="/precios/">precio del renting</a> o vuelve al
     <a href="/">renting de robots cortacésped</a>.</p>
 </BaseLayout>

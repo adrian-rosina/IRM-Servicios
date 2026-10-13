@@ -1,0 +1,73 @@
+---
+// src/components/BeforeAfter.astro — comparador antes/después con slider arrastrable
+interface Props {
+  srcBefore: string;
+  altBefore: string;
+  srcAfter: string;
+  altAfter: string;
+  labelBefore?: string;
+  labelAfter?: string;
+  aspect?: string;
+}
+const {
+  srcBefore, altBefore, srcAfter, altAfter,
+  labelBefore = 'Antes', labelAfter = 'Después', aspect = '16/10',
+} = Astro.props;
+---
+<div class="irm-ba" style={`aspect-ratio:${aspect}`} data-ba>
+  <img class="irm-ba__img irm-ba__img--before" src={srcBefore} alt={altBefore} loading="lazy" />
+  <img class="irm-ba__img irm-ba__img--after" src={srcAfter} alt={altAfter} loading="lazy" />
+  <span class="irm-ba__label irm-ba__label--before">{labelBefore}</span>
+  <span class="irm-ba__label irm-ba__label--after">{labelAfter}</span>
+  <div class="irm-ba__slider">
+    <div class="irm-ba__line"></div>
+    <button type="button" class="irm-ba__handle" aria-label="Comparar antes y después" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+(() => {
+  const bas = document.querySelectorAll('[data-ba]');
+  bas.forEach((ba) => {
+    const after = ba.querySelector('.irm-ba__img--after');
+    const slider = ba.querySelector('.irm-ba__slider');
+    const handle = ba.querySelector('.irm-ba__handle');
+    const setPos = (p) => {
+      const pct = Math.max(0, Math.min(100, p));
+      after.style.clipPath = `inset(0 0 0 ${pct}%)`;
+      slider.style.left = `${pct}%`;
+      handle.setAttribute('aria-valuenow', String(Math.round(pct)));
+    };
+    setPos(50);
+    const toPct = (clientX) => {
+      const rect = ba.getBoundingClientRect();
+      return ((clientX - rect.left) / rect.width) * 100;
+    };
+    let dragging = false;
+    const start = (e) => { dragging = true; e.preventDefault(); };
+    const move = (e) => {
+      if (!dragging) return;
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      setPos(toPct(cx));
+    };
+    const end = () => { dragging = false; };
+    handle.addEventListener('mousedown', start);
+    handle.addEventListener('touchstart', start, { passive: false });
+    window.addEventListener('mousemove', move, { passive: true });
+    window.addEventListener('touchmove', move, { passive: true });
+    window.addEventListener('mouseup', end);
+    window.addEventListener('touchend', end);
+    ba.addEventListener('click', (e) => {
+      if (handle.contains(e.target)) return;
+      setPos(toPct(e.clientX));
+    });
+    handle.addEventListener('keydown', (e) => {
+      const cur = parseFloat(slider.style.left) || 50;
+      if (e.key === 'ArrowLeft') { setPos(cur - 5); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { setPos(cur + 5); e.preventDefault(); }
+    });
+  });
+})();
+</script>

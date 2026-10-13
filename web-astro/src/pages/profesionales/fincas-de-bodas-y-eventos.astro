@@ -1,7 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RobotTrail from '../../components/RobotTrail.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import { NEGOCIO } from '../../data/negocio';
+
+const faqs = [
+  {q:'¿Un robot cortacésped sirve para una finca de bodas?',a:'Sí. Es la forma más fácil de tener el césped de foto cada fin de semana sin depender de que venga el jardinero el viernes. El corte diario mantiene la altura uniforme toda la temporada.'},
+  {q:'¿El robot hace ruido durante la ceremonia?',a:'No. Es eléctrico y apenas se oye. Se programa para no cortar durante los eventos: puede trabajar de madrugada o entre bodas sin que ningún invitado lo note.'},
+  {q:'¿Cómo trabaja en jardines con varias zonas separadas?',a:'Los robots que instalamos no necesitan cable perimetral, así que mapeamos cada prado por separado (ceremonia, cóctel, zona de fotos) y le indicamos los caminos de grava que no debe pisar.'},
+  {q:'¿Qué pasa si falla en plena temporada?',a:'En menos de 7 días está arreglado o te instalamos otro. El mantenimiento, las averías y la sustitución entran en la cuota: tu temporada no se detiene por un fallo técnico.'},
+  {q:'¿Cuánto cuesta para una finca de bodas?',a:'Hacemos presupuesto cerrado anual tras una visita a tu finca. Como superas los 1.000 m² estándar, no entras en los tramos de la web: te preparamos una propuesta a medida.'},
+];
 
 const title = 'Robot cortacésped para fincas de bodas y eventos | IRM';
 const description = 'Robot cortacésped para fincas de bodas en Madrid: césped perfecto cada fin de semana, silencioso en ceremonias y, si falla, otro en menos de 7 días.';
@@ -96,6 +105,8 @@ const schema = {
   <section class="irm-section">
     <div class="irm-container"><div class="irm-cta-strip"><h3>¿Lo vemos en tu finca antes de la temporada?</h3><a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Solicita una demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div></div>
   </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ · Fincas de bodas" title="Preguntas frecuentes sobre robots cortacésped en fincas de bodas y eventos" intro="Lo que preguntan las propietarias de finca antes de la temporada." />
 
   <section class="irm-section irm-bg-lima">
     <div class="irm-container irm-cta-final">

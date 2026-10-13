@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../../data/negocio';
+
+const title = 'Robot cortacésped para fincas de bodas · temporada 2027 | IRM';
+const description = 'Robot cortacésped en renting para fincas de bodas: césped de foto cada fin de semana, silencio en la ceremonia y sustitución en 7 días si falla. Agenda temporada 2027.';
+---
+<BaseLayout {title} {description} noindex>
+  <section class="irm-section irm-bg-negro irm-hero">
+    <div class="irm-container irm-hero-grid">
+      <div>
+        <span class="irm-eyebrow" style="color:var(--irm-lima)">Campaña · temporada 2027</span>
+        <h1>Césped de foto cada sábado: robot cortacésped para fincas de <span class="irm-destacado">bodas</span></h1>
+        <p class="irm-entradilla">Si tienes bodas desde abril a octubre, el césped tiene que estar impecable el sábado. Y silencioso durante la ceremonia. Esto resuelve las dos cosas.</p>
+        <ul class="irm-checks" data-stagger style="margin:1.5rem 0 2rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Corte diario automático, silencioso y sin gasolina</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Un coste anual cerrado para toda la temporada</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla en plena temporada, otro robot en menos de 7 días</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Demostración en tu finca antes de contratar</li>
+        </ul>
+        <div class="irm-hero-ctas">
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-primary">Reserva demostración · {NEGOCIO.telefonoFormato} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">WhatsApp</a>
+        </div>
+      </div>
+      <form class="irm-form-card" action="#" method="post">
+        <h3 style="margin-top:0">Pide tu demostración</h3>
+        <div class="irm-form-grid">
+          <div class="irm-field"><label for="n">Nombre</label><input id="n" name="nombre" type="text" required></div>
+          <div class="irm-field"><label for="finca">Finca o evento</label><input id="finca" name="finca" type="text" required></div>
+          <div class="irm-field"><label for="t">Teléfono</label><input id="t" name="telefono" type="tel" required></div>
+          <div class="irm-field"><label for="mp">Municipio</label><input id="mp" name="municipio" type="text" required></div>
+          <div class="irm-field"><label for="m2">Metros de césped (aprox.)</label>
+            <select id="m2" name="m2" required>
+              <option value="">Elige una opción</option>
+              <option>Hasta 1.000 m²</option><option>De 1.000 a 3.000 m²</option><option>Más de 3.000 m²</option>
+            </select>
+          </div>
+          <div class="irm-field irm-field-check"><input id="rgpd" name="rgpd" type="checkbox" required><label for="rgpd">He leído y acepto la <a href="/politica-de-privacidad/">política de privacidad</a>.</label></div>
+          <input type="hidden" name="utm_campaign" value="fincas-bodas-2027">
+          <button type="submit" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+          <p class="irm-nota" style="text-align:center">Nos pasamos por tu finca y te dejamos un robot cortando de prueba.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso">
+    <div class="irm-container">
+      <span class="irm-eyebrow">Para la temporada 2027</span>
+      <h2>Qué resolvemos antes de que empiecen las bodas</h2>
+      <div class="irm-grid irm-grid-3" data-stagger style="margin-top:2.5rem">
+        <article class="irm-card"><h3>El césped siempre a punto</h3><p style="color:var(--irm-gris)">Corte diario a la misma altura: el martes de la visita y el sábado del evento se ve igual.</p></article>
+        <article class="irm-card"><h3>Silencio durante la ceremonia</h3><p style="color:var(--irm-gris)">Sin ruido de motor en el momento clave. El robot corta por la noche o entre eventos.</p></article>
+        <article class="irm-card"><h3>Coste anual cerrado</h3><p style="color:var(--irm-gris)">Una línea de presupuesto para toda la temporada, con mantenimiento y averías dentro.</p></article>
+      </div>
+      <p style="margin-top:2rem">Más detalles en la página de <a href="/profesionales/fincas-de-bodas-y-eventos/">fincas de bodas y eventos</a>.</p>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-lima">
+    <div class="irm-container" style="text-align:center">
+      <h2>Si tienes temporada en 2027, cerremos antes de febrero</h2>
+      <p style="color:var(--irm-negro);max-width:52ch;margin-inline:auto">Instalamos en febrero-marzo para que el césped esté perfecto desde la primera visita de abril.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;justify-content:center">
+        <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-primary">Llama · {NEGOCIO.telefonoFormato} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

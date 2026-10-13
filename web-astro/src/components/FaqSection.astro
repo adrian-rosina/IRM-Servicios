@@ -1,0 +1,39 @@
+---
+// src/components/FaqSection.astro
+// FAQ reutilizable con JSON-LD FAQPage por página (citación en IAs/AI Overviews/ChatGPT/Perplexity)
+interface FaqItem { q: string; a: string }
+interface Props {
+  faqs: FaqItem[];
+  title?: string;
+  eyebrow?: string;
+  intro?: string;
+  bg?: 'hueso' | 'blanco' | 'negro';
+}
+const { faqs, title = 'Preguntas frecuentes', eyebrow = 'FAQ', intro, bg = 'hueso' } = Astro.props;
+const bgClass = bg === 'blanco' ? '' : bg === 'negro' ? 'irm-bg-negro' : 'irm-bg-hueso';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<section class={`irm-section ${bgClass}`.trim()} data-anim>
+  <div class="irm-container">
+    <span class="irm-eyebrow">{eyebrow}</span>
+    <h2>{title}</h2>
+    {intro && <p style="max-width:62ch;color:var(--irm-gris)">{intro}</p>}
+    <div class="irm-faq" style="margin-top:2.5rem">
+      {faqs.map((f, i) => (
+        <details open={i === 0}>
+          <summary>{f.q}</summary>
+          <div class="irm-faq-body"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>

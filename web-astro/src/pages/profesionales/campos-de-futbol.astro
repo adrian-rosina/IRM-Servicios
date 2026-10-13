@@ -1,7 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RobotTrail from '../../components/RobotTrail.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import { NEGOCIO } from '../../data/negocio';
+
+const faqs = [
+  {q:'¿Un robot cortacésped sirve para un campo de fútbol?',a:'Sí. El corte diario a altura uniforme es lo que mejor mantiene el césped de un campo deportivo. En superficies grandes instalamos varios robots coordinados por la app.'},
+  {q:'¿Cuántos robots hacen falta para un campo de fútbol?',a:'Depende del tamaño. Un campo estándar (unos 7.000 m²) necesita varios robots trabajando en paralelo. Lo medimos en la visita y hacemos presupuesto cerrado.'},
+  {q:'¿El robot puede cortar durante los entrenamientos?',a:'No conviene que cojan ni la línea del balón ni los pies de los jugadores. Se programa para cortar entre entrenamientos y partidos: de madrugada o cuando el campo está vacío.'},
+  {q:'¿Qué pasa si un robot se para a mitad de liga?',a:'En menos de 7 días está arreglado o te instalamos otro cortando. El mantenimiento y las averías van dentro de la cuota anual: ningún gasto imprevisto para el club.'},
+  {q:'¿Cómo se presenta a la junta directiva?',a:'Como una línea de presupuesto anual cerrada, sin gasto variable ni facturas sueltas. Entregamos el presupuesto por escrito tras la demostración.'},
+];
 
 const title = 'Robot cortacésped para campos de fútbol | Renting IRM Madrid';
 const description = 'Robot cortacésped para campos de fútbol en Madrid: corte diario automático, mantenimiento y averías incluidos y un coste anual cerrado para el club.';
@@ -74,6 +83,8 @@ const schema = {
   <section class="irm-section">
     <div class="irm-container"><div class="irm-cta-strip"><h3>¿Lo vemos en tu campo?</h3><a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Solicita una demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div></div>
   </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ · Campos de fútbol" title="Preguntas frecuentes sobre robots cortacésped en campos de fútbol" intro="Lo que nos preguntan clubes, delegados y mantenimiento municipal antes de pedir presupuesto." />
 
   <section class="irm-section irm-bg-lima">
     <div class="irm-container irm-cta-final">

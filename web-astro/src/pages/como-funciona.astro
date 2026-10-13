@@ -1,7 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
+import FaqSection from '../components/FaqSection.astro';
 import { NEGOCIO, TRAMOS } from '../data/negocio';
+
+const faqs = [
+  {q:'¿Cómo funciona un robot cortacésped sin cable perimetral?',a:'Sale cada día de su base, corta un poco y vuelve solo a cargarse. No hay cable enterrado alrededor del jardín: aprende el perímetro con sensores y GPS el día de la instalación.'},
+  {q:'¿Cuánto tarda la instalación del robot cortacésped?',a:'Una sola mañana. Medimos el jardín, colocamos la base, mapeamos las zonas por las que puede pasar y las que no, configuramos la app en tu móvil y lo dejamos cortando antes de irnos.'},
+  {q:'¿Hay obras o zanjas durante la instalación?',a:'No. Sin cable perimetral no hay que levantar césped ni abrir zanjas. La base necesita un enchufe cerca y poco más.'},
+  {q:'¿El robot sirve para jardines con pendiente?',a:'En la mayoría de casos, sí. Los robots que instalamos aceptan pendiente razonable y lo comprobamos en la demostración antes de que pagues la cuota.'},
+  {q:'¿Qué tamaño de jardín cubre el renting?',a:'Hasta 1.000 m² de césped. Dos tramos: 660 €/año hasta 600 m² y 760 €/año hasta 1.000 m². Para fincas y campos de fútbol, presupuesto a medida.'},
+  {q:'¿Qué pasa en invierno?',a:'El césped de Madrid deja de crecer entre noviembre y marzo. El robot descansa en la base durante el invierno, pero el mantenimiento, la app y la garantía de sustitución siguen activos.'},
+];
 
 const title = 'Robot cortacésped sin cable perimetral: cómo funciona | IRM';
 const description = 'Robot cortacésped sin cable perimetral: sin zanjas ni obras, cortando el mismo día. Para pendientes y céspedes de hasta 1.000 m². Incluido en el renting.';
@@ -119,6 +129,8 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ" title="Preguntas frecuentes sobre cómo funciona el robot cortacésped" intro="Lo que nos preguntan por teléfono antes de reservar la demostración." />
 
   <section class="irm-section irm-bg-lima">
     <div class="irm-container irm-cta-final">

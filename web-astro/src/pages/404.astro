@@ -1,14 +1,52 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../data/negocio';
 ---
 <BaseLayout title="Página no encontrada · IRM Servicios" description="La página que buscas no existe." noindex={true}>
-  <section class="irm-section" style="text-align:center">
-    <div class="irm-container">
-      <span class="irm-eyebrow">Error 404</span>
-      <h1>No encontramos esa página.</h1>
-      <p style="color:var(--irm-gris)">Puede que el enlace esté roto o que la página haya cambiado.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;justify-content:center">
-        <a href="/" class="irm-btn irm-btn-primary">Volver al inicio <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  <section class="irm-404">
+    <div class="irm-container irm-404__inner">
+      <div class="irm-404__content">
+        <span class="irm-eyebrow">Error 404 · Jardín no encontrado</span>
+        <div class="irm-404__big" aria-hidden="true">
+          <span class="irm-404__digit">4</span>
+          <span class="irm-404__robot">
+            <img src="/img/robot-cortacesped-trail.webp" alt="" width="140" height="128"/>
+            <span class="irm-404__chip" style="--d:0s;--dx:-20px;--dh:-28px;--rot:140deg"></span>
+            <span class="irm-404__chip" style="--d:.15s;--dx:-30px;--dh:-20px;--rot:-80deg"></span>
+            <span class="irm-404__chip" style="--d:.3s;--dx:-14px;--dh:-32px;--rot:210deg"></span>
+          </span>
+          <span class="irm-404__digit">4</span>
+        </div>
+        <h1>Este jardín no está en nuestra ruta</h1>
+        <p class="irm-entradilla" style="color:var(--irm-gris);max-width:52ch;margin-inline:auto">El robot se ha ido buscando esa página y no la ha encontrado. Puede que el enlace esté roto o que la página haya cambiado de dirección. Vuelve atrás o salta a una de estas:</p>
+
+        <div class="irm-404__grid">
+          <a href="/" class="irm-404__link">
+            <span class="irm-404__num">01</span>
+            <strong>Inicio</strong>
+            <small>Alquiler de robots en Madrid</small>
+          </a>
+          <a href="/precios/" class="irm-404__link">
+            <span class="irm-404__num">02</span>
+            <strong>Precios</strong>
+            <small>Desde 660 €/año todo incluido</small>
+          </a>
+          <a href="/como-funciona/" class="irm-404__link">
+            <span class="irm-404__num">03</span>
+            <strong>Cómo funciona</strong>
+            <small>Instalación sin cable, en una visita</small>
+          </a>
+          <a href="/demostracion/" class="irm-404__link">
+            <span class="irm-404__num">04</span>
+            <strong>Demostración</strong>
+            <small>Vamos a tu jardín con un robot</small>
+          </a>
+        </div>
+
+        <div class="irm-404__ctas">
+          <a href="/" class="irm-btn irm-btn-primary">Volver al inicio <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">O llámanos · {NEGOCIO.telefonoFormato}</a>
+        </div>
       </div>
     </div>
   </section>

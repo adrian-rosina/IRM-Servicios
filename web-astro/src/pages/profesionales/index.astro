@@ -1,7 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RobotTrail from '../../components/RobotTrail.astro';
+import FaqSection from '../../components/FaqSection.astro';
 import { NEGOCIO } from '../../data/negocio';
+
+const faqs = [
+  {q:'¿El renting funciona para fincas de bodas o campos de fútbol?',a:'Sí: ya cortamos césped de fincas de bodas y campos de fútbol en Madrid. El robot es el mismo, solo cambia la superficie: hacemos un presupuesto anual cerrado tras una visita a tus instalaciones.'},
+  {q:'¿Cuánto cuesta para una finca o un campo?',a:'A partir de los tramos estándar (660 € y 760 €/año) se dispara según metros y número de robots necesarios. Por eso hacemos un presupuesto a medida tras la demostración.'},
+  {q:'¿Qué pasa si el robot falla en plena temporada?',a:'En menos de 7 días lo tienes arreglado o te instalamos otro. El mantenimiento y las averías van dentro de la cuota, así que el gasto no cambia aunque haya que sustituirlo.'},
+  {q:'¿El robot molesta durante una boda o un partido?',a:'No. Es eléctrico, no hace apenas ruido y se programa desde la app: puede cortar de madrugada, entre eventos o cuando no haya nadie. No tiene gasolina ni tubo de escape.'},
+  {q:'¿Hace falta un jardinero además del robot?',a:'Depende del espacio. El robot deja el césped cortado y a altura uniforme todos los días; el jardinero puede dedicar su tiempo a bordes, parterres o árboles en vez de pasar horas segando.'},
+];
 
 const title = 'Robot cortacésped para grandes superficies | IRM Madrid';
 const description = 'Renting de robot cortacésped para grandes superficies en Madrid: fincas de bodas, campos de fútbol y comunidades. Coste anual cerrado, averías incluidas.';
@@ -118,6 +127,8 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ · Profesionales" title="Preguntas frecuentes sobre el renting para profesionales" intro="Lo que preguntan las fincas de bodas, los clubes y las comunidades antes de pedir presupuesto." />
 
   <section class="irm-section irm-bg-lima">
     <div class="irm-container irm-cta-final">

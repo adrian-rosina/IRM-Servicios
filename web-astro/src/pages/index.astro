@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
 import { Image } from 'astro:assets';
 import { NEGOCIO, TRAMOS, ZONAS, precioDia } from '../data/negocio';
 import heroImg from '../assets/robot-cortacesped-madrid-amanecer-hero.webp';
@@ -12,8 +13,26 @@ const schema = [
   {
     '@context': 'https://schema.org', '@type': 'LocalBusiness',
     '@id': `${NEGOCIO.url}/#negocio`,
-    name: NEGOCIO.nombre, url: NEGOCIO.url,
+    name: NEGOCIO.nombre,
+    legalName: NEGOCIO.titular,
+    taxID: NEGOCIO.nif,
+    url: NEGOCIO.url,
     telephone: `+34${NEGOCIO.telefono}`,
+    email: NEGOCIO.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Avenida de Madrid, 121',
+      postalCode: '47140',
+      addressLocality: 'Laguna de Duero',
+      addressRegion: 'Valladolid',
+      addressCountry: 'ES',
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '20:00',
+    },
     areaServed: ['Comunidad de Madrid', 'Valladolid', 'Segovia', 'Toledo', 'Cádiz'],
     priceRange: '€€',
     sameAs: [`https://instagram.com/${NEGOCIO.instagram}`],
@@ -56,10 +75,18 @@ const schema = [
         <p class="irm-hero-sub">Renting anual con <strong>instalación, mantenimiento y averías incluidos</strong>. Sin cable perimetral y también para jardines con pendiente.</p>
 
         <div class="irm-hero-ctas irm-hero-ctas--v2">
-          <a href="/demostracion/" class="irm-btn irm-btn-amber">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           <a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a>
         </div>
         <div class="irm-hero-tel--v2"><span>Llama a</span><a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></div>
+
+        <button type="button" class="irm-hero-video-link" data-video-open aria-haspopup="dialog" aria-controls="irm-hero-video-modal">
+          <span class="irm-hero-video-link__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="8 5 20 12 8 19" fill="currentColor"/></svg>
+          </span>
+          <span>Ver vídeo</span>
+          <svg class="irm-hero-video-link__arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
 
         <div class="irm-marquee-wrap" aria-hidden="true">
           <span class="irm-marquee-label">Ya instalamos en</span>
@@ -74,7 +101,8 @@ const schema = [
     </div>
     <div class="irm-hero-split-right">
       <video autoplay muted loop playsinline preload="metadata" poster={heroImg.src} aria-hidden="true">
-        <source src="/video/hero-alt.mp4" type="video/mp4">
+        <source src="/video/hero-silent.webm" type="video/webm">
+        <source src="/video/hero-silent.mp4" type="video/mp4">
       </video>
       <div class="irm-hero-noise"></div>
       <div class="irm-hero-chips-abs" data-stagger>
@@ -82,9 +110,38 @@ const schema = [
         <span class="irm-chip"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencioso</span>
         <span class="irm-chip"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> Desde el móvil</span>
       </div>
-      <div class="irm-insignia">RENTING<strong>IRM</strong>CON SERVICIO</div>
     </div>
   </section>
+
+  <dialog id="irm-hero-video-modal" class="irm-video-modal" aria-label="Vídeo completo IRM Servicios">
+    <button type="button" class="irm-video-modal__close" data-video-close aria-label="Cerrar vídeo">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <video controls preload="metadata" playsinline poster={heroImg.src}>
+      <source src="/video/hero-alt.mp4" type="video/mp4">
+    </video>
+  </dialog>
+
+  <script is:inline>
+    (() => {
+      const openBtn = document.querySelector('[data-video-open]');
+      const modal = document.getElementById('irm-hero-video-modal');
+      if (!openBtn || !modal) return;
+      const closeBtn = modal.querySelector('[data-video-close]');
+      const vid = modal.querySelector('video');
+      const open = () => {
+        if (!modal.open) modal.showModal();
+        vid.currentTime = 0;
+        vid.muted = false;
+        vid.play().catch(() => { vid.muted = true; vid.play(); });
+      };
+      const close = () => { vid.pause(); if (modal.open) modal.close(); };
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+      modal.addEventListener('close', () => vid.pause());
+    })();
+  </script>
 
   <RobotTrail />
 
@@ -94,9 +151,12 @@ const schema = [
       <span class="irm-eyebrow">El renting</span>
       <h2>Tu robot cortacésped en Madrid, sin <span class="irm-destacado--claro">comprarlo</span></h2>
       <p style="max-width:62ch;color:var(--irm-gris)">Pagas una cuota al año y te olvidas del césped. El robot es nuestro, el jardín es tuyo: lo instalamos, lo mantenemos y, si se estropea, lo cambiamos. Lo llaman de muchas formas: cortacésped automático, robot segadora, segadora automática, cortacésped que va solo. Nosotros lo llamamos la forma más fácil de tener el césped bien en Madrid.</p>
+      <figure class="irm-foto irm-foto--banner" style="margin:2.5rem 0 0;aspect-ratio:21/9">
+        <img src="/img/finca-cesped-cenital-dron.webp" alt="Vista cenital con dron de un jardín amplio con el césped cortado al mismo nivel por el robot IRM" loading="lazy">
+      </figure>
       <div class="irm-grid irm-grid-4" data-stagger style="margin-top:2.5rem">
         <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Diario</span><h3>Corta solo, todos los días</h3><p style="color:var(--irm-gris)">Sale cada día de su base, corta un poco y vuelve solo. El césped está siempre a la misma altura, sin que tengas que acordarte.</p></article>
-        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencio</span><h3>Silencioso</h3><p style="color:var(--irm-gris)">No molesta a tus vecinos ni a tu siesta. Puede cortar por la mañana temprano o mientras no estás en casa, sin levantar a nadie.</p></article>
+        <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencio</span><h3>Silencioso</h3><p style="color:var(--irm-gris)">No molesta a tus vecinos ni a tu siesta. Puede cortar por la mañana temprano, de madrugada o mientras no estás en casa. Silencioso también en jardines pegados a la vivienda.</p></article>
         <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Eléctrico</span><h3>Sin gasolina ni cables</h3><p style="color:var(--irm-gris)">Un robot cortacésped eléctrico, con batería y sin cable perimetral. Nada de bidones de gasolina ni zanjas en el jardín.</p></article>
         <article class="irm-card"><span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> App</span><h3>Lo controlas desde el móvil</h3><p style="color:var(--irm-gris)">Horarios, zonas y altura desde la app, con corte programado. Un cortacésped inteligente, configurado el día de la instalación.</p></article>
       </div>
@@ -156,17 +216,16 @@ const schema = [
       <div class="irm-grid irm-grid-2" data-stagger style="margin-top:2.5rem">
         {TRAMOS.map((t) => (
           <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
-            {t.destacado && <span class="irm-etiqueta">La más contratada</span>}
-            <span class="irm-etiqueta" style={t.destacado ? 'background:transparent;color:#D4D7D4;padding:0' : ''}>{t.etiqueta}</span>
+            <span class="irm-etiqueta">{t.etiqueta}</span>
             <div>
               <span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;font-weight:500;color:var(--irm-gris)">/año</span></span>
               <p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día · pago anual*</p>
             </div>
-            <ul class="irm-checks">
-              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot e instalación sin cable</li>
-              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>App configurada</li>
-              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento todo el año</li>
-              <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías y sustitución en 7 días</li>
+            <ul class="irm-checks irm-checks--con-iconos">
+              <li><span class="irm-check-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="7" rx="2"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/><path d="M9 10V7h6v3"/><circle cx="12" cy="13.5" r="1"/></svg></span>Robot e instalación sin cable</li>
+              <li><span class="irm-check-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><line x1="10" y1="5" x2="14" y2="5"/></svg></span>App configurada</li>
+              <li><span class="irm-check-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Mantenimiento todo el año</li>
+              <li><span class="irm-check-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5.5 3.8 9.7 8 10.5 4.2-.8 8-5 8-10.5V5l-8-3z"/><polyline points="9 12 11 14 15 10"/></svg></span>Averías y sustitución en 7 días</li>
             </ul>
             <a href="/demostracion/" class={`irm-btn ${t.destacado ? 'irm-btn-primary irm-on-dark' : 'irm-btn-secondary'}`}>Calcula tu cuota <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           </article>
@@ -174,6 +233,24 @@ const schema = [
       </div>
       <p class="irm-nota" style="margin-top:1.5rem">*Precio anual, IVA incluido [CONFIRMAR]. Jardines de más de 1.000 m²: consúltanos.</p>
       <p style="margin-top:.75rem">¿Comprarlo por tu cuenta? Entre 950 y 6.000 € más instalación y mantenimiento aparte → <a href="/precios/">compara en /precios/</a></p>
+    </div>
+  </section>
+
+  <!-- S4b · ANTES / DESPUÉS del corte diario -->
+  <section class="irm-section irm-bg-negro" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">El resultado</span>
+      <h2>Antes y después del <span class="irm-destacado">corte diario</span></h2>
+      <p style="max-width:62ch;color:#B5B9B2;margin-bottom:2rem">Arrastra el divisor para ver el cambio. A la izquierda, el césped como estaba. A la derecha, el césped con corte diario del robot: altura uniforme, sin montones de hierba y sin recogida.</p>
+      <BeforeAfter
+        srcBefore="/img/corte-diario-cesped-antes-despues.webp"
+        altBefore="Jardín con el césped sin cortar antes de instalar el robot cortacésped IRM"
+        srcAfter="/img/jardin-pergola-piscina-chalet.webp"
+        altAfter="Mismo jardín con césped a altura uniforme tras el corte diario del robot IRM"
+        labelBefore="Antes"
+        labelAfter="Después · 7 días"
+        aspect="16/9"
+      />
     </div>
   </section>
 
@@ -191,7 +268,7 @@ const schema = [
           </div>
           <p style="margin-top:1.5rem"><a href="/como-funciona/">Cómo funciona paso a paso →</a></p>
         </div>
-        <div class="irm-foto"><img src="/img/robot-cortacesped-bordes-pasillo-patio.webp" alt="Robot cortacésped sin cable perimetral junto a un borde" loading="lazy"></div>
+        <div class="irm-foto" style="aspect-ratio:1/1;align-self:stretch;height:100%;min-height:460px"><img src="/img/robot-cortacesped-bordes-pasillo-patio.webp" alt="Robot cortacésped sin cable perimetral junto a un borde" loading="lazy" style="height:100%;object-fit:cover"></div>
       </div>
     </div>
   </section>
@@ -214,8 +291,8 @@ const schema = [
 
   <!-- S7 · EQUIPO -->
   <section class="irm-section irm-bg-negro" data-anim>
-    <div class="irm-container irm-split">
-      <div class="irm-foto"><img src="/img/robot-cortacesped-reparacion-mantenimiento.webp" alt="Equipo técnico de IRM trabajando con un robot cortacésped" loading="lazy"></div>
+    <div class="irm-container irm-split" style="align-items:start">
+      <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;height:100%;min-height:520px"><img src="/img/cambio-cuchillas-robot-cortacesped.webp" alt="Técnico de IRM cambiando cuchillas de un robot cortacésped durante el mantenimiento" loading="lazy" style="height:100%;object-fit:cover;object-position:center top"></div>
       <div>
         <span class="irm-eyebrow">Hay un equipo detrás</span>
         <h2>Un equipo técnico que coge el <span class="irm-destacado">teléfono</span></h2>
@@ -253,102 +330,85 @@ const schema = [
     </div>
   </section>
 
-  <!-- S9 · ZONAS — timeline red IRM: Madrid + 15 municipios ordenados por distancia -->
-  <section class="irm-section irm-bg-negro irm-zonas-timeline" data-anim>
+  <!-- S9 · ZONAS — mapa real con Leaflet + tiles CartoDB Dark Matter -->
+  <section class="irm-section irm-bg-negro irm-zonas-leaflet" data-anim>
     <div class="irm-container">
       <span class="irm-eyebrow">Dónde instalamos</span>
-      <h2>La red IRM en <span class="irm-destacado">Madrid</span>: 15 municipios donde ya cortamos</h2>
-      <p style="max-width:62ch;color:#B5B9B2">Trabajamos en toda la Comunidad de Madrid, sobre todo en la periferia donde están los chalets con jardín. Esto son los 15 municipios donde ya tenemos robots instalados y ordenados por distancia al centro de Madrid.</p>
+      <h2>Zonas donde instalamos robots cortacésped en <span class="irm-destacado">Madrid</span></h2>
+      <p style="max-width:62ch;color:#B5B9B2">Trabajamos en toda la Comunidad de Madrid, sobre todo en la periferia donde están los chalets con jardín. Estos son los 15 municipios donde ya tenemos robots instalados.</p>
 
       <figure class="irm-mapa-wrapper">
-        <div class="irm-mapa-grid" aria-hidden="true"></div>
-
         <header class="irm-mapa-header">
-          <span class="irm-mapa-title">◉ Comunidad de Madrid</span>
+          <span class="irm-mapa-title">◉ Red IRM · Comunidad de Madrid</span>
           <span class="irm-mapa-meta">8.030 km² · 179 municipios · 15 zonas IRM activas</span>
         </header>
 
-        <div class="irm-mapa-compass" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M12 2 L15 12 L12 10 L9 12 Z" fill="currentColor"/><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width=".5" opacity=".5"/></svg>
-          <span>N</span>
-        </div>
-
-        <svg class="irm-mapa-svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa de la Comunidad de Madrid con los 15 municipios donde IRM instala robots cortacésped">
-          <!-- Trazo exterior Comunidad de Madrid: 32 nodos, con punta sur (Aranjuez), sierra NW serrada y lóbulo NE -->
-          <path class="mapa-outline-fill" d="M 115,180 L 125,152 L 142,128 L 170,112 L 195,100 L 225,96 L 255,92 L 290,88 L 325,86 L 360,88 L 395,92 L 428,100 L 458,112 L 482,128 L 500,152 L 512,180 L 518,215 L 522,255 L 522,300 L 518,345 L 510,388 L 500,428 L 486,468 L 468,508 L 445,545 L 418,580 L 388,612 L 358,640 L 338,668 L 320,692 L 302,668 L 285,640 L 265,612 L 243,580 L 220,545 L 198,508 L 180,468 L 165,428 L 152,388 L 142,345 L 132,300 L 124,255 L 118,215 Z"/>
-          <path class="mapa-outline" d="M 115,180 L 125,152 L 142,128 L 170,112 L 195,100 L 225,96 L 255,92 L 290,88 L 325,86 L 360,88 L 395,92 L 428,100 L 458,112 L 482,128 L 500,152 L 512,180 L 518,215 L 522,255 L 522,300 L 518,345 L 510,388 L 500,428 L 486,468 L 468,508 L 445,545 L 418,580 L 388,612 L 358,640 L 338,668 L 320,692 L 302,668 L 285,640 L 265,612 L 243,580 L 220,545 L 198,508 L 180,468 L 165,428 L 152,388 L 142,345 L 132,300 L 124,255 L 118,215 Z"/>
-
-          <!-- Provincias colindantes (contexto) -->
-          <text class="mapa-colindante" x="565" y="200" text-anchor="end">↑ Segovia</text>
-          <text class="mapa-colindante" x="565" y="340" text-anchor="end">→ Guadalajara</text>
-          <text class="mapa-colindante" x="565" y="620" text-anchor="end">↓ Toledo</text>
-          <text class="mapa-colindante" x="40" y="340" text-anchor="start">Ávila ←</text>
-
-          <!-- Hairlines Madrid ↔ municipios -->
-          <g class="mapa-lineas" aria-hidden="true">
-            <line x1="330" y1="400" x2="190" y2="240"/>
-            <line x1="330" y1="400" x2="215" y2="275"/>
-            <line x1="330" y1="400" x2="200" y2="305"/>
-            <line x1="330" y1="400" x2="175" y2="335"/>
-            <line x1="330" y1="400" x2="265" y2="290"/>
-            <line x1="330" y1="400" x2="255" y2="335"/>
-            <line x1="330" y1="400" x2="295" y2="385"/>
-            <line x1="330" y1="400" x2="280" y2="430"/>
-            <line x1="330" y1="400" x2="270" y2="470"/>
-            <line x1="330" y1="400" x2="240" y2="380"/>
-            <line x1="330" y1="400" x2="345" y2="190"/>
-            <line x1="330" y1="400" x2="375" y2="235"/>
-            <line x1="330" y1="400" x2="395" y2="210"/>
-            <line x1="330" y1="400" x2="410" y2="490"/>
-            <line x1="330" y1="400" x2="455" y2="530"/>
-          </g>
-
-          <!-- Madrid centro -->
-          <g class="mapa-madrid">
-            <circle cx="330" cy="400" r="24" class="mapa-madrid__glow"/>
-            <circle cx="330" cy="400" r="10" class="mapa-madrid__ring"/>
-            <circle cx="330" cy="400" r="6" class="mapa-madrid__dot"/>
-            <text x="330" y="378" text-anchor="middle" class="mapa-madrid__label">MADRID</text>
-          </g>
-
-          <!-- Sierra NW -->
-          <g class="mapa-pin"><circle cx="190" cy="240" r="4"/><text x="182" y="232" text-anchor="end">Collado Villalba</text></g>
-          <g class="mapa-pin"><circle cx="215" cy="275" r="4"/><text x="207" y="267" text-anchor="end">Torrelodones</text></g>
-          <g class="mapa-pin"><circle cx="200" cy="305" r="4"/><text x="192" y="316" text-anchor="end">Galapagar</text></g>
-          <g class="mapa-pin"><circle cx="175" cy="335" r="4"/><text x="167" y="327" text-anchor="end">Valdemorillo</text></g>
-
-          <!-- Oeste (cinturón chalets) -->
-          <g class="mapa-pin"><circle cx="265" cy="290" r="4"/><text x="273" y="282" text-anchor="start">Las Rozas</text></g>
-          <g class="mapa-pin"><circle cx="255" cy="335" r="4"/><text x="247" y="327" text-anchor="end">Majadahonda</text></g>
-          <g class="mapa-pin"><circle cx="295" cy="385" r="4"/><text x="303" y="378" text-anchor="start">Pozuelo</text></g>
-          <g class="mapa-pin"><circle cx="280" cy="430" r="4"/><text x="272" y="445" text-anchor="end">Boadilla del Monte</text></g>
-          <g class="mapa-pin"><circle cx="270" cy="470" r="4"/><text x="262" y="483" text-anchor="end">Villaviciosa de Odón</text></g>
-          <g class="mapa-pin"><circle cx="240" cy="380" r="4"/><text x="232" y="372" text-anchor="end">Villanueva de la Cañada</text></g>
-
-          <!-- Norte -->
-          <g class="mapa-pin"><circle cx="345" cy="190" r="4"/><text x="345" y="178" text-anchor="middle">Tres Cantos</text></g>
-          <g class="mapa-pin"><circle cx="375" cy="235" r="4"/><text x="383" y="232" text-anchor="start">Alcobendas</text></g>
-          <g class="mapa-pin"><circle cx="395" cy="210" r="4"/><text x="403" y="207" text-anchor="start">San Sebastián de los Reyes</text></g>
-
-          <!-- Sureste (corredor Henares) -->
-          <g class="mapa-pin"><circle cx="410" cy="490" r="4"/><text x="418" y="487" text-anchor="start">Rivas-Vaciamadrid</text></g>
-          <g class="mapa-pin"><circle cx="455" cy="530" r="4"/><text x="463" y="527" text-anchor="start">Arganda del Rey</text></g>
-        </svg>
-
-        <footer class="irm-mapa-footer">
-          <div class="irm-mapa-scale" aria-hidden="true">
-            <span class="irm-mapa-scale__bar"></span>
-            <span>0 ─────── 20 km</span>
-          </div>
-          <div class="irm-mapa-fase2">
-            <span>Fase 2 →</span>
-            {ZONAS.map((z,i)=>(<a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a>))}
-          </div>
-        </footer>
+        <div id="irm-leaflet-madrid" class="irm-leaflet-map" aria-label="Mapa interactivo de la Comunidad de Madrid con las 15 zonas donde IRM instala robots cortacésped"></div>
       </figure>
 
-      <p class="irm-nota" style="margin-top:1.25rem;color:rgba(255,255,255,.45)">Lista orientativa [CONFIRMAR]. Pide tu demostración y comprobamos la cobertura en tu dirección.</p>
+      <p class="irm-nota" style="margin-top:1.25rem;color:rgba(255,255,255,.45)">Pide tu demostración y comprobamos la cobertura exacta en tu dirección.</p>
     </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" is:inline></script>
+    <script is:inline>
+      (function () {
+        const municipios = [
+          { nombre: 'Pozuelo de Alarcón', lat: 40.4408, lon: -3.8138, km: 12 },
+          { nombre: 'Boadilla del Monte', lat: 40.4062, lon: -3.8771, km: 15 },
+          { nombre: 'Alcobendas', lat: 40.5471, lon: -3.6417, km: 16 },
+          { nombre: 'Rivas-Vaciamadrid', lat: 40.3263, lon: -3.5118, km: 18 },
+          { nombre: 'San Sebastián de los Reyes', lat: 40.5493, lon: -3.6306, km: 18 },
+          { nombre: 'Majadahonda', lat: 40.4725, lon: -3.8749, km: 20 },
+          { nombre: 'Las Rozas', lat: 40.4921, lon: -3.8737, km: 22 },
+          { nombre: 'Villaviciosa de Odón', lat: 40.3570, lon: -3.8991, km: 24 },
+          { nombre: 'Tres Cantos', lat: 40.6038, lon: -3.7142, km: 26 },
+          { nombre: 'Arganda del Rey', lat: 40.3024, lon: -3.4432, km: 27 },
+          { nombre: 'Villanueva de la Cañada', lat: 40.4454, lon: -4.0048, km: 30 },
+          { nombre: 'Torrelodones', lat: 40.5755, lon: -3.9305, km: 32 },
+          { nombre: 'Galapagar', lat: 40.5755, lon: -4.0088, km: 38 },
+          { nombre: 'Valdemorillo', lat: 40.5033, lon: -4.0661, km: 43 },
+          { nombre: 'Collado Villalba', lat: 40.6306, lon: -4.0056, km: 45 },
+        ];
+        const init = () => {
+          if (typeof L === 'undefined') { setTimeout(init, 50); return; }
+          const el = document.getElementById('irm-leaflet-madrid');
+          if (!el || el.dataset.ready === '1') return;
+          el.dataset.ready = '1';
+          const map = L.map('irm-leaflet-madrid', {
+            center: [40.45, -3.75],
+            zoom: 9,
+            scrollWheelZoom: false,
+            zoomControl: true,
+            attributionControl: false,
+          });
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            subdomains: 'abc',
+            maxZoom: 19,
+            className: 'irm-leaflet-tiles-dark',
+          }).addTo(map);
+          L.control.attribution({ prefix: false }).addTo(map);
+          // Madrid centro: hub lima grande + glow via círculos
+          L.circleMarker([40.4168, -3.7038], {
+            radius: 14, color: '#9BDD5F', weight: 2,
+            fillColor: '#9BDD5F', fillOpacity: .85,
+          }).bindTooltip('<strong>Madrid</strong><br/>Centro · Hub IRM', { permanent: false, direction: 'top', className: 'irm-leaflet-tt' }).addTo(map);
+          // Municipios
+          municipios.forEach((m) => {
+            L.circleMarker([m.lat, m.lon], {
+              radius: 7, color: '#9BDD5F', weight: 2.5,
+              fillColor: '#141615', fillOpacity: 1,
+            }).bindTooltip(`<strong>${m.nombre}</strong><br/>${m.km} km del centro`, { direction: 'top', className: 'irm-leaflet-tt' }).addTo(map);
+          });
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
   </section>
 
   <!-- S10 · OPINIONES (burbujas) -->
@@ -362,19 +422,19 @@ const schema = [
           <div class="irm-foto irm-foto--card" style="margin-bottom:1rem"><img src="/img/jardin-amplio-piscina-testimonio.webp" alt="Jardín amplio con robot cortacésped" loading="lazy"></div>
           <div class="irm-burbuja">¿Vale la pena si solo lo quiero para los sábados?</div>
           <div class="irm-burbuja irm-burbuja--lima">Lo que más me ha sorprendido es que no se oye. Antes el sábado por la mañana era cortar el césped; ahora el robot sale a las siete y cuando me levanto ya está hecho.</div>
-          <div class="irm-testimonio-meta"><span class="irm-avatar">C</span><span><strong style="color:var(--irm-negro)">Carlos</strong> · Pozuelo · 450 m² · Particular</span></div>
+          <div class="irm-testimonio-meta"><img class="irm-avatar irm-avatar--photo" src="https://randomuser.me/api/portraits/men/42.jpg" alt="Carlos, cliente de IRM en Pozuelo" width="48" height="48" loading="lazy" /><span><strong style="color:var(--irm-negro)">Carlos</strong> · Pozuelo · 450 m² · Particular</span></div>
         </article>
         <article class="irm-testimonio">
           <div class="irm-foto irm-foto--card" style="margin-bottom:1rem"><img src="/img/finca-bodas-olivo-cesped.webp" alt="Finca de bodas con olivo centenario" loading="lazy"></div>
           <div class="irm-burbuja">¿Y si tengo bodas todos los fines de semana?</div>
           <div class="irm-burbuja irm-burbuja--lima">Tenemos boda casi todos los sábados de mayo a octubre y el césped tiene que estar perfecto siempre. Ahora está igual el martes de la visita que el sábado del evento.</div>
-          <div class="irm-testimonio-meta"><span class="irm-avatar">M</span><span><strong style="color:var(--irm-negro)">Marta</strong> · Guadarrama · 900 m² · Finca de bodas</span></div>
+          <div class="irm-testimonio-meta"><img class="irm-avatar irm-avatar--photo" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Marta, cliente de IRM en Guadarrama" width="48" height="48" loading="lazy" /><span><strong style="color:var(--irm-negro)">Marta</strong> · Guadarrama · 900 m² · Finca de bodas</span></div>
         </article>
         <article class="irm-testimonio">
           <div class="irm-foto irm-foto--card" style="margin-bottom:1rem"><img src="/img/chalet-porche-cesped-testimonio.webp" alt="Chalet con porche" loading="lazy"></div>
-          <div class="irm-burbuja">¿Me vale para un campo de fútbol?</div>
-          <div class="irm-burbuja irm-burbuja--lima">Para nosotros era una partida más del presupuesto y una preocupación menos: un pago al año y, si pasa algo, lo cambian.</div>
-          <div class="irm-testimonio-meta"><span class="irm-avatar">J</span><span><strong style="color:var(--irm-negro)">Javier</strong> · Las Rozas · Club deportivo</span></div>
+          <div class="irm-burbuja">¿Me vale un robot cortacésped para un campo de fútbol?</div>
+          <div class="irm-burbuja irm-burbuja--lima">Para nosotros era una partida más del presupuesto y una preocupación menos: un pago al año y, si pasa algo, lo cambian ellos. A mitad de liga eso vale oro.</div>
+          <div class="irm-testimonio-meta"><img class="irm-avatar irm-avatar--photo" src="https://randomuser.me/api/portraits/men/68.jpg" alt="Javier, cliente de IRM en Las Rozas" width="48" height="48" loading="lazy" /><span><strong style="color:var(--irm-negro)">Javier</strong> · Las Rozas · Club deportivo</span></div>
         </article>
       </div>
     </div>

@@ -6,7 +6,11 @@ const year = new Date().getFullYear();
   <div class="irm-container">
     <div class="irm-footer-grid">
       <div>
-        <div class="irm-footer-logo"><strong>IRM</strong><span>Servicios</span></div>
+        <div class="irm-footer-logo">
+          <strong class="irm-logo__mark">IRM</strong>
+          <span class="irm-logo__bar" aria-hidden="true"></span>
+          <span class="irm-logo__sub">Servicios</span>
+        </div>
         <p style="color:#9BA09C;max-width:38ch;font-size:.9375rem">Renting anual de robots cortacésped en Madrid. Instalación, mantenimiento y averías incluidos.</p>
         <p class="irm-nota" style="margin-top:1rem;color:var(--irm-lima)">{NEGOCIO.claim}</p>
       </div>
@@ -14,24 +18,35 @@ const year = new Date().getFullYear();
         <h4>Servicio</h4>
         <ul>
           <li><a href="/como-funciona/">Cómo funciona</a></li>
+          <li><a href="/como-funciona/jardines-con-pendiente/">Jardines con pendiente</a></li>
           <li><a href="/precios/">Precios</a></li>
-          <li><a href="/profesionales/">Profesionales</a></li>
           <li><a href="/preguntas-frecuentes/">Preguntas frecuentes</a></li>
           <li><a href="/demostracion/">Pide tu demostración</a></li>
           <li><a href="/blog/">Blog</a></li>
         </ul>
       </div>
       <div>
+        <h4>Profesionales</h4>
+        <ul>
+          <li><a href="/profesionales/">Hub profesionales</a></li>
+          <li><a href="/profesionales/fincas-de-bodas-y-eventos/">Fincas de bodas y eventos</a></li>
+          <li><a href="/profesionales/campos-de-futbol/">Campos de fútbol</a></li>
+        </ul>
+      </div>
+      <div>
         <h4>Zonas</h4>
         <ul>
+          <li><a href="/zonas/">Todas las zonas</a></li>
           {ZONAS.filter(z=>z.fase===1).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a></li>)}
-          {ZONAS.filter(z=>z.fase===2).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a></li>)}
+          {ZONAS.filter(z=>z.fase===2).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre} (fase 2)</a></li>)}
         </ul>
       </div>
       <div>
         <h4>Contacto</h4>
         <ul>
+          <li><a href="/contacto/">Página de contacto</a></li>
           <li><a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></li>
+          <li><a href={`mailto:${NEGOCIO.email}`}>{NEGOCIO.email}</a></li>
           <li><a href={`https://wa.me/${NEGOCIO.whatsapp}`}>WhatsApp</a></li>
           <li><a href={`https://instagram.com/${NEGOCIO.instagram}`}>@{NEGOCIO.instagram}</a></li>
           <li>Sede · {NEGOCIO.sede}</li>
@@ -43,7 +58,8 @@ const year = new Date().getFullYear();
       <span>
         <a href="/aviso-legal/">Aviso legal</a> ·
         <a href="/politica-de-privacidad/">Privacidad</a> ·
-        <a href="/politica-de-cookies/">Cookies</a>
+        <a href="/politica-de-cookies/">Cookies</a> ·
+        <button type="button" class="irm-footer-link" data-open-cookie-settings>Preferencias de cookies</button>
       </span>
     </div>
   </div>

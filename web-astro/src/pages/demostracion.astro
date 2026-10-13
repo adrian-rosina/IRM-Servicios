@@ -1,7 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
+import FaqSection from '../components/FaqSection.astro';
 import { NEGOCIO, TRAMOS, precioDia } from '../data/negocio';
+
+const faqs = [
+  {q:'¿Qué incluye la demostración?',a:'Vamos a tu casa, medimos los metros reales de césped, miramos pendientes y zonas separadas, instalamos una base y dejamos un robot cortando delante de ti. Dura una mañana y termina con el presupuesto cerrado.'},
+  {q:'¿Cuánto cuesta la demostración?',a:'175 € que se descuentan íntegros de la cuota anual si contratas. Si no contratas, es lo que pagas por una mañana de nuestro técnico en tu jardín con un robot real.'},
+  {q:'¿Y si después de la demostración no me convence?',a:'No pasa nada y no pagas la cuota anual: la demostración no te compromete. Retiramos el robot y la base y tu jardín se queda como estaba.'},
+  {q:'¿Cuándo instalarías el robot si contrato?',a:'Si confirmamos durante la demostración, podemos dejar el robot instalado ese mismo día o la semana siguiente. En Madrid instalamos nosotros, sin transportistas ni subcontratas.'},
+  {q:'¿Se puede pagar al mes?',a:'No: la cuota es anual y se paga de una vez por transferencia cuando el robot ya está instalado. 660 €/año son unos 55 €/mes para comparar, pero el pago es anual para que la cuota salga lo más baja posible.'},
+  {q:'¿En qué zonas vais a hacer la demostración?',a:'Toda la Comunidad de Madrid y también Valladolid, Segovia, Toledo y Cádiz. Si no estás en estas zonas, llámanos igualmente: a veces podemos ir.'},
+];
 
 const title = 'Reserva tu robot cortacésped en Madrid: demostración | IRM';
 const description = 'Reserva tu robot cortacésped en Madrid con una demostración en tu jardín: visita, estudio e instalación de prueba por 175 € que se descuentan de tu cuota.';
@@ -104,17 +114,5 @@ const schema = {
     </div>
   </section>
 
-  <section class="irm-section irm-bg-hueso" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">Antes de reservar</span>
-      <h2>Preguntas antes de reservar</h2>
-      <div class="irm-faq" style="margin-top:2rem">
-        <details open><summary>¿Se puede pagar al mes?</summary><div class="irm-faq-body"><p>No: la cuota es anual y se paga de una vez por transferencia, cuando el robot ya está instalado. Si lo quieres ver en cifras, 660 €/año son unos 55 €/mes, pero el pago es anual.</p></div></details>
-        <details><summary>¿Puedo cogerlo solo en verano?</summary><div class="irm-faq-body"><p>El renting es anual. El césped de Madrid crece de marzo a noviembre y lo que lo mantiene bien es cortar un poco cada día durante toda la temporada. En invierno el robot descansa y el servicio sigue.</p></div></details>
-        <details><summary>¿Y si después de la demostración no me convence?</summary><div class="irm-faq-body"><p>No pasa nada y no pagas la cuota anual: la demostración no te compromete. Retiramos el robot y la base y tu jardín se queda como estaba.</p></div></details>
-        <details><summary>¿Cuándo se cobra y qué pasa al terminar el año?</summary><div class="irm-faq-body"><p>La cuota se paga por transferencia una vez instalado el robot. Al terminar el año: renovación, retirada o cambio. No hay permanencia más allá del año.</p></div></details>
-        <p style="text-align:center;margin-top:2rem"><a href="/preguntas-frecuentes/">Más preguntas sobre el renting →</a></p>
-      </div>
-    </div>
-  </section>
+  <FaqSection faqs={faqs} eyebrow="FAQ · Demostración" title="Preguntas antes de reservar la demostración" intro="Lo que nos preguntáis antes de que vayamos a vuestra casa a instalar el robot de prueba." />
 </BaseLayout>

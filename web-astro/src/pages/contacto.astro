@@ -1,18 +1,218 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
-import { NEGOCIO } from '../data/negocio';
+import FaqSection from '../components/FaqSection.astro';
+import { NEGOCIO, ZONAS } from '../data/negocio';
+
+const title = 'Contacto · IRM Servicios · Alquiler de robot cortacésped Madrid';
+const description = 'Contacta con IRM Servicios: teléfono, WhatsApp, email, Instagram o formulario. Te respondemos nosotros, no un comercial. Instalamos en toda la Comunidad de Madrid.';
+const schema = [
+  {
+    '@context':'https://schema.org','@type':'ContactPage',
+    url: `${NEGOCIO.url}/contacto/`,
+    about: { '@type': 'LocalBusiness', name: NEGOCIO.nombre },
+  },
+  {
+    '@context':'https://schema.org','@type':'BreadcrumbList',
+    itemListElement:[
+      {'@type':'ListItem',position:1,name:'Inicio',item:NEGOCIO.url+'/'},
+      {'@type':'ListItem',position:2,name:'Contacto'},
+    ],
+  },
+];
+
+const faqs = [
+  {q:'¿Qué canal es el más rápido para contactar?',a:'El teléfono. Nos coges normalmente a la primera llamada entre las 9:00 y las 20:00. Si no te podemos atender, te devolvemos la llamada en el día.'},
+  {q:'¿Atendéis por WhatsApp?',a:'Sí. Puedes escribirnos para pasarnos los metros de césped, la dirección y una foto del jardín. Te respondemos en horario laboral.'},
+  {q:'¿Cuánto tardáis en responder a los formularios?',a:'Si envías el formulario antes de las 19:00, te llamamos ese mismo día. Si lo envías por la noche o en fin de semana, al día siguiente laborable.'},
+  {q:'¿Hacéis presupuesto por teléfono o email?',a:'Sí: con los metros de césped y el municipio ya podemos darte una cifra orientativa. El presupuesto final lo cerramos en la demostración, cuando medimos el jardín.'},
+  {q:'¿Dónde está la sede de IRM Servicios?',a:`Nuestra base operativa está en Boecillo (Valladolid) y Laguna de Duero. Nos desplazamos a toda la Comunidad de Madrid y a las provincias donde tenemos cobertura.`},
+];
 ---
-<BaseLayout
-  title="Contacto IRM Servicios · robot cortacésped en Madrid"
-  description="Llámanos, escríbenos por WhatsApp o rellena el formulario. Te contestamos nosotros, no un comercial.">
-  <section class="irm-section">
-    <div class="irm-container">
-      <span class="irm-eyebrow">Contacto</span>
-      <h1>Hablamos cuando tú quieras</h1>
-      <p style="color:var(--irm-gris)">Te atendemos nosotros. Teléfono o WhatsApp al <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a>, Instagram <a href={`https://instagram.com/${NEGOCIO.instagram}`}>@{NEGOCIO.instagram}</a>, o pide una demostración desde <a href="/demostracion/">/demostracion/</a>.</p>
+<BaseLayout {title} {description} {schema}>
+  <!-- HERO contacto -->
+  <section class="irm-section irm-bg-hueso irm-hero">
+    <div class="irm-container irm-hero-grid">
+      <div>
+        <span class="irm-eyebrow">Contacto</span>
+        <h1>Hablamos cuando tú <span class="irm-destacado--claro">quieras</span></h1>
+        <p class="irm-entradilla" style="color:var(--irm-gris);max-width:52ch">Elige el canal que te resulte más cómodo. Te respondemos nosotros, no un comercial, y con la respuesta directa que necesitas para decidir si el robot encaja en tu jardín.</p>
+        <ul class="irm-checks" data-stagger style="margin:1.5rem 0 2rem">
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Respuesta en el día, no al día siguiente</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Presupuesto orientativo por teléfono</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Sin compromiso hasta la demostración</li>
+        </ul>
+        <div class="irm-hero-ctas">
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-primary">Llama · {NEGOCIO.telefonoFormato} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">Escríbenos por WhatsApp</a>
+        </div>
+      </div>
+      <div class="irm-foto"><img src="/img/robot-cortacesped-madrid-amanecer-hero.webp" alt="Robot cortacésped IRM instalado en el jardín de un cliente en Madrid" loading="eager" fetchpriority="high"></div>
     </div>
   </section>
 
   <RobotTrail />
+
+  <!-- Canales de contacto (4 cards) -->
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Canales directos</span>
+      <h2>Cómo nos puedes <span class="irm-destacado--claro">contactar</span></h2>
+      <p style="max-width:62ch;color:var(--irm-gris)">Cuatro formas de llegar a nosotros. Todas acaban en la misma persona que va a instalarte el robot y a atenderte si falla.</p>
+      <div class="irm-grid irm-grid-4" data-stagger style="margin-top:2.5rem">
+        <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-card irm-card--link">
+          <div class="irm-card-body">
+            <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72a2 2 0 0 1 1.72 2z"/></svg> Teléfono</span>
+            <h3>{NEGOCIO.telefonoFormato}</h3>
+            <p style="color:var(--irm-gris)">De 9:00 a 20:00, lunes a viernes. Lo coge una persona a la primera.</p>
+            <span class="irm-arrow">Llamar ahora →</span>
+          </div>
+        </a>
+        <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-card irm-card--link">
+          <div class="irm-card-body">
+            <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> WhatsApp</span>
+            <h3>Escríbenos un WhatsApp</h3>
+            <p style="color:var(--irm-gris)">Mándanos los metros, el municipio y una foto del jardín. Te contestamos en el día.</p>
+            <span class="irm-arrow">Abrir chat →</span>
+          </div>
+        </a>
+        <a href={`mailto:${NEGOCIO.email}`} class="irm-card irm-card--link">
+          <div class="irm-card-body">
+            <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg> Email</span>
+            <h3 style="font-size:1.0625rem;word-break:break-all;line-height:1.3">{NEGOCIO.email}</h3>
+            <p style="color:var(--irm-gris)">Para enviar documentación o concretar presupuesto con un cliente profesional (fincas, campos, comunidades).</p>
+            <span class="irm-arrow">Escribir email →</span>
+          </div>
+        </a>
+        <a href={`https://instagram.com/${NEGOCIO.instagram}`} class="irm-card irm-card--link">
+          <div class="irm-card-body">
+            <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> Instagram</span>
+            <h3>@{NEGOCIO.instagram}</h3>
+            <p style="color:var(--irm-gris)">Instalaciones reales, antes/después y curiosidades. Síguenos para ver cómo trabajamos.</p>
+            <span class="irm-arrow">Ver perfil →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulario -->
+  <section class="irm-section irm-bg-hueso" data-anim>
+    <div class="irm-container">
+      <div class="irm-split">
+        <div>
+          <span class="irm-eyebrow">Formulario</span>
+          <h2>Cuéntanos qué necesitas y te llamamos <span class="irm-destacado--claro">nosotros</span></h2>
+          <p style="color:var(--irm-gris)">Déjanos tus datos y un mensaje y te llamamos de vuelta en el día. Si prefieres hablar directamente, llámanos o escríbenos por WhatsApp al <strong>{NEGOCIO.telefonoFormato}</strong>.</p>
+          <ul class="irm-checks" style="margin:1.5rem 0">
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Te llamamos antes de 24 horas laborables</li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Sin compromiso: solo entras en nuestra agenda</li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si tu zona no está en cobertura, te lo decimos al momento</li>
+          </ul>
+          <div style="display:grid;gap:.5rem;padding:1rem 1.25rem;background:var(--irm-blanco);border:1px solid var(--irm-linea);border-radius:12px;margin-bottom:1.25rem">
+            <a href={`mailto:${NEGOCIO.email}`} style="display:inline-flex;align-items:center;gap:.6rem;color:var(--irm-negro);text-decoration:none;font-weight:600;word-break:break-all">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--irm-bosque)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg>
+              {NEGOCIO.email}
+            </a>
+            <a href={`tel:+34${NEGOCIO.telefono}`} style="display:inline-flex;align-items:center;gap:.6rem;color:var(--irm-negro);text-decoration:none;font-weight:600">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--irm-bosque)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72a2 2 0 0 1 1.72 2z"/></svg>
+              {NEGOCIO.telefonoFormato}
+            </a>
+          </div>
+          <p class="irm-nota">Tus datos se tratan conforme a nuestra <a href="/politica-de-privacidad/">política de privacidad</a>.</p>
+        </div>
+        <form class="irm-form-card" action="#" method="post">
+          <h3 style="margin-top:0">Escríbenos</h3>
+          <div class="irm-form-grid">
+            <div class="irm-field"><label for="c-nombre">Nombre</label><input id="c-nombre" name="nombre" type="text" required></div>
+            <div class="irm-field"><label for="c-tel">Teléfono</label><input id="c-tel" name="telefono" type="tel" required></div>
+            <div class="irm-field"><label for="c-email">Email</label><input id="c-email" name="email" type="email"></div>
+            <div class="irm-field"><label for="c-municipio">Municipio</label><input id="c-municipio" name="municipio" type="text" required></div>
+            <div class="irm-field"><label for="c-tipo">Soy</label>
+              <select id="c-tipo" name="tipo" required>
+                <option value="">Elige una opción</option>
+                <option value="particular">Particular con jardín</option>
+                <option value="finca">Finca de bodas o eventos</option>
+                <option value="club">Club deportivo</option>
+                <option value="comunidad">Comunidad o empresa</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="irm-field"><label for="c-m2">Metros de césped (aprox.)</label>
+              <select id="c-m2" name="m2">
+                <option value="">Elige una opción</option>
+                <option>Hasta 600 m²</option>
+                <option>De 600 a 1.000 m²</option>
+                <option>De 1.000 a 3.000 m²</option>
+                <option>Más de 3.000 m²</option>
+              </select>
+            </div>
+            <div class="irm-field"><label for="c-mensaje">Mensaje</label><textarea id="c-mensaje" name="mensaje" rows="4" placeholder="Cuéntanos tu caso: tipo de jardín, pendiente, si hay piscina, lo que quieras"></textarea></div>
+            <div class="irm-field irm-field-check">
+              <input id="c-rgpd" name="rgpd" type="checkbox" required>
+              <label for="c-rgpd">He leído y acepto la <a href="/politica-de-privacidad/">política de privacidad</a>.</label>
+            </div>
+            <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="gclid"><input type="hidden" name="fbclid"><input type="hidden" name="landing_url">
+            <button type="submit" class="irm-btn irm-btn-primary">Enviar <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+            <p class="irm-nota" style="text-align:center">Te llamamos de vuelta en el día. Sin compromiso.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Horario + zonas de cobertura -->
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <div class="irm-grid irm-grid-2" style="gap:2.5rem">
+        <article class="irm-card">
+          <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Horario</span>
+          <h3>Cuándo estamos</h3>
+          <ul class="irm-checks" style="margin-top:1rem">
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Teléfono: lunes a viernes, 9:00 - 20:00</li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>WhatsApp y email: respondemos en el día laborable</li>
+            <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Averías de cliente: sábados mañana también atendemos</li>
+          </ul>
+        </article>
+        <article class="irm-card">
+          <span class="irm-chip irm-chip--soft"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Dónde instalamos</span>
+          <h3>Zonas con cobertura</h3>
+          <p style="color:var(--irm-gris)">Toda la Comunidad de Madrid y además {ZONAS.filter(z=>z.fase===1).map((z,i,a)=>(<><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a>{i<a.length-1?', ':''}</>))} (Fase 1). {ZONAS.filter(z=>z.fase===2).map(z=><>En <a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a> abriremos próximamente.</>)}</p>
+          <p style="margin-top:1rem"><a href="/zonas/">Ver todas las zonas →</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Datos del titular -->
+  <section class="irm-section irm-bg-negro" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Datos</span>
+      <h2>Datos de la empresa</h2>
+      <div class="irm-grid irm-grid-3" style="margin-top:2rem">
+        <div>
+          <h4 style="color:var(--irm-blanco)">Titular</h4>
+          <p style="color:#B5B9B2">{NEGOCIO.titular}<br/>NIF: {NEGOCIO.nif}<br/>{NEGOCIO.direccion}<br/>Web: <a href={NEGOCIO.url} style="color:var(--irm-lima)">{NEGOCIO.url.replace('https://','')}</a></p>
+        </div>
+        <div>
+          <h4 style="color:var(--irm-blanco)">Contacto</h4>
+          <p style="color:#B5B9B2">
+            Tel: <a href={`tel:+34${NEGOCIO.telefono}`} style="color:var(--irm-lima)">{NEGOCIO.telefonoFormato}</a><br/>
+            Email: <a href={`mailto:${NEGOCIO.email}`} style="color:var(--irm-lima)">{NEGOCIO.email}</a><br/>
+            WhatsApp: <a href={`https://wa.me/${NEGOCIO.whatsapp}`} style="color:var(--irm-lima)">+34 {NEGOCIO.telefonoFormato}</a>
+          </p>
+        </div>
+        <div>
+          <h4 style="color:var(--irm-blanco)">Legal</h4>
+          <p style="color:#B5B9B2">
+            <a href="/aviso-legal/" style="color:var(--irm-lima)">Aviso legal</a><br/>
+            <a href="/politica-de-privacidad/" style="color:var(--irm-lima)">Política de privacidad</a><br/>
+            <a href="/politica-de-cookies/" style="color:var(--irm-lima)">Política de cookies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection faqs={faqs} eyebrow="FAQ · Contacto" title="Preguntas frecuentes sobre cómo contactar con IRM" intro="Lo que nos preguntáis antes de llamar o escribir." />
 </BaseLayout>

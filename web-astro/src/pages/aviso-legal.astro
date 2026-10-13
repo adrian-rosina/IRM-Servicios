@@ -1,11 +1,59 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { NEGOCIO } from '../data/negocio';
 ---
-<BaseLayout title="aviso legal · IRM Servicios" description="Página legal del sitio irmservicios.com." noindex={false}>
+<BaseLayout
+  title="Aviso legal · IRM Servicios"
+  description="Aviso legal del sitio irmservicios.com: titularidad, condiciones de uso, propiedad intelectual y responsabilidad."
+>
   <section class="irm-section">
-    <div class="irm-container" style="max-width:720px;margin-inline:auto">
-      <h1>aviso legal</h1>
-      <p style="color:var(--irm-gris)">[Texto legal pendiente de redacción.]</p>
+    <div class="irm-container irm-legal">
+      <span class="irm-eyebrow">Legal</span>
+      <h1>Aviso legal</h1>
+      <p class="irm-nota" style="margin-bottom:2rem">Última actualización: {new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+
+      <h2>1. Datos identificativos</h2>
+      <p>En cumplimiento de lo dispuesto en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSICE), se facilitan los siguientes datos del titular de este sitio web:</p>
+      <ul>
+        <li><strong>Titular:</strong> {NEGOCIO.titular}</li>
+        <li><strong>Nombre comercial:</strong> {NEGOCIO.nombre}</li>
+        <li><strong>NIF:</strong> {NEGOCIO.nif}</li>
+        <li><strong>Domicilio fiscal:</strong> {NEGOCIO.direccion}</li>
+        <li><strong>Teléfono:</strong> <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></li>
+        <li><strong>Correo electrónico:</strong> <a href={`mailto:${NEGOCIO.email}`}>{NEGOCIO.email}</a></li>
+        <li><strong>Horario de atención:</strong> {NEGOCIO.horario}</li>
+        <li><strong>Sitio web:</strong> <a href={NEGOCIO.url}>{NEGOCIO.url}</a></li>
+      </ul>
+
+      <h2>2. Objeto</h2>
+      <p>El presente Aviso Legal regula el uso y acceso al sitio web <a href={NEGOCIO.url}>{NEGOCIO.url}</a> (en adelante, "el Sitio Web"), titularidad de {NEGOCIO.nombre}. La utilización del Sitio Web atribuye la condición de Usuario, e implica la aceptación plena y sin reservas de todas y cada una de las disposiciones incluidas en este Aviso Legal.</p>
+
+      <h2>3. Condiciones de uso</h2>
+      <p>El Usuario se compromete a utilizar el Sitio Web de forma diligente, correcta y lícita y, en particular, a abstenerse de:</p>
+      <ul>
+        <li>Utilizar el Sitio Web con fines o efectos contrarios a la ley, a la moral y las buenas costumbres o al orden público.</li>
+        <li>Reproducir, copiar, distribuir, permitir el acceso al público a través de cualquier modalidad de comunicación pública, transformar o modificar los contenidos sin autorización.</li>
+        <li>Introducir en el Sitio Web o difundir virus informáticos o cualquier otro sistema que pueda provocar daños en los sistemas informáticos del titular.</li>
+        <li>Recabar datos con finalidad publicitaria y remitir publicidad de cualquier clase sin la previa petición o consentimiento.</li>
+      </ul>
+
+      <h2>4. Propiedad intelectual e industrial</h2>
+      <p>Todos los contenidos del Sitio Web (textos, fotografías, gráficos, imágenes, iconos, tecnología, software, enlaces, contenidos audiovisuales o sonoros, diseño gráfico, código fuente, etc.), así como las marcas y demás signos distintivos, son propiedad de {NEGOCIO.nombre} o de terceros que han autorizado su uso.</p>
+      <p>Queda prohibida la reproducción total o parcial de los contenidos sin autorización expresa y por escrito del titular. El uso no autorizado podrá constituir infracción de la legislación vigente de propiedad intelectual o industrial y será perseguido conforme a derecho.</p>
+
+      <h2>5. Enlaces a terceros</h2>
+      <p>El Sitio Web puede contener enlaces a sitios web de terceros. {NEGOCIO.nombre} no asume responsabilidad por los contenidos, políticas de privacidad o prácticas de dichos sitios externos. La inclusión de un enlace no implica aprobación ni afiliación con los mismos.</p>
+
+      <h2>6. Exclusión de garantías y responsabilidad</h2>
+      <p>{NEGOCIO.nombre} no garantiza la disponibilidad y continuidad del funcionamiento del Sitio Web ni de los servicios ofrecidos a través del mismo. Cuando resulte razonablemente posible, se advertirá previamente de las interrupciones en su funcionamiento. {NEGOCIO.nombre} tampoco garantiza la utilidad del Sitio Web para la realización de ninguna actividad concreta, ni la infalibilidad del mismo, en particular, aunque no de modo exclusivo, el acceso a sus distintas páginas web o a aquellas desde las que se prestan los servicios.</p>
+
+      <h2>7. Modificaciones del Aviso Legal</h2>
+      <p>{NEGOCIO.nombre} se reserva el derecho a modificar, en cualquier momento y sin previo aviso, el presente Aviso Legal, siendo la versión publicada en cada momento la aplicable. Se recomienda al Usuario consultarlo periódicamente.</p>
+
+      <h2>8. Legislación aplicable y jurisdicción</h2>
+      <p>Las relaciones establecidas entre {NEGOCIO.nombre} y el Usuario se regirán por lo dispuesto en la normativa vigente española. Para la resolución de cualquier conflicto, las partes se someten a los Juzgados y Tribunales del domicilio del titular, salvo que la legislación aplicable disponga otra cosa.</p>
+
+      <p style="margin-top:3rem"><a href="/politica-de-privacidad/">Política de privacidad</a> · <a href="/politica-de-cookies/">Política de cookies</a> · <a href="/contacto/">Contacto</a></p>
     </div>
   </section>
 </BaseLayout>
