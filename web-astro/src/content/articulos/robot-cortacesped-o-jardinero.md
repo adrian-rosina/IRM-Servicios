@@ -9,7 +9,7 @@ portada: "/img/jardin-pergola-piscina-chalet.webp"
 alt: "Jardín de chalet en Madrid con césped recién cortado por robot cortacésped IRM"
 fecha: 2026-10-11
 autor: "IRM Servicios"
-extracto: "Un jardinero en Madrid cuesta entre 600 y 1.600 € al año solo por cortar el césped. Un robot cortacésped en renting son 660 €/año, con todo incluido. Hacemos las cuentas de verdad."
+extracto: "Un jardinero en Madrid cuesta entre 900 y 2.400 € al año solo por cortar el césped. Un robot cortacésped en renting son 660 €/año, con todo incluido. Hacemos las cuentas de verdad."
 tags: ["precio", "comparativa", "madrid"]
 ---
 
@@ -17,13 +17,13 @@ Si tienes césped en Madrid y buscas en Google "robot cortacésped o jardinero" 
 
 ## Cuánto cuesta un jardinero en Madrid solo para cortar el césped
 
-En la periferia de Madrid un jardinero cobra entre **40 y 80 € por visita** para una parcela de hasta 1.000 m², IVA incluido. En plena temporada (abril a octubre) el césped necesita corte cada 10 o 15 días, lo que son entre 15 y 20 visitas al año.
+En la periferia de Madrid un jardinero cobra entre **60 y 120 € por visita** para una parcela de hasta 1.000 m², IVA incluido. En plena temporada (abril a octubre) el césped necesita corte cada 10 o 15 días, lo que son entre 15 y 20 visitas al año.
 
 | Visitas por temporada | Precio por visita | Total anual |
 |---|---|---|
-| 15 (cada 2 semanas) | 40 € | 600 € |
-| 15 (cada 2 semanas) | 80 € | 1.200 € |
-| 20 (semanal) | 80 € | 1.600 € |
+| 15 (cada 2 semanas) | 60 € | 900 € |
+| 15 (cada 2 semanas) | 120 € | 1.800 € |
+| 20 (semanal) | 120 € | 2.400 € |
 
 Y eso **solo por cortar**. Si quieres que también pode setos, limpie hojas o riegue, se paga aparte.
 
@@ -47,8 +47,8 @@ Esa cuota ya incluye el robot, la instalación sin cable perimetral, la app conf
 
 | Opción | Primer año | Tres años | Qué incluye |
 |---|---|---|---|
-| Jardinero (visita cada 2 semanas, 40 €) | 600 € | 1.800 € | Solo corte, cuando puede venir |
-| Jardinero (visita semanal, 60 €) | 1.200 € | 3.600 € | Solo corte, cuando puede venir |
+| Jardinero (visita cada 2 semanas, 60 €) | 900 € | 2.700 € | Solo corte, cuando puede venir |
+| Jardinero (visita semanal, 90 €) | 1.800 € | 5.400 € | Solo corte, cuando puede venir |
 | **Robot en renting IRM (≤600 m²)** | **660 €** | **1.980 €** | Robot, instalación, mantenimiento, averías, sustitución |
 | **Robot en renting IRM (≤1.000 m²)** | **760 €** | **2.280 €** | Lo mismo que arriba |
 
@@ -82,6 +82,6 @@ Mucha gente de Madrid **se queda con el jardinero para lo demás** (podar setos,
 
 ## En resumen
 
-Un jardinero en Madrid que solo corte el césped te sale entre **600 y 1.600 € al año**. Un robot cortacésped en renting con IRM son **660 €/año (≤600 m²) o 760 €/año (≤1.000 m²)**, con todo incluido y la garantía de que, si falla, en menos de 7 días hay otro cortando.
+Un jardinero en Madrid que solo corte el césped te sale entre **900 y 2.400 € al año**. Un robot cortacésped en renting con IRM son **660 €/año (≤600 m²) o 760 €/año (≤1.000 m²)**, con todo incluido y la garantía de que, si falla, en menos de 7 días hay otro cortando.
 
 Si quieres números con tus metros reales, pide una [demostración robot cortacésped](/demostracion/) y los medimos sobre el terreno antes de que pagues nada.
