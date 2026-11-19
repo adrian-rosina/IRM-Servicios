@@ -48,7 +48,7 @@ docs/
 
 contenido/
 
-data/
+/data/
 
 Kw_Research_*.xlsx
 IRM_Textos_web_Paso*.docx
@@ -73,3 +73,8 @@ backups/*.gz
 *.psd
 *.ai
 *.sketch
+
+# Copias comprimidas y archivos locales
+*.zip
+*.code-workspace
+Modificaciones_video_web_IRM.pdf
