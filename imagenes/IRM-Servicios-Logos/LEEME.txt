@@ -1,0 +1,17 @@
+IRM Servicios · Logotipos (octubre 2026)
+
+SVG = vector, para imprenta, rotulación, web y cualquier tamaño.
+PNG = fondo transparente, 2.000 px de ancho (avatares a 1.024 px).
+
+Qué versión usar:
+- irm-logo-negativo  -> la firma: blanco con barra lima. Sobre negro o fotos oscuras.
+- irm-logo           -> todo negro. Sobre blanco, hueso o lima.
+- irm-logo-acento    -> negro con barra verde bosque. Sobre blanco o hueso.
+- irm-logo-blanco / irm-logo-lima -> una sola tinta (vinilo, bordado).
+- irm-logo-horizontal (y -negativo) -> cabecera web, furgoneta, banners.
+- irm-logo-reducido (y -negativo, -blanco) -> por debajo de 160 px de ancho.
+- irm-avatar / irm-avatar-lima / irm-simbolo -> perfiles de redes, WhatsApp y app.
+- irm-favicon-16/32/64/180/512 -> favicon de la web (180 = icono de Apple).
+- Google/IRM-logo-google-1080 -> logo de la ficha de Google Business Profile.
+
+Nunca: lima sobre blanco, logotipo blanco sobre lima, deformarlo ni cambiar colores.
