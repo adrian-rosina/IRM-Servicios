@@ -2,25 +2,25 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
 import FaqSection from '../components/FaqSection.astro';
-import { NEGOCIO, TRAMOS, precioDia, precioMes } from '../data/negocio';
+import { NEGOCIO, TRAMOS, precioDia, precioMes, conIva } from '../data/negocio';
 
 const faqs = [
-  {q:'¿Cuánto cuesta el renting de un robot cortacésped?',a:'660 €/año hasta 600 m² de césped y 760 €/año hasta 1.000 m². Un solo pago anual por transferencia con robot, instalación, mantenimiento y averías incluidos. Menos de 2 € al día.'},
+  {q:'¿Cuánto cuesta el renting de un robot cortacésped?',a:'660 €/año + IVA hasta 600 m² de césped y 760 €/año + IVA hasta 1.000 m². Un solo pago anual por transferencia con robot, instalación, mantenimiento y averías incluidos. Menos de 2 € al día.'},
   {q:'¿Qué incluye el precio?',a:'El robot, la instalación sin cable perimetral, la puesta a punto, la app configurada en tu móvil, el mantenimiento durante todo el año y las averías. Si falla, otro robot en menos de 7 días.'},
-  {q:'¿Se puede pagar al mes o solo en verano?',a:'No. El renting es anual y se paga en un solo pago por transferencia una vez instalado el robot. 660 €/año son unos 55 €/mes para comparar, pero el pago es anual para que la cuota salga lo más baja posible.'},
+  {q:'¿Se puede pagar al mes o solo en verano?',a:'No. El renting es anual y se paga en un solo pago por transferencia una vez instalado el robot. 660 €/año + IVA son unos 55 €/mes + IVA para comparar, pero el pago es anual para que la cuota salga lo más baja posible.'},
   {q:'¿Hay permanencia?',a:'No hay permanencia más allá del año contratado. Al terminar: si renuevas, seguimos igual; si no, retiramos el robot y la base y tu jardín queda como estaba.'},
   {q:'¿Y si mi jardín tiene más de 1.000 m²?',a:'Los tramos estándar llegan hasta 1.000 m². Para más superficie (fincas de bodas, campos de fútbol, comunidades) hacemos un presupuesto anual cerrado tras la demostración.'},
-  {q:'¿Comprar un robot cortacésped o alquilarlo?',a:'Comprado cuesta entre 950 y 6.000 € más instalación y mantenimiento aparte. Con el renting son 660-760 €/año todo incluido y, si se estropea, lo cambiamos nosotros. Sin inmovilizar dinero ni gestionar averías.'},
+  {q:'¿Comprar un robot cortacésped o alquilarlo?',a:'Comprado cuesta entre 950 y 6.000 € más instalación y mantenimiento aparte. Con el renting son 660-760 €/año + IVA todo incluido y, si se estropea, lo cambiamos nosotros. Sin inmovilizar dinero ni gestionar averías.'},
 ];
 
 const title = 'Robot cortacésped: precio del renting todo incluido | IRM';
-const description = 'Precio del robot cortacésped en renting: 660 €/año hasta 600 m², 760 €/año hasta 1.000 m². Instalación, mantenimiento y averías incluidos. Menos de 2 €/día.';
+const description = 'Precio del robot cortacésped en renting: 660 €/año + IVA hasta 600 m² y 760 €/año + IVA hasta 1.000 m². Instalación, mantenimiento y averías incluidos.';
 
 const schema = [
   {
     '@context': 'https://schema.org', '@type': 'Service',
     serviceType: 'Renting anual de robot cortacésped',
-    provider: { '@type': 'LocalBusiness', name: NEGOCIO.nombre, url: NEGOCIO.url },
+    provider: { '@id': `${NEGOCIO.url}/#negocio` },
     areaServed: 'Comunidad de Madrid',
     offers: TRAMOS.map((t) => ({
       '@type': 'Offer',
@@ -42,7 +42,7 @@ const schema = [
   <section class="irm-section">
     <div class="irm-container">
       <span class="irm-eyebrow">Precios</span>
-      <h1>Precio del robot cortacésped en renting: desde 660 € al año, todo <span class="irm-destacado--claro">incluido</span></h1>
+      <h1>Precio del robot cortacésped en renting: desde 660 € al año + IVA, todo <span class="irm-destacado--claro">incluido</span></h1>
       <p class="irm-entradilla" style="color:var(--irm-gris);max-width:62ch">Un solo pago al año según los metros de tu césped, con el robot, la instalación sin cable, el mantenimiento y las averías dentro.</p>
       <ul class="irm-checks" style="margin:1.5rem 0 2rem">
         <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Menos de 2 € al día</li>
@@ -60,8 +60,8 @@ const schema = [
             {t.destacado && <span class="irm-etiqueta">La más contratada</span>}
             <span class="irm-etiqueta" style={t.destacado ? 'background:transparent;color:#D4D7D4;padding:0' : ''}>{t.etiqueta}</span>
             <div>
-              <span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;font-weight:500;color:var(--irm-gris)">/año</span></span>
-              <p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día · pago anual*</p>
+              <span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;font-weight:500;color:var(--irm-gris)">/año + IVA</span></span>
+              <p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día + IVA · pago anual*</p>
             </div>
             <ul class="irm-checks">
               <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot e instalación sin cable perimetral</li>
@@ -73,7 +73,7 @@ const schema = [
           </article>
         ))}
       </div>
-      <p class="irm-nota" style="margin-top:1.5rem">*Precio anual según metros de césped. IVA [CONFIRMAR].</p>
+      <p class="irm-nota" style="margin-top:1.5rem">*Precios + IVA (21 %): {conIva(TRAMOS[0].precioAnual)} € y {conIva(TRAMOS[1].precioAnual)} € al año con IVA incluido. Según metros de césped.</p>
     </div>
   </section>
 
@@ -88,12 +88,12 @@ const schema = [
         <table class="irm-tabla">
           <thead><tr><th>Metros</th><th>Cuota anual</th><th>Al día</th></tr></thead>
           <tbody>
-            {TRAMOS.map((t) => (<tr><td><strong>Hasta {t.metros} m²</strong></td><td>{t.precioAnual} €/año*</td><td>{precioDia(t.precioAnual)} €</td></tr>))}
+            {TRAMOS.map((t) => (<tr><td><strong>Hasta {t.metros} m²</strong></td><td>{t.precioAnual} €/año + IVA*</td><td>{precioDia(t.precioAnual)} € + IVA</td></tr>))}
             <tr><td><strong>+1.000 m²</strong></td><td colspan="2">Consúltanos</td></tr>
           </tbody>
         </table>
         <h3 style="margin-top:2rem">Robot cortacésped: precio al mes equivalente</h3>
-        <p style="color:var(--irm-gris)">{TRAMOS[0].precioAnual} €/año son unos {precioMes(TRAMOS[0].precioAnual)} €/mes y {TRAMOS[1].precioAnual} €/año unos {precioMes(TRAMOS[1].precioAnual)} €/mes. Lo decimos para que compares, no porque se pague así. El renting se paga en un único pago anual.</p>
+        <p style="color:var(--irm-gris)">{TRAMOS[0].precioAnual} €/año + IVA son unos {precioMes(TRAMOS[0].precioAnual)} €/mes + IVA y {TRAMOS[1].precioAnual} €/año unos {precioMes(TRAMOS[1].precioAnual)} €/mes. Lo decimos para que compares, no porque se pague así. El renting se paga en un único pago anual.</p>
       </div>
       <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;min-height:500px"><img src="/img/urbanizacion-piscina-cadiz-costa.webp" alt="Zona verde amplia con piscina y césped cortado por robot cortacésped IRM" loading="lazy" style="height:100%;object-fit:cover"></div>
     </div>
@@ -138,7 +138,7 @@ const schema = [
         <article class="irm-compare__col irm-compare__col--good">
           <h3>Renting con IRM</h3>
           <ul>
-            <li>660 €/año* todo incluido, sin inmovilizar dinero</li>
+            <li>660 €/año + IVA* todo incluido, sin inmovilizar dinero</li>
             <li>Instalación sin cable perimetral: incluida</li>
             <li>Mantenimiento todo el año: incluido</li>
             <li>Avería: lo arreglamos o te ponemos otro en menos de 7 días</li>
@@ -159,7 +159,7 @@ const schema = [
         <h2>Robot cortacésped o jardinero: cuánto te ahorras al año</h2>
         <p style="color:var(--irm-gris)">Un jardinero en Madrid cobra entre <strong>60 y 120 € por visita</strong> para una parcela de hasta 1.000 m² y en temporada viene cada dos semanas: entre 15 y 20 visitas de marzo a noviembre. Eso son entre <strong>900 y 2.400 € al año</strong> solo por cortar el césped.</p>
         <ul class="irm-checks" style="margin-top:1.5rem">
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot IRM: 660 €/año, todo incluido</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Robot IRM: 660 €/año + IVA, todo incluido</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>El robot corta todos los días, no cada dos semanas</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Y no se olvida ni se va de vacaciones en agosto</li>
         </ul>
@@ -179,7 +179,7 @@ const schema = [
           <article class="irm-step"><h3>Instalación</h3><p style="color:var(--irm-gris)">Instalamos el robot sin cable perimetral, lo dejamos a punto y te configuramos la app. 0 € aparte.</p></article>
           <article class="irm-step"><h3>Transferencia anual</h3><p style="color:var(--irm-gris)">Con el robot ya cortando, pagas la cuota del año por transferencia y te olvidas del césped.</p></article>
         </div>
-        <p class="irm-nota" style="margin-top:1.5rem">Al terminar el año, [CONFIRMAR renovación/retirada/cambio]. No hay permanencia más allá del año.</p>
+        <p class="irm-nota" style="margin-top:1.5rem">Al terminar el año el renting se renueva solo y el robot se queda en tu jardín: solo lo cambiamos si tiene una avería.</p>
       </div>
       <div class="irm-foto" style="aspect-ratio:4/5;align-self:stretch;min-height:520px"><img src="/img/chalet-porche-cesped-testimonio.webp" alt="Chalet con porche y césped cortado por el robot cortacésped IRM, resultado del alquiler anual" loading="lazy" style="height:100%;object-fit:cover"></div>
     </div>

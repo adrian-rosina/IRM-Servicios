@@ -2,14 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
 import FaqSection from '../components/FaqSection.astro';
-import { NEGOCIO, TRAMOS, precioDia } from '../data/negocio';
+import { NEGOCIO, TRAMOS, precioDia, conIva } from '../data/negocio';
 
 const faqs = [
   {q:'¿Qué incluye la demostración?',a:'Vamos a tu casa, medimos los metros reales de césped, miramos pendientes y zonas separadas, instalamos una base y dejamos un robot cortando delante de ti. Dura una mañana y termina con el presupuesto cerrado.'},
   {q:'¿Cuánto cuesta la demostración?',a:'175 € que se descuentan íntegros de la cuota anual si contratas. Si no contratas, es lo que pagas por una mañana de nuestro técnico en tu jardín con un robot real.'},
   {q:'¿Y si después de la demostración no me convence?',a:'No pasa nada y no pagas la cuota anual: la demostración no te compromete. Retiramos el robot y la base y tu jardín se queda como estaba.'},
   {q:'¿Cuándo instalarías el robot si contrato?',a:'Si confirmamos durante la demostración, podemos dejar el robot instalado ese mismo día o la semana siguiente. En Madrid instalamos nosotros, sin transportistas ni subcontratas.'},
-  {q:'¿Se puede pagar al mes?',a:'No: la cuota es anual y se paga de una vez por transferencia cuando el robot ya está instalado. 660 €/año son unos 55 €/mes para comparar, pero el pago es anual para que la cuota salga lo más baja posible.'},
+  {q:'¿Se puede pagar al mes?',a:'No: la cuota es anual y se paga de una vez por transferencia cuando el robot ya está instalado. 660 €/año + IVA son unos 55 €/mes + IVA para comparar, pero el pago es anual para que la cuota salga lo más baja posible.'},
   {q:'¿En qué zonas vais a hacer la demostración?',a:'Toda la Comunidad de Madrid y también Valladolid, Segovia, Toledo y Cádiz. Si no estás en estas zonas, llámanos igualmente: a veces podemos ir.'},
 ];
 
@@ -40,23 +40,23 @@ const schema = {
           <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">WhatsApp</a>
         </div>
       </div>
-      <form class="irm-form-card" action="#" method="post">
+      <form class="irm-form-card" data-irm-form data-fuente="web_demostracion" method="post" action="#">
         <h3 style="margin-top:0">Reserva tu robot</h3>
         <div class="irm-form-grid">
-          <div class="irm-field"><label for="n">Nombre</label><input id="n" type="text" required></div>
-          <div class="irm-field"><label for="t">Teléfono</label><input id="t" type="tel" required></div>
-          <div class="irm-field"><label for="mp">Municipio</label><input id="mp" type="text" required></div>
+          <div class="irm-field"><label for="n">Nombre</label><input id="n" name="nombre" type="text" autocomplete="name" required></div>
+          <div class="irm-field"><label for="t">Teléfono</label><input id="t" name="telefono" type="tel" autocomplete="tel" required></div>
+          <div class="irm-field"><label for="mp">Municipio</label><input id="mp" name="municipio" type="text" autocomplete="address-level2" required></div>
           <div class="irm-field"><label for="m2">Metros de césped</label>
-            <select id="m2" required>
+            <select id="m2" name="m2" required>
               <option value="">Elige una opción</option>
               <option>Hasta 600 m²</option><option>De 600 a 1.000 m²</option><option>Más de 1.000 m²</option>
             </select>
           </div>
           <div class="irm-field"><label for="p">¿Tu jardín tiene pendiente?</label>
-            <select id="p" required><option value="">Elige una opción</option><option>Sí</option><option>No</option><option>No lo sé</option></select>
+            <select id="p" name="pendiente" required><option value="">Elige una opción</option><option>Sí</option><option>No</option><option>No lo sé</option></select>
           </div>
-          <div class="irm-field"><label for="msg">Mensaje (opcional)</label><textarea id="msg"></textarea></div>
-          <div class="irm-field irm-field-check"><input id="rgpd" type="checkbox" required><label for="rgpd">He leído y acepto la <a href="/politica-de-privacidad/">política de privacidad</a>.</label></div>
+          <div class="irm-field"><label for="msg">Mensaje (opcional)</label><textarea id="msg" name="mensaje"></textarea></div>
+          <div class="irm-field irm-field-check"><input id="rgpd" name="rgpd" type="checkbox" required><label for="rgpd">He leído y acepto la <a href="/politica-de-privacidad/">política de privacidad</a>.</label></div>
           <button type="submit" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
           <p class="irm-nota" style="text-align:center">Te llamamos nosotros para cerrar día y hora. La cuota no se paga hasta que el robot está instalado.</p>
         </div>
@@ -104,12 +104,12 @@ const schema = {
           <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
             {t.destacado && <span class="irm-etiqueta">La más contratada</span>}
             <span class="irm-etiqueta" style={t.destacado ? 'background:transparent;color:#D4D7D4;padding:0' : ''}>{t.etiqueta}</span>
-            <div><span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;color:var(--irm-gris)">/año</span></span><p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día · pago anual*</p></div>
+            <div><span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;color:var(--irm-gris)">/año + IVA</span></span><p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día · pago anual*</p></div>
             <a href="#" class={`irm-btn ${t.destacado ? 'irm-btn-primary irm-on-dark' : 'irm-btn-secondary'}`}>Reservar este tramo <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
           </article>
         ))}
       </div>
-      <p class="irm-nota" style="margin-top:1.5rem">*Los {NEGOCIO.demoEuros} € de la demostración se descuentan de estas cifras. IVA [CONFIRMAR].</p>
+      <p class="irm-nota" style="margin-top:1.5rem">*Los {NEGOCIO.demoEuros} € de la demostración se descuentan de estas cifras. Precios + IVA (21 %): {conIva(TRAMOS[0].precioAnual)} € y {conIva(TRAMOS[1].precioAnual)} € al año con IVA incluido.</p>
       <p style="margin-top:.75rem"><a href="/precios/">Ver el precio al detalle →</a></p>
     </div>
   </section>

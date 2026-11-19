@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { NEGOCIO } from '../../data/negocio';
 
-const title = 'Últimas instalaciones de 2026 · robot cortacésped Madrid | IRM';
+const title = 'Instalaciones 2026 · robot cortacésped Madrid | IRM';
 const description = 'Últimas plazas de instalación de robot cortacésped para 2026 en Madrid. Reserva antes de fin de año y asegura tu robot para la temporada que viene.';
 ---
 <BaseLayout {title} {description} noindex>
@@ -13,7 +13,7 @@ const description = 'Últimas plazas de instalación de robot cortacésped para 
         <h1>Últimas instalaciones de 2026: deja el césped listo para la próxima <span class="irm-destacado">temporada</span></h1>
         <p class="irm-entradilla">Cerramos agenda de instalación para 2026. Si reservas ahora, en enero el robot ya corta solo en tu jardín.</p>
         <ul class="irm-checks" data-stagger style="margin:1.5rem 0 2rem">
-          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Precio bloqueado 2026 · 660 €/año hasta 600 m²</li>
+          <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Precio bloqueado 2026 · 660 €/año + IVA hasta 600 m²</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Demostración incluida y descontada de la cuota</li>
           <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Si falla, otro robot en menos de 7 días</li>
         </ul>
@@ -22,7 +22,7 @@ const description = 'Últimas plazas de instalación de robot cortacésped para 
           <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">WhatsApp</a>
         </div>
       </div>
-      <form class="irm-form-card" action="#" method="post">
+      <form class="irm-form-card" data-irm-form data-fuente="web_lp_ultimas_2026" method="post" action="#">
         <h3 style="margin-top:0">Reserva tu plaza de 2026</h3>
         <div class="irm-form-grid">
           <div class="irm-field"><label for="n">Nombre</label><input id="n" name="nombre" type="text" required></div>

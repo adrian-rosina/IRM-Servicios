@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { NEGOCIO } from '../../data/negocio';
 
-const title = 'Robot cortacésped para fincas de bodas · temporada 2027 | IRM';
-const description = 'Robot cortacésped en renting para fincas de bodas: césped de foto cada fin de semana, silencio en la ceremonia y sustitución en 7 días si falla. Agenda temporada 2027.';
+const title = 'Robot cortacésped para fincas de bodas 2027 | IRM';
+const description = 'Robot cortacésped en renting para fincas de bodas: césped de foto cada fin de semana, silencio en la ceremonia y sustitución en 7 días. Temporada 2027.';
 ---
 <BaseLayout {title} {description} noindex>
   <section class="irm-section irm-bg-negro irm-hero">
@@ -23,7 +23,7 @@ const description = 'Robot cortacésped en renting para fincas de bodas: césped
           <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary">WhatsApp</a>
         </div>
       </div>
-      <form class="irm-form-card" action="#" method="post">
+      <form class="irm-form-card" data-irm-form data-fuente="web_lp_fincas_2027" method="post" action="#">
         <h3 style="margin-top:0">Pide tu demostración</h3>
         <div class="irm-form-grid">
           <div class="irm-field"><label for="n">Nombre</label><input id="n" name="nombre" type="text" required></div>

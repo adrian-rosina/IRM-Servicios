@@ -4,13 +4,13 @@ import RobotTrail from '../components/RobotTrail.astro';
 import FaqSection from '../components/FaqSection.astro';
 import { NEGOCIO, ZONAS } from '../data/negocio';
 
-const title = 'Contacto · IRM Servicios · Alquiler de robot cortacésped Madrid';
-const description = 'Contacta con IRM Servicios: teléfono, WhatsApp, email, Instagram o formulario. Te respondemos nosotros, no un comercial. Instalamos en toda la Comunidad de Madrid.';
+const title = 'Contacto · Alquiler de robot cortacésped Madrid | IRM';
+const description = 'Contacta con IRM Servicios por teléfono, WhatsApp, email o formulario. Te respondemos nosotros, no un comercial. Instalamos en toda la Comunidad de Madrid.';
 const schema = [
   {
     '@context':'https://schema.org','@type':'ContactPage',
     url: `${NEGOCIO.url}/contacto/`,
-    about: { '@type': 'LocalBusiness', name: NEGOCIO.nombre },
+    about: { '@id': `${NEGOCIO.url}/#negocio` },
   },
   {
     '@context':'https://schema.org','@type':'BreadcrumbList',
@@ -121,7 +121,7 @@ const faqs = [
           </div>
           <p class="irm-nota">Tus datos se tratan conforme a nuestra <a href="/politica-de-privacidad/">política de privacidad</a>.</p>
         </div>
-        <form class="irm-form-card" action="#" method="post">
+        <form class="irm-form-card" data-irm-form data-fuente="web_contacto" method="post" action="#">
           <h3 style="margin-top:0">Escríbenos</h3>
           <div class="irm-form-grid">
             <div class="irm-field"><label for="c-nombre">Nombre</label><input id="c-nombre" name="nombre" type="text" required></div>
