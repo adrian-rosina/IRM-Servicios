@@ -1,0 +1,76 @@
+/* ============================================================
+   IRM · Páginas de zona (robot-cortacesped-[provincia])
+   ============================================================ */
+
+/* ---------- Hero ---------- */
+.irm-zh{padding-top:clamp(2rem,4vw,3.5rem)}
+.irm-zh__grid{display:grid;gap:2rem;align-items:center}
+.irm-zh__text .irm-eyebrow a{color:inherit;text-decoration:none}
+.irm-zh__text .irm-eyebrow a:hover{color:var(--irm-bosque)}
+.irm-zh h1{font-size:clamp(2.2rem,1.1rem + 3vw,3.75rem);line-height:1;letter-spacing:-.04em;max-width:16ch}
+.irm-zh__sub{font-size:clamp(1.0625rem,1rem + .25vw,1.1875rem);color:var(--irm-gris);max-width:46ch;margin:1.25rem 0 0}
+.irm-zh__facts{list-style:none;padding:0;margin:1.75rem 0 2rem;display:flex;flex-wrap:wrap;gap:.75rem 1.5rem}
+.irm-zh__facts li{display:flex;align-items:center;gap:.65rem;font-size:.9375rem;color:var(--irm-gris)}
+.irm-zh__facts strong{color:var(--irm-negro);font-weight:700}
+.irm-zh__foto{position:relative;aspect-ratio:4/3}
+.irm-zh__foto img{width:100%;height:100%;object-fit:cover}
+.irm-zh__tag{position:absolute;left:1rem;bottom:1rem;z-index:2;display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem .4rem .4rem;background:var(--irm-blanco);border-radius:999px;font-weight:700;font-size:.9375rem;color:var(--irm-negro)}
+.irm-zh__tag .irm-ico--sm{width:32px;height:32px;border-radius:50%}
+.irm-zh__tag .irm-ico--sm svg{width:16px;height:16px}
+@media(min-width:1024px){.irm-zh__grid{grid-template-columns:1.05fr 1fr;gap:4rem}.irm-zh__foto{aspect-ratio:5/6}}
+
+/* ---------- Bloques comunes ---------- */
+.irm-zona__lead{max-width:64ch;color:var(--irm-gris);font-size:1.0625rem}
+.irm-zona__lead--dark{color:#C9CDC8}
+.irm-zona__link{margin-top:1.75rem;color:var(--irm-gris)}
+
+/* Qué incluye: lista con iconos + precios */
+.irm-zona__incluye{display:grid;gap:2rem;margin-top:2.5rem;align-items:start}
+.irm-zona__lista{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+.irm-zona__lista li{display:flex;align-items:center;gap:.9rem;padding:.85rem 1rem;background:var(--irm-hueso);border-radius:16px;font-weight:600;transition:transform var(--irm-ease)}
+.irm-zona__lista li:hover{transform:translateX(4px)}
+.irm-zona__precios{display:grid;gap:1rem}
+.irm-zona__precios .irm-cifra-tramo small{font-size:1.125rem;font-weight:500;color:var(--irm-gris);margin-left:.15rem}
+.irm-zona__precios .irm-price-card--dark .irm-cifra-tramo small{color:#B5B9B2}
+@media(min-width:720px){.irm-zona__lista{grid-template-columns:1fr 1fr}.irm-zona__precios{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.irm-zona__incluye{grid-template-columns:1.2fr 1fr;gap:3rem}.irm-zona__precios{grid-template-columns:1fr}}
+
+/* Instalación: tarjeta H3 bajo el texto fijo */
+.irm-zona__h3card{margin-top:1.75rem;background:var(--irm-blanco)}
+.irm-zona__h3card h3{font-size:1.1875rem;margin-bottom:.4rem}
+.irm-zona__h3card p{margin:0}
+
+/* Dónde instalamos: municipios + clima */
+.irm-zona__donde{display:grid;gap:2.5rem;margin-top:2rem;align-items:start}
+.irm-zona__chips{list-style:none;margin:1.75rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.6rem}
+.irm-zona__chips li{display:inline-flex;align-items:center;gap:.55rem;padding:.35rem 1rem .35rem .35rem;border-radius:999px;background:rgba(255,255,255,.06);color:var(--irm-blanco);font-weight:600}
+.irm-zona__chips .irm-ico--sm{width:30px;height:30px;border-radius:50%}
+.irm-zona__chips .irm-ico--sm svg{width:15px;height:15px}
+.irm-zona__nota{margin-top:1.5rem;color:rgba(255,255,255,.55);font-size:.9375rem;max-width:60ch}
+.irm-zona__clima{background:#1E2120;border-radius:var(--irm-radio-tarjeta);padding:clamp(1.5rem,3vw,2.25rem)}
+.irm-zona__clima-label{display:block;color:var(--irm-lima);font-weight:600;font-size:.9375rem}
+.irm-zona__temporada{display:block;font-size:clamp(1.6rem,1.1rem + 1.6vw,2.4rem);line-height:1.05;letter-spacing:-.03em;color:var(--irm-blanco);margin:.35rem 0 1rem}
+.irm-zona__clima > p{color:#C9CDC8;margin:0 0 1.5rem}
+.irm-zona__clima ul{list-style:none;margin:0;padding:0;display:grid;gap:1.1rem}
+.irm-zona__clima li{display:flex;gap:.9rem;align-items:flex-start}
+.irm-zona__clima h3{font-size:1rem;color:var(--irm-blanco);margin:0 0 .2rem}
+.irm-zona__clima li p{color:#B5B9B2;font-size:.9375rem;margin:0}
+@media(min-width:1024px){.irm-zona__donde{grid-template-columns:1fr 1fr;gap:4rem}}
+
+/* Galería de fotos reales */
+.irm-zona__galeria{display:grid;gap:1rem;margin-top:3rem;grid-template-columns:1fr 1fr}
+.irm-zona__galeria .irm-foto{margin:0;aspect-ratio:3/4}
+.irm-zona__galeria .irm-foto:first-child{grid-column:span 2;aspect-ratio:16/10}
+.irm-zona__galeria img{width:100%;height:100%;object-fit:cover}
+.irm-zona__galeria figcaption{position:absolute;left:.75rem;bottom:.75rem;z-index:2;display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .85rem .3rem .3rem;border-radius:999px;background:rgba(20,22,21,.82);color:var(--irm-blanco);font-size:.875rem;font-weight:600}
+.irm-zona__galeria figcaption .irm-ico--sm{width:26px;height:26px;border-radius:50%}
+.irm-zona__galeria figcaption .irm-ico--sm svg{width:13px;height:13px}
+@media(min-width:900px){.irm-zona__galeria{grid-template-columns:1.4fr 1fr 1fr}.irm-zona__galeria .irm-foto,.irm-zona__galeria .irm-foto:first-child{grid-column:auto;aspect-ratio:auto;height:clamp(340px,32vw,460px)}}
+
+/* CTA final */
+.irm-zona__cta{display:grid;gap:2rem;align-items:end}
+.irm-zona__cta p{color:#C9CDC8;max-width:58ch}
+.irm-zona__tel{display:inline-flex;align-items:center;gap:1rem;color:var(--irm-lima);font-weight:700;font-size:clamp(1.75rem,1rem + 2.5vw,3rem);letter-spacing:-.03em;text-decoration:none}
+.irm-zona__tel .irm-ico{margin:0}
+.irm-zona__tel:hover{color:var(--irm-lima-claro)}
+@media(min-width:1024px){.irm-zona__cta{grid-template-columns:1.3fr 1fr}.irm-zona__tel{justify-self:end}}

@@ -6,11 +6,11 @@ import { getCollection } from 'astro:content';
 import { NEGOCIO, ZONAS } from '../data/negocio';
 
 const faqs = [
-  {q:'¿En qué zonas instala IRM robots cortacésped?',a:'Toda la Comunidad de Madrid (15 municipios activos) y además Valladolid, Segovia y Toledo. Cádiz entra en fase 2: llámanos para apuntarte en lista de espera.'},
+  {q:'¿En qué zonas instala IRM robots cortacésped?',a:'Toda la Comunidad de Madrid (15 municipios activos) y además Valladolid, Segovia, Toledo y Cádiz.'},
   {q:'¿Vais a cualquier punto de la Comunidad de Madrid?',a:'Sí. Nos desplazamos a norte, oeste, sur y sierra. La demostración y la instalación la hacemos nosotros en persona, sin transportistas ni subcontratas.'},
   {q:'¿Si mi municipio no está en la lista, podéis venir?',a:'A veces sí. Cuéntanos los metros de césped y la dirección y te decimos sobre la marcha si entramos en zona o te apuntamos en la lista de nuevas aperturas.'},
   {q:'¿Cuánto tardáis en llegar desde Madrid?',a:'Depende del municipio. En la periferia inmediata (Pozuelo, Boadilla, Alcobendas) estamos en menos de 30 minutos. En la sierra o el corredor del Henares, entre 40 y 60.'},
-  {q:'¿Varía el precio del renting según la zona?',a:'No. Los tramos (660 € hasta 600 m², 760 € hasta 1.000 m²) son los mismos en toda la cobertura. En Fase 2 (Cádiz) el precio puede variar por logística de instalación.'},
+  {q:'¿Varía el precio del renting según la zona?',a:'No. Los tramos (660 € + IVA hasta 600 m², 760 € + IVA hasta 1.000 m²) son los mismos en toda la cobertura: Madrid, Valladolid, Segovia, Toledo y Cádiz.'},
 ];
 
 const title = 'Zonas donde instalamos robots cortacésped | IRM Servicios';
@@ -52,11 +52,11 @@ const byId = (slug: string) => zonasContent.find((z) => z.id === slug);
 
   <section class="irm-section irm-bg-hueso" data-anim>
     <div class="irm-container">
-      <span class="irm-eyebrow">Fase 1 · ya activa</span>
+      <span class="irm-eyebrow">Fuera de Madrid</span>
       <h2>Otras provincias donde instalamos</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Fuera de Madrid trabajamos en estas tres provincias: visita técnica, instalación y mantenimiento. La demostración se descuenta de la cuota si contratas.</p>
-      <div class="irm-grid irm-grid-3" data-stagger style="margin-top:2.5rem">
-        {ZONAS.filter((z) => z.fase === 1).map((z) => {
+      <p style="max-width:62ch;color:var(--irm-gris)">Fuera de Madrid trabajamos en estas cuatro provincias: visita técnica, instalación y mantenimiento. La demostración se descuenta de la cuota si contratas.</p>
+      <div class="irm-grid irm-grid-2" data-stagger style="margin-top:2.5rem">
+        {ZONAS.map((z) => {
           const info = byId(z.slug);
           return (
             <a href={`/robot-cortacesped-${z.slug}/`} class="irm-card irm-card--link">
@@ -69,25 +69,6 @@ const byId = (slug: string) => zonasContent.find((z) => z.id === slug);
             </a>
           );
         })}
-      </div>
-    </div>
-  </section>
-
-  <section class="irm-section" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">Fase 2 · próxima</span>
-      <h2>Zonas donde abrimos próximamente</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Estamos preparando la logística para arrancar en Cádiz. Si quieres que te avisemos cuando empecemos a instalar en tu zona, llámanos y te apuntamos.</p>
-      <div class="irm-grid irm-grid-2" style="margin-top:2.5rem">
-        {ZONAS.filter((z) => z.fase === 2).map((z) => (
-          <a href={`/robot-cortacesped-${z.slug}/`} class="irm-card irm-card--link">
-            <div class="irm-card-body">
-              <h3>{z.nombre} (fase 2)</h3>
-              <p style="color:var(--irm-gris)">Llámanos para quedar en lista de espera.</p>
-              <span class="irm-arrow">Ver {z.nombre} →</span>
-            </div>
-          </a>
-        ))}
       </div>
     </div>
   </section>

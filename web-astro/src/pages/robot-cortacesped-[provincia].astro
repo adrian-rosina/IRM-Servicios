@@ -1,10 +1,13 @@
 ---
-// src/pages/robot-cortacesped-[provincia].astro — UNA plantilla genera las 4 páginas de zona
-import { getCollection, render } from 'astro:content';
+// Una plantilla genera las páginas de zona. Encabezados aprobados en docs/06 (provincia en el H1, Madrid en ningún encabezado).
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
 import RobotTrail from '../components/RobotTrail.astro';
 import FaqSection from '../components/FaqSection.astro';
+import Icon from '../components/Icon.astro';
+import { NEGOCIO, TRAMOS, precioDia, conIva } from '../data/negocio';
+import '../styles/zona.css';
 
 export async function getStaticPaths() {
   const zonas = await getCollection('zonas');
@@ -12,29 +15,173 @@ export async function getStaticPaths() {
 }
 
 const { zona } = Astro.props;
-const { Content } = await render(zona);
 const d = zona.data;
+const P = d.provincia;
+const url = `${NEGOCIO.url}/robot-cortacesped-${zona.id}/`;
 
-const faqs = [
-  {q:`¿Hacéis instalación de robot cortacésped en ${d.provincia}?`,a:`Sí. Vamos nosotros desde Madrid: medimos el jardín, instalamos el robot sin cable perimetral y lo dejamos cortando el mismo día. Después mantenimiento y averías entran en la cuota anual.`},
-  {q:`¿Cuánto cuesta el renting de robot cortacésped en ${d.provincia}?`,a:'660 €/año hasta 600 m² de césped y 760 €/año hasta 1.000 m². Un solo pago anual con robot, instalación, mantenimiento y averías incluidos.'},
-  {q:'¿Qué pasa si el robot falla y vosotros estáis en Madrid?',a:'Nos llamas y en menos de 7 días está arreglado o te instalamos otro. El desplazamiento está incluido en la cuota: no te cobramos la visita.'},
-  {q:`¿Se puede ver una demostración antes de contratar en ${d.provincia}?`,a:'Sí. Vamos a tu casa, estudiamos el jardín y te dejamos un robot cortando de prueba. Son 175 € que se descuentan íntegros de la cuota anual si contratas.'},
+const incluye = [
+  { icono: 'base', texto: 'Robot e instalación sin obras' },
+  { icono: 'app', texto: 'App configurada en tu móvil' },
+  { icono: 'cuchilla', texto: 'Cuchillas y limpieza' },
+  { icono: 'averia', texto: 'Mantenimiento y averías' },
+  { icono: 'sustitucion', texto: 'Robot de sustitución si no tiene arreglo' },
+  { icono: 'invierno', texto: 'Servicio activo también en invierno' },
+] as const;
+
+const pasos = [
+  { t: 'Nos escribes o nos llamas', p: `Cuéntanos tu municipio en ${P}, los metros de césped y cómo es el jardín. Unas fotos por WhatsApp ayudan mucho.` },
+  { t: 'Demostración en tu jardín', p: `Vamos a tu casa, estudiamos el terreno y dejamos un robot cortando de prueba. Son ${NEGOCIO.demoEuros} € que se descuentan de la cuota.` },
+  { t: 'Instalación sin cable', p: 'Colocamos la base, el robot aprende el jardín y marcamos las zonas que no debe pisar. Te dejamos la app configurada.' },
+  { t: 'Mantenimiento todo el año', p: 'Cuchillas, limpieza y averías van en la cuota. Si algo falla, nos avisas y lo resolvemos nosotros.' },
 ];
 
-const schema = {
-  '@context': 'https://schema.org', '@type': 'Service',
-  serviceType: 'Renting de robots cortacésped',
-  areaServed: { '@type': 'AdministrativeArea', name: d.provincia },
-  provider: { '@id': 'https://irmservicios.com/#negocio' },   // apunta a la home (Madrid)
-};
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service',
+    name: `Renting de robot cortacésped en ${P}`,
+    serviceType: 'Renting anual de robot cortacésped',
+    areaServed: { '@type': 'AdministrativeArea', name: P },
+    provider: { '@id': `${NEGOCIO.url}/#negocio` },
+    url,
+    offers: TRAMOS.map((t) => ({ '@type': 'Offer', name: `Hasta ${t.metros} m²`, price: t.precioAnual, priceCurrency: 'EUR' })),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${NEGOCIO.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Zonas', item: `${NEGOCIO.url}/zonas/` },
+      { '@type': 'ListItem', position: 3, name: P },
+    ],
+  },
+];
 ---
 <BaseLayout title={d.title} description={d.description} schema={schema}>
-  <Hero antetitulo={`Renting de robots cortacésped · ${d.provincia}`} titulo={d.h1}
-        entradilla="Instalación, mantenimiento y averías incluidos." imagen={d.imagen} alt={d.alt} />
+  <section class="irm-section irm-bg-hueso irm-zh">
+    <div class="irm-container irm-zh__grid">
+      <div class="irm-zh__text">
+        <span class="irm-eyebrow"><a href="/zonas/">Zonas</a> · {P}</span>
+        <h1>{d.h1}</h1>
+        <p class="irm-zh__sub">{d.entradilla}</p>
+        <ul class="irm-zh__facts">
+          <li><Icon name="euro" class="irm-ico--sm" /><span><strong><span data-count-to={TRAMOS[0].precioAnual}>{TRAMOS[0].precioAnual}</span> €</strong> al año + IVA</span></li>
+          <li><Icon name="cable" class="irm-ico--sm" /><span><strong>Sin cable</strong> perimetral</span></li>
+          <li><Icon name="pendiente" class="irm-ico--sm" /><span><strong>Hasta un 30 %</strong> de pendiente</span></li>
+        </ul>
+        <div class="irm-hero-ctas">
+          <a href="/demostracion/" class="irm-btn irm-btn-primary">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`tel:+34${NEGOCIO.telefono}`} class="irm-btn irm-btn-secondary">{NEGOCIO.telefonoFormato}</a>
+        </div>
+      </div>
+      <div class="irm-foto irm-zh__foto">
+        <Image src={d.imagen} alt={d.alt} widths={[640, 960, 1400]} sizes="(max-width: 1023px) 100vw, 50vw" loading="eager" fetchpriority="high" />
+        {d.fotoLocal && <span class="irm-zh__tag"><Icon name="gps" class="irm-ico--sm" />{P}</span>}
+      </div>
+    </div>
+  </section>
+
   <RobotTrail />
-  <section class="irm-section"><div class="irm-container"><Content /></div></section>
-  <FaqSection faqs={faqs} eyebrow={`FAQ · ${d.provincia}`} title={`Preguntas frecuentes sobre robots cortacésped en ${d.provincia}`} intro={`Lo que nos preguntan quienes buscan robot cortacésped en ${d.provincia}.`} />
-  <p class="irm-container">Consulta el <a href="/precios/">precio del renting</a> o vuelve al
-    <a href="/">renting de robots cortacésped</a>.</p>
+
+  <section class="irm-section" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">El renting</span>
+      <h2>Alquiler de robot cortacésped en {P}: qué incluye</h2>
+      <p class="irm-zona__lead">{d.incluye}</p>
+      <div class="irm-zona__incluye">
+        <ul class="irm-zona__lista" data-stagger>
+          {incluye.map((i) => <li><Icon name={i.icono} class="irm-ico--sm" /><span>{i.texto}</span></li>)}
+        </ul>
+        <div class="irm-zona__precios" data-stagger>
+          {TRAMOS.map((t) => (
+            <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
+              <span class="irm-etiqueta">{t.etiqueta}</span>
+              <span class="irm-cifra-tramo"><span data-count-to={t.precioAnual}>{t.precioAnual}</span> €<small>/año + IVA</small></span>
+              <p class="irm-nota">{conIva(t.precioAnual)} € con IVA · un solo pago anual</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <p class="irm-zona__link">Todos los detalles del <a href="/precios/">robot cortacésped precio</a>.</p>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-hueso" data-anim>
+    <div class="irm-container">
+      <div class="irm-proc">
+        <div class="irm-proc__head">
+          <span class="irm-eyebrow">La instalación</span>
+          <h2>Instalación del robot cortacésped en {P}: cómo nos organizamos</h2>
+          <p>{d.organizacion}</p>
+          <article class="irm-card irm-zona__h3card">
+            <Icon name="ruta" />
+            <h3>Sin cable perimetral y también con pendiente</h3>
+            <p>Un <a href="/como-funciona/">robot cortacésped sin cable perimetral</a> no necesita zanjas ni obra, y el que instalamos acepta hasta un 30 % de desnivel. Más en <a href="/como-funciona/jardines-con-pendiente/">robot cortacésped pendiente</a>.</p>
+          </article>
+        </div>
+        <ol class="irm-proc__list" data-proc>
+          {pasos.map((s, i) => (
+            <li class={`irm-proc__item ${i === 0 ? 'is-active' : ''}`.trim()}>
+              <span class="irm-proc__num">0{i + 1}</span>
+              <h3>{s.t}</h3>
+              <p>{s.p}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="irm-section irm-bg-negro" data-anim>
+    <div class="irm-container">
+      <span class="irm-eyebrow">Dónde instalamos</span>
+      <h2>Municipios de {P} donde instalamos</h2>
+      <div class="irm-zona__donde">
+        <div>
+          <p class="irm-zona__lead irm-zona__lead--dark">{d.zonaTexto}</p>
+          {d.municipios.length > 0 && (
+            <ul class="irm-zona__chips" data-stagger>
+              {d.municipios.map((m) => <li><Icon name="gps" class="irm-ico--sm" />{m}</li>)}
+            </ul>
+          )}
+          <p class="irm-zona__nota">{d.municipiosNota}</p>
+        </div>
+        <aside class="irm-zona__clima">
+          <span class="irm-zona__clima-label">Temporada de corte en {P}</span>
+          <strong class="irm-zona__temporada">{d.clima.temporada}</strong>
+          <p>{d.clima.texto}</p>
+          <ul data-stagger>
+            {d.clima.claves.map((c) => (
+              <li><Icon name={c.icono as any} class="irm-ico--sm" /><div><h3>{c.titulo}</h3><p>{c.texto}</p></div></li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+      {d.galeria.length > 0 && (
+        <div class="irm-zona__galeria" data-stagger>
+          {d.galeria.map((g) => (
+            <figure class="irm-foto">
+              <Image src={g.src} alt={g.alt} widths={[480, 800]} sizes="(max-width: 720px) 100vw, 33vw" loading="lazy" />
+              <figcaption><Icon name="gps" class="irm-ico--sm" />{g.pie}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <FaqSection faqs={d.faqs} bg="blanco" eyebrow="Preguntas frecuentes" title={`Preguntas frecuentes sobre el renting en ${P}`} intro={`Lo que nos preguntan quienes buscan robot cortacésped en ${P}.`} />
+
+  <section class="irm-section irm-bg-negro" data-anim>
+    <div class="irm-container irm-zona__cta">
+      <div>
+        <span class="irm-eyebrow">El último paso</span>
+        <h2>Pide presupuesto para tu jardín en {P}</h2>
+        <p>Dinos los metros de césped y tu municipio y te contamos cómo lo hacemos. Si prefieres ver antes el servicio completo, empieza por el <a href="/">alquiler robot cortacésped Madrid</a>, o si tu parcela es muy grande, por el <a href="/profesionales/">robot cortacésped grandes superficies</a>.</p>
+        <div class="irm-hero-ctas">
+          <a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href={`https://wa.me/${NEGOCIO.whatsapp}`} class="irm-btn irm-btn-secondary" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        </div>
+      </div>
+      <a class="irm-zona__tel" href={`tel:+34${NEGOCIO.telefono}`}><Icon name="telefono" />{NEGOCIO.telefonoFormato}</a>
+    </div>
+  </section>
 </BaseLayout>
