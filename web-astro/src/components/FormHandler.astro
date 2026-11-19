@@ -1,0 +1,92 @@
+---
+// src/components/FormHandler.astro — handler global para formularios IRM.
+// Marca cada <form> con `data-irm-form` y `data-fuente="xxx"` y este script
+// lo intercepta: captura UTMs/gclid/fbclid, hace POST JSON al webhook de
+// Apps Script (ver src/data/forms.ts) y muestra estado de éxito/error.
+import { FORMS } from '../data/forms';
+import { NEGOCIO } from '../data/negocio';
+---
+<script is:inline define:vars={{ WEBHOOK: FORMS.webhook, WA: NEGOCIO.whatsapp, TEL: NEGOCIO.telefono, TEL_FMT: NEGOCIO.telefonoFormato }}>
+(() => {
+  const forms = document.querySelectorAll('form[data-irm-form]');
+  if (!forms.length) return;
+  // Sin URL real del Apps Script no hay envío: nunca fingimos éxito, ofrecemos WhatsApp con los datos ya escritos
+  const configured = /^https:\/\/script\.google\.com\/macros\/s\/[\w-]{20,}\/exec$/.test(WEBHOOK || '') && !/REEMPLAZAR/i.test(WEBHOOK);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const waLink = (data) => {
+    const campos = [['Nombre', data.nombre], ['Teléfono', data.telefono], ['Finca', data.finca], ['Municipio', data.municipio], ['Metros', data.m2], ['Mensaje', data.mensaje]]
+      .filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('\n');
+    const txt = `Hola, quiero información del renting de robot cortacésped.\n${campos}`;
+    return `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
+  };
+  const fallback = (statusEl, data) => {
+    statusEl.className = 'irm-form-status is-err';
+    statusEl.innerHTML = `<strong>No hemos podido enviar el formulario.</strong> Mándanos los datos por WhatsApp (ya van escritos) o llámanos al <a href="tel:+34${esc(TEL)}">${esc(TEL_FMT)}</a>.`
+      + ` <a class="irm-btn irm-btn-primary irm-btn--sm" href="${waLink(data)}" target="_blank" rel="noopener">Enviar por WhatsApp</a>`;
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const read = (k) => params.get(k) || '';
+  const landing = window.location.pathname + window.location.search;
+
+  forms.forEach((form) => {
+    const fuente = form.getAttribute('data-fuente') || 'web';
+    const statusEl = document.createElement('div');
+    statusEl.className = 'irm-form-status';
+    statusEl.setAttribute('role', 'status');
+    statusEl.setAttribute('aria-live', 'polite');
+    form.appendChild(statusEl);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = '';
+      statusEl.className = 'irm-form-status';
+
+      const btn = form.querySelector('button[type="submit"]');
+      const originalBtnText = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+
+      const data = {
+        fuente,
+        landing_url: landing,
+        user_agent: navigator.userAgent,
+        utm_source: read('utm_source'),
+        utm_medium: read('utm_medium'),
+        utm_campaign: read('utm_campaign'),
+        gclid: read('gclid'),
+        fbclid: read('fbclid'),
+      };
+      new FormData(form).forEach((v, k) => {
+        if (k === 'rgpd') return;
+        if (data[k] !== undefined && data[k] !== '') return;
+        data[k] = typeof v === 'string' ? v.trim() : v;
+      });
+
+      if (!configured) {
+        fallback(statusEl, data);
+        if (btn) { btn.disabled = false; btn.textContent = originalBtnText; }
+        return;
+      }
+
+      try {
+        await fetch(WEBHOOK, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data),
+        });
+        // Con mode:'no-cors' no podemos leer la respuesta, asumimos éxito si no hay throw.
+        (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', fuente });
+        statusEl.className = 'irm-form-status is-ok';
+        statusEl.innerHTML = '<strong>¡Recibido!</strong> Te llamamos antes de 24h laborables.';
+        form.reset();
+        if (btn) { btn.textContent = '¡Enviado!'; }
+        setTimeout(() => { if (btn) { btn.disabled = false; btn.textContent = originalBtnText; } }, 4000);
+      } catch (err) {
+        fallback(statusEl, data);
+        if (btn) { btn.disabled = false; btn.textContent = originalBtnText; }
+      }
+    });
+  });
+})();
+</script>

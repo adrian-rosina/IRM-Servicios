@@ -1,0 +1,38 @@
+---
+// Google Tag Manager con modo de consentimiento: GTM solo se carga cuando el usuario acepta
+// analítica o marketing en el banner (CookieBanner guarda la elección en localStorage 'irm_consent'
+// y emite el evento 'irm:consent'). El evento 'generate_lead' lo empuja FormHandler.
+import { TRACKING } from '../data/tracking';
+const id = /^GTM-[A-Z0-9]+$/.test(TRACKING.gtmId) ? TRACKING.gtmId : '';
+---
+{id && (
+  <script is:inline define:vars={{ id }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    const toConsent = (c) => ({
+      analytics_storage: c.analytics ? 'granted' : 'denied',
+      ad_storage: c.marketing ? 'granted' : 'denied',
+      ad_user_data: c.marketing ? 'granted' : 'denied',
+      ad_personalization: c.marketing ? 'granted' : 'denied',
+    });
+    gtag('consent', 'default', toConsent({}));
+    let loaded = false;
+    const apply = (c) => {
+      if (!c) return;
+      gtag('consent', 'update', toConsent(c));
+      if (loaded || !(c.analytics || c.marketing)) return;
+      loaded = true;
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtm.js?id=${id}`;
+      document.head.appendChild(s);
+    };
+    try {
+      const saved = JSON.parse(localStorage.getItem('irm_consent') || 'null');
+      if (saved && saved.v === 1) apply(saved);
+    } catch (e) {}
+    window.addEventListener('irm:consent', (e) => apply(e.detail));
+  </script>
+)}

@@ -1,0 +1,91 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-10-22 23:00:00",
+  "containerVersion": {
+    "path": "accounts/6399308131/containers/283183980/versions/0",
+    "accountId": "6399308131",
+    "containerId": "283183980",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/6399308131/containers/283183980",
+      "accountId": "6399308131",
+      "containerId": "283183980",
+      "name": "irmservicios.com",
+      "publicId": "GTM-TZKQM8D9",
+      "usageContext": ["WEB"]
+    },
+    "tag": [
+      {
+        "accountId": "6399308131",
+        "containerId": "283183980",
+        "tagId": "1",
+        "name": "GA4 · Etiqueta de Google",
+        "type": "googtag",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "tagId", "value": "G-87KZWLY8X4" }
+        ],
+        "firingTriggerId": ["2147479573"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6399308131",
+        "containerId": "283183980",
+        "tagId": "2",
+        "name": "GA4 · Evento generate_lead",
+        "type": "gaawe",
+        "parameter": [
+          { "type": "BOOLEAN", "key": "sendEcommerceData", "value": "false" },
+          { "type": "TEMPLATE", "key": "eventName", "value": "generate_lead" },
+          { "type": "TEMPLATE", "key": "measurementIdOverride", "value": "G-87KZWLY8X4" },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "parameter", "value": "fuente" },
+                  { "type": "TEMPLATE", "key": "parameterValue", "value": "{{DLV · fuente}}" }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["3"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6399308131",
+        "containerId": "283183980",
+        "triggerId": "3",
+        "name": "Evento · generate_lead",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "generate_lead" }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "6399308131",
+        "containerId": "283183980",
+        "variableId": "4",
+        "name": "DLV · fuente",
+        "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "fuente" }
+        ]
+      }
+    ]
+  }
+}
