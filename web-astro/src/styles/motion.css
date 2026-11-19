@@ -1,0 +1,60 @@
+/* ==========================================================================
+   IRM · Movimiento al hacer scroll (lo activa public/motion.js)
+   Solo se ocultan elementos cuando el JS ha añadido .irm-motion a <html>,
+   así que sin JS o con "reducir movimiento" todo se ve desde el principio.
+   ========================================================================== */
+:root{
+  --m-ease:cubic-bezier(.16,1,.3,1);
+  --m-dur:.95s;
+  --m-dist:56px;
+}
+
+/* Lo que entra desde los lados no debe crear scroll horizontal mientras se mueve */
+.irm-motion main{overflow-x:clip}
+
+/* Titulares palabra a palabra */
+.irm-motion [data-mov="palabras"] .irm-w{display:inline-block;opacity:0;transform:translateY(.55em) rotate(2deg);transform-origin:0 100%;transition:opacity .7s var(--m-ease),transform var(--m-dur) var(--m-ease)}
+.irm-motion [data-mov="palabras"].m-in .irm-w{opacity:1;transform:none}
+
+/* Elementos: desde abajo, desde los lados y botones con zoom */
+.irm-motion [data-mov="arriba"],
+.irm-motion [data-mov="izquierda"],
+.irm-motion [data-mov="derecha"],
+.irm-motion [data-mov="zoom"]{opacity:0;transition:opacity var(--m-dur) var(--m-ease),transform var(--m-dur) var(--m-ease)}
+.irm-motion [data-mov="arriba"]{transform:translateY(var(--m-dist))}
+.irm-motion [data-mov="izquierda"]{transform:translateX(calc(var(--m-dist) * -1.4))}
+.irm-motion [data-mov="derecha"]{transform:translateX(calc(var(--m-dist) * 1.4))}
+.irm-motion [data-mov="zoom"]{transform:scale(.82)}
+.irm-motion [data-mov].m-in{opacity:1;transform:none}
+
+/* Las listas escalonadas que ya existían, con más recorrido y más separación */
+.irm-motion [data-stagger] > *{transform:translateY(40px);transition-duration:var(--m-dur);transition-timing-function:var(--m-ease)}
+.irm-motion [data-stagger].in > *{transform:none}
+.irm-motion [data-stagger].in > *:nth-child(1){transition-delay:0ms}
+.irm-motion [data-stagger].in > *:nth-child(2){transition-delay:110ms}
+.irm-motion [data-stagger].in > *:nth-child(3){transition-delay:220ms}
+.irm-motion [data-stagger].in > *:nth-child(4){transition-delay:330ms}
+.irm-motion [data-stagger].in > *:nth-child(5){transition-delay:440ms}
+.irm-motion [data-stagger].in > *:nth-child(6){transition-delay:550ms}
+.irm-motion [data-stagger].in > *:nth-child(n+7){transition-delay:660ms}
+
+/* Subrayado de "Madrid" en el hero: se dibuja después de que entre la palabra */
+.irm-motion .irm-hx .irm-display__city::before{animation-delay:.85s}
+
+/* Fotos: se acercan al hacer scroll (de más zoom a menos) con un parallax suave */
+@supports (animation-timeline: view()){
+  .irm-motion .irm-foto img{animation-name:irm-zoom-scroll}
+  @keyframes irm-zoom-scroll{
+    from{transform:scale(1.24) translateY(-4%)}
+    to{transform:scale(1.04) translateY(4%)}
+  }
+}
+
+/* En móvil, recorridos más cortos para que no se note el salto */
+@media (max-width:767px){
+  :root{--m-dist:36px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .irm-motion [data-mov],.irm-motion [data-mov] .irm-w{opacity:1 !important;transform:none !important;transition:none !important}
+}

@@ -6,7 +6,10 @@ import Footer from '../components/Footer.astro';
 import StickyMobileCta from '../components/StickyMobileCta.astro';
 import FloatingWhatsapp from '../components/FloatingWhatsapp.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import FormHandler from '../components/FormHandler.astro';
+import Analytics from '../components/Analytics.astro';
 import '../styles/global.css';
+import '../styles/motion.css';
 
 interface Props {
   title: string;
@@ -28,15 +31,44 @@ const schemas = Array.isArray(schema) ? schema : (schema ? [schema] : []);
     <meta name="theme-color" content="#141615" />
     <Seo title={title} description={description} noindex={noindex} ogImage={ogImage} />
     {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    <Analytics />
   </head>
   <body>
     <TopBar />
     <Header />
     <main id="main"><slot /></main>
+    <script is:inline>
+      // Header del color del primer bloque + ola automática entre bloques de distinto fondo
+      (() => {
+        const main = document.getElementById('main');
+        if (!main) return;
+        const body = getComputedStyle(document.body).backgroundColor;
+        const bgOf = (el) => {
+          const c = getComputedStyle(el).backgroundColor;
+          return c === 'transparent' || c === 'rgba(0, 0, 0, 0)' ? body : c;
+        };
+        const blocks = [...main.children].filter((el) => el.tagName === 'SECTION' || el.classList.contains('irm-wave-sep'));
+        if (blocks[0] && blocks[0].tagName === 'SECTION') {
+          document.documentElement.style.setProperty('--irm-top-bg', bgOf(blocks[0]));
+        }
+        let prev = null;
+        for (const el of blocks) {
+          if (el.classList.contains('irm-wave-sep')) { prev = null; continue; }
+          const color = bgOf(el);
+          if (prev && prev !== color) {
+            el.classList.add('irm-wave-auto');
+            el.style.setProperty('--wave-from', prev);
+          }
+          prev = color;
+        }
+      })();
+    </script>
     <Footer />
     <StickyMobileCta />
     <FloatingWhatsapp />
     <CookieBanner />
+    <FormHandler />
     <script src="/anim.js" defer></script>
+    <script src="/motion.js" defer></script>
   </body>
 </html>
