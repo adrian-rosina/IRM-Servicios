@@ -1,0 +1,11 @@
+---
+// src/components/Wave.astro — curva orgánica entre bloques de distinto fondo
+// uso: <Wave from="hueso" /> — hace que el bloque superior (hueso) "gotee" hacia abajo
+interface Props { from: 'blanco' | 'hueso' | 'negro' }
+const { from } = Astro.props;
+---
+<div class={`irm-wave-sep irm-wave-sep--${from}`} aria-hidden="true">
+  <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,20 C1200,42 960,4 720,22 C480,38 240,10 0,30 Z"/>
+  </svg>
+</div>

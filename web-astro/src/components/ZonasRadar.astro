@@ -1,0 +1,94 @@
+---
+// Radar de cobertura: Madrid en el centro, municipios en su posición real (km al centro)
+const MADRID = { lat: 40.4168, lon: -3.7038 };
+const MUNICIPIOS = [
+  { nombre: 'Pozuelo de Alarcón', lat: 40.4408, lon: -3.8138, km: 12 },
+  { nombre: 'Boadilla del Monte', lat: 40.4062, lon: -3.8771, km: 15 },
+  { nombre: 'Alcobendas', lat: 40.5471, lon: -3.6417, km: 16 },
+  { nombre: 'Rivas-Vaciamadrid', lat: 40.3263, lon: -3.5118, km: 18 },
+  { nombre: 'San Sebastián de los Reyes', lat: 40.5493, lon: -3.6306, km: 18 },
+  { nombre: 'Majadahonda', lat: 40.4725, lon: -3.8749, km: 20 },
+  { nombre: 'Las Rozas', lat: 40.4921, lon: -3.8737, km: 22 },
+  { nombre: 'Villaviciosa de Odón', lat: 40.3570, lon: -3.8991, km: 24 },
+  { nombre: 'Tres Cantos', lat: 40.6038, lon: -3.7142, km: 26 },
+  { nombre: 'Arganda del Rey', lat: 40.3024, lon: -3.4432, km: 27 },
+  { nombre: 'Villanueva de la Cañada', lat: 40.4454, lon: -4.0048, km: 30 },
+  { nombre: 'Torrelodones', lat: 40.5755, lon: -3.9305, km: 32 },
+  { nombre: 'Galapagar', lat: 40.5755, lon: -4.0088, km: 38 },
+  { nombre: 'Valdemorillo', lat: 40.5033, lon: -4.0661, km: 43 },
+  { nombre: 'Collado Villalba', lat: 40.6306, lon: -4.0056, km: 45 },
+];
+
+const KM_RADIO = 36;
+const R = 200;
+const kmX = 111.32 * Math.cos((MADRID.lat * Math.PI) / 180);
+const kmY = 110.57;
+const toXY = (lat: number, lon: number) => ({
+  x: +(((lon - MADRID.lon) * kmX * R) / KM_RADIO).toFixed(1),
+  y: +((-(lat - MADRID.lat) * kmY * R) / KM_RADIO).toFixed(1),
+});
+const puntos = MUNICIPIOS.map((m, i) => ({ ...m, id: `m${i}`, ...toXY(m.lat, m.lon) }));
+const anillos = [10, 20, 30].map((km) => ({ km, r: (km * R) / KM_RADIO }));
+---
+<div class="irm-radar" data-radar>
+  <div class="irm-radar__viz">
+    <svg viewBox="-230 -230 460 460" role="img" aria-label="Radar de cobertura de IRM: Madrid en el centro y los 15 municipios donde hay robots instalados, en anillos de 10 en 10 km">
+      <defs>
+        <radialGradient id="irm-radar-sweep" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(210)">
+          <stop offset="0" stop-color="#9BDD5F" stop-opacity=".35" />
+          <stop offset="1" stop-color="#9BDD5F" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      {anillos.map((a) => (
+        <g class="irm-radar__ring">
+          <circle r={a.r} />
+          <text x="4" y={-a.r - 5}>{a.km} km</text>
+        </g>
+      ))}
+      <line class="irm-radar__axis" x1="-215" y1="0" x2="215" y2="0" />
+      <line class="irm-radar__axis" x1="0" y1="-215" x2="0" y2="215" />
+      <g class="irm-radar__sweep"><path d="M0 0 L210 0 A210 210 0 0 0 148.5 -148.5 Z" fill="url(#irm-radar-sweep)" /></g>
+      {puntos.map((p, i) => (
+        <g class="irm-radar__pt" data-m={p.id} transform={`translate(${p.x} ${p.y})`} style={`--d:${i * 70}ms`}>
+          <circle class="irm-radar__halo" r="14" />
+          <circle class="irm-radar__dot" r="5.5" />
+          <text x={p.x > 0 ? -10 : 10} y="4" text-anchor={p.x > 0 ? 'end' : 'start'}>{p.nombre}</text>
+        </g>
+      ))}
+      <g class="irm-radar__hub">
+        <circle class="irm-radar__pulse" r="12" />
+        <circle r="9" />
+        <text y="28" text-anchor="middle">Madrid</text>
+      </g>
+    </svg>
+  </div>
+
+  <ol class="irm-radar__list">
+    {puntos.map((p) => (
+      <li data-m={p.id} tabindex="0">
+        <span class="irm-radar__name">{p.nombre}</span>
+        <span class="irm-radar__km">{p.km} km</span>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<script is:inline>
+  (() => {
+    const radar = document.querySelector('[data-radar]');
+    if (!radar) return;
+    const pts = radar.querySelectorAll('.irm-radar__pt');
+    const set = (id) => pts.forEach((g) => g.classList.toggle('is-on', g.dataset.m === id));
+    radar.querySelectorAll('.irm-radar__list li').forEach((li) => {
+      li.addEventListener('mouseenter', () => set(li.dataset.m));
+      li.addEventListener('focus', () => set(li.dataset.m));
+      li.addEventListener('click', () => set(li.dataset.m));
+    });
+    radar.querySelector('.irm-radar__list').addEventListener('mouseleave', () => set(null));
+    if (!('IntersectionObserver' in window)) { radar.classList.add('is-in'); return; }
+    const io = new IntersectionObserver((es) => {
+      if (es.some((e) => e.isIntersecting)) { radar.classList.add('is-in'); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(radar);
+  })();
+</script>

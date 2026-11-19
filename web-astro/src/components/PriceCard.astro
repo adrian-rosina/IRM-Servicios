@@ -7,8 +7,8 @@ const incluye = ['Robot, instalación y app', 'Mantenimiento y averías', 'Susti
 ---
 <article class:list={['irm-card', 'irm-price-card', { 'irm-bg-negro': destacado }]}>
   <span class="irm-eyebrow">Jardines hasta {metros.toLocaleString('es-ES')} m²</span>
-  <p class="irm-cifra-tramo">{precioAnual} €<small>/año*</small></p>
-  <p class="irm-nota">Menos de {precioDia(precioAnual)} € al día</p>
+  <p class="irm-cifra-tramo">{precioAnual} €<small>/año + IVA*</small></p>
+  <p class="irm-nota">Menos de {precioDia(precioAnual)} € al día + IVA</p>
   <ul class="irm-checks">{incluye.map((i) => <li>{i}</li>)}</ul>
   <a class="irm-btn" href="/demostracion/">Calcula tu cuota</a>
 </article>

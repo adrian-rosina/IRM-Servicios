@@ -7,9 +7,7 @@ const year = new Date().getFullYear();
     <div class="irm-footer-grid">
       <div>
         <div class="irm-footer-logo">
-          <strong class="irm-logo__mark">IRM</strong>
-          <span class="irm-logo__bar" aria-hidden="true"></span>
-          <span class="irm-logo__sub">Servicios</span>
+          <img src="/img/irm-logo-negativo.svg" alt={NEGOCIO.nombre} width="186" height="124" />
         </div>
         <p style="color:#9BA09C;max-width:38ch;font-size:.9375rem">Renting anual de robots cortacésped en Madrid. Instalación, mantenimiento y averías incluidos.</p>
         <p class="irm-nota" style="margin-top:1rem;color:var(--irm-lima)">{NEGOCIO.claim}</p>
@@ -37,8 +35,7 @@ const year = new Date().getFullYear();
         <h4>Zonas</h4>
         <ul>
           <li><a href="/zonas/">Todas las zonas</a></li>
-          {ZONAS.filter(z=>z.fase===1).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a></li>)}
-          {ZONAS.filter(z=>z.fase===2).map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre} (fase 2)</a></li>)}
+          {ZONAS.map(z => <li><a href={`/robot-cortacesped-${z.slug}/`}>{z.nombre}</a></li>)}
         </ul>
       </div>
       <div>

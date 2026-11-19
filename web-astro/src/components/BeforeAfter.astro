@@ -15,8 +15,8 @@ const {
 } = Astro.props;
 ---
 <div class="irm-ba" style={`aspect-ratio:${aspect}`} data-ba>
-  <img class="irm-ba__img irm-ba__img--before" src={srcBefore} alt={altBefore} loading="lazy" />
-  <img class="irm-ba__img irm-ba__img--after" src={srcAfter} alt={altAfter} loading="lazy" />
+  <img class="irm-ba__img irm-ba__img--before" src={srcBefore} alt={altBefore} loading="eager" fetchpriority="low" />
+  <img class="irm-ba__img irm-ba__img--after" src={srcAfter} alt={altAfter} loading="eager" fetchpriority="low" />
   <span class="irm-ba__label irm-ba__label--before">{labelBefore}</span>
   <span class="irm-ba__label irm-ba__label--after">{labelAfter}</span>
   <div class="irm-ba__slider">

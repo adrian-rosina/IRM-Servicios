@@ -1,13 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RobotTrail from '../components/RobotTrail.astro';
-import BeforeAfter from '../components/BeforeAfter.astro';
+import Wave from '../components/Wave.astro';
+import ZonasRadar from '../components/ZonasRadar.astro';
+import { TESTIMONIOS } from '../data/testimonios';
 import { Image } from 'astro:assets';
-import { NEGOCIO, TRAMOS, ZONAS, precioDia } from '../data/negocio';
+import { NEGOCIO, TRAMOS, ZONAS, precioDia, conIva, FICHA_GOOGLE } from '../data/negocio';
 import heroImg from '../assets/robot-cortacesped-madrid-amanecer-hero.webp';
+import '../styles/home.css';
 
 const title = 'Alquiler de robots cortacésped en Madrid | Renting · IRM';
-const description = 'Renting anual de robot cortacésped en Madrid desde 660 €/año: instalación sin cable, mantenimiento y averías incluidos. Si falla, otro en menos de 7 días.';
+const description = 'Renting anual de robot cortacésped en Madrid desde 660 €/año + IVA: instalación sin cable, mantenimiento y averías incluidos. Si falla, otro en menos de 7 días.';
 
 const schema = [
   {
@@ -19,23 +22,32 @@ const schema = [
     url: NEGOCIO.url,
     telephone: `+34${NEGOCIO.telefono}`,
     email: NEGOCIO.email,
+    description: 'Alquiler de robots cortacésped en Madrid con todo incluido: el robot, la instalación sin cable perimetral, el mantenimiento de todo el año y las averías, en renting anual.',
+    image: `${NEGOCIO.url}/og-default.jpg`,
+    logo: `${NEGOCIO.url}/favicon.svg`,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Avenida de Madrid, 121',
-      postalCode: '47140',
-      addressLocality: 'Laguna de Duero',
-      addressRegion: 'Valladolid',
-      addressCountry: 'ES',
+      streetAddress: FICHA_GOOGLE.direccion.calle,
+      postalCode: FICHA_GOOGLE.direccion.cp,
+      addressLocality: FICHA_GOOGLE.direccion.localidad,
+      addressRegion: FICHA_GOOGLE.direccion.region,
+      addressCountry: FICHA_GOOGLE.direccion.pais,
     },
-    openingHoursSpecification: {
+    geo: { '@type': 'GeoCoordinates', latitude: FICHA_GOOGLE.geo.lat, longitude: FICHA_GOOGLE.geo.lng },
+    hasMap: FICHA_GOOGLE.mapa,
+    openingHoursSpecification: FICHA_GOOGLE.horario.map((h) => ({
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '08:00',
-      closes: '20:00',
-    },
+      dayOfWeek: h.dias,
+      opens: h.abre,
+      closes: h.cierra,
+    })),
     areaServed: ['Comunidad de Madrid', 'Valladolid', 'Segovia', 'Toledo', 'Cádiz'],
     priceRange: '€€',
-    sameAs: [`https://instagram.com/${NEGOCIO.instagram}`],
+    sameAs: [
+      `https://instagram.com/${NEGOCIO.instagram}`,
+      `https://facebook.com/${NEGOCIO.facebook}`,
+      FICHA_GOOGLE.mapa,
+    ],
   },
   {
     '@context': 'https://schema.org', '@type': 'Service',
@@ -54,64 +66,68 @@ const schema = [
     mainEntity: [
       { '@type': 'Question', name: '¿Tengo que comprar el robot?', acceptedAnswer: { '@type': 'Answer', text: 'No. Es renting anual: pagas una cuota al año y el robot, la instalación, el mantenimiento y las averías van incluidos.' }},
       { '@type': 'Question', name: '¿Qué pasa si se estropea?', acceptedAnswer: { '@type': 'Answer', text: 'Nos llamas y en menos de 7 días lo tienes arreglado o te instalamos otro. El mantenimiento y las averías ya están pagados con la cuota.' }},
-      { '@type': 'Question', name: '¿Se puede pagar al mes?', acceptedAnswer: { '@type': 'Answer', text: 'El renting es anual y se paga en un solo pago por transferencia. 660 €/año son menos de 2 € al día.' }},
+      { '@type': 'Question', name: '¿Se puede pagar al mes?', acceptedAnswer: { '@type': 'Answer', text: 'El renting es anual y se paga en un solo pago por transferencia. 660 €/año + IVA son menos de 2 € al día + IVA.' }},
       { '@type': 'Question', name: '¿Puedo cogerlo solo en verano?', acceptedAnswer: { '@type': 'Answer', text: 'No, el servicio es anual. En invierno el robot descansa en su base, pero el mantenimiento, la app y la sustitución siguen activos.' }},
       { '@type': 'Question', name: '¿Vale para mi jardín con cuesta o varias zonas?', acceptedAnswer: { '@type': 'Answer', text: 'En la mayoría de los casos, sí. Los robots que instalamos no necesitan cable perimetral y aceptan pendiente. Lo comprobamos en la demostración.' }},
-      { '@type': 'Question', name: '¿Qué pasa cuando termina el año?', acceptedAnswer: { '@type': 'Answer', text: 'No hay permanencia más allá del año contratado. Si renuevas, seguimos igual; si no, retiramos el robot y la base.' }},
+      { '@type': 'Question', name: '¿Qué pasa cuando termina el año?', acceptedAnswer: { '@type': 'Answer', text: 'El renting se renueva solo cada año y el robot se queda en tu jardín: solo lo cambiamos si tiene una avería. No hay permanencia más allá del año contratado: si no quieres renovar, retiramos el robot y la base.' }},
     ],
   },
 ];
 ---
 <BaseLayout {title} {description} {schema}>
 
-  <!-- S1 · HERO v2 — editorial: display type, caja de precio protagonista, marquee de municipios -->
-  <section class="irm-hero irm-hero--split irm-hero--v2">
-    <div class="irm-hero-split-left">
-      <div class="irm-hero-split-content">
-        <h1 class="irm-display">
-          <span class="irm-display__line">Alquiler de robots</span>
-          <span class="irm-display__line">cortacésped en <span class="irm-display__city">Madrid</span>.</span>
+  <!-- S1 · HERO partido oscuro: texto a la izquierda · vídeo a la derecha -->
+  <section class="irm-hx irm-hx--light">
+    <div class="irm-hx__split">
+      <div class="irm-hx__text">
+        <h1 class="irm-hx__title">
+          <span class="irm-hx__line">Alquiler de robots</span>
+          <span class="irm-hx__line">cortacésped</span>
+          <span class="irm-hx__line">en <span class="irm-display__city">Madrid</span>.</span>
         </h1>
-        <p class="irm-hero-sub">Renting anual con <strong>instalación, mantenimiento y averías incluidos</strong>. Sin cable perimetral y también para jardines con pendiente.</p>
-
-        <div class="irm-hero-ctas irm-hero-ctas--v2">
-          <a href="/demostracion/" class="irm-btn irm-btn-primary">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          <a href="/precios/" class="irm-btn irm-btn-secondary">Ver precios</a>
+        <p class="irm-hx__claim">{NEGOCIO.claim}</p>
+        <p class="irm-hx__sub">Renting anual con <strong>instalación, mantenimiento y averías incluidos</strong>. Sin cable perimetral y también para jardines con pendiente.</p>
+        <div class="irm-hx__ctas">
+          <a href="/demostracion/" class="irm-btn irm-hx__btn-main">Reserva tu robot <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="/precios/" class="irm-btn irm-hx__btn-ghost">Ver precios</a>
         </div>
-        <div class="irm-hero-tel--v2"><span>Llama a</span><a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></div>
-
-        <button type="button" class="irm-hero-video-link" data-video-open aria-haspopup="dialog" aria-controls="irm-hero-video-modal">
+        <p class="irm-hx__tel">O llámanos al <a href={`tel:+34${NEGOCIO.telefono}`}>{NEGOCIO.telefonoFormato}</a></p>
+        <ul class="irm-hx__stats">
+          <li><strong><span data-count-to="660">660</span>&nbsp;€</strong><span>al año + IVA, todo incluido</span></li>
+          <li><strong>&lt;&nbsp;<span data-count-to="7">7</span>&nbsp;días</strong><span>para cambiarte el robot si falla</span></li>
+          <li><strong><span data-count-to="30">30</span>&nbsp;%</strong><span>de pendiente, sin problema</span></li>
+        </ul>
+      </div>
+      <div class="irm-hx__video" data-spotlight>
+        <video autoplay muted loop playsinline preload="metadata" poster={heroImg.src} aria-hidden="true">
+          <source src="/video/hero-silent-mobile.webm" type="video/webm" media="(max-width: 1023px)">
+          <source src="/video/hero-silent-mobile.mp4" type="video/mp4" media="(max-width: 1023px)">
+          <source src="/video/hero-silent.webm" type="video/webm">
+          <source src="/video/hero-silent.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="irm-hero-video-link irm-hero-video-link--over" data-video-open aria-haspopup="dialog" aria-controls="irm-hero-video-modal">
           <span class="irm-hero-video-link__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="8 5 20 12 8 19" fill="currentColor"/></svg>
+            <span class="irm-hero-video-link__pulse"></span>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="8 5 20 12 8 19" fill="currentColor"/></svg>
           </span>
-          <span>Ver vídeo</span>
-          <svg class="irm-hero-video-link__arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          <span class="irm-hero-video-link__text">
+            <span class="irm-hero-video-link__title">Ver cómo funciona</span>
+          </span>
         </button>
-
-        <div class="irm-marquee-wrap" aria-hidden="true">
-          <span class="irm-marquee-label">Ya instalamos en</span>
-          <div class="irm-marquee">
-            <div class="irm-marquee__track">
-              <span>Pozuelo de Alarcón</span><span>Las Rozas</span><span>Majadahonda</span><span>Boadilla del Monte</span><span>Villaviciosa de Odón</span><span>Tres Cantos</span><span>Alcobendas</span><span>Collado Villalba</span><span>Torrelodones</span><span>Galapagar</span><span>Rivas-Vaciamadrid</span><span>Valdemorillo</span>
-              <span>Pozuelo de Alarcón</span><span>Las Rozas</span><span>Majadahonda</span><span>Boadilla del Monte</span><span>Villaviciosa de Odón</span><span>Tres Cantos</span><span>Alcobendas</span><span>Collado Villalba</span><span>Torrelodones</span><span>Galapagar</span><span>Rivas-Vaciamadrid</span><span>Valdemorillo</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-    <div class="irm-hero-split-right">
-      <video autoplay muted loop playsinline preload="metadata" poster={heroImg.src} aria-hidden="true">
-        <source src="/video/hero-silent.webm" type="video/webm">
-        <source src="/video/hero-silent.mp4" type="video/mp4">
-      </video>
-      <div class="irm-hero-noise"></div>
-      <div class="irm-hero-chips-abs" data-stagger>
-        <span class="irm-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Corta cada día</span>
-        <span class="irm-chip"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/></svg> Silencioso</span>
-        <span class="irm-chip"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg> Desde el móvil</span>
+
+    <div class="irm-hx__marquee" aria-hidden="true">
+      <span class="irm-marquee-label">Ya instalamos en</span>
+      <div class="irm-marquee">
+        <div class="irm-marquee__track">
+          <span>Pozuelo de Alarcón</span><span>Las Rozas</span><span>Majadahonda</span><span>Boadilla del Monte</span><span>Villaviciosa de Odón</span><span>Tres Cantos</span><span>Alcobendas</span><span>Collado Villalba</span><span>Torrelodones</span><span>Galapagar</span><span>Rivas-Vaciamadrid</span><span>Valdemorillo</span>
+          <span>Pozuelo de Alarcón</span><span>Las Rozas</span><span>Majadahonda</span><span>Boadilla del Monte</span><span>Villaviciosa de Odón</span><span>Tres Cantos</span><span>Alcobendas</span><span>Collado Villalba</span><span>Torrelodones</span><span>Galapagar</span><span>Rivas-Vaciamadrid</span><span>Valdemorillo</span>
+        </div>
       </div>
     </div>
   </section>
+  <Wave from="negro" />
 
   <dialog id="irm-hero-video-modal" class="irm-video-modal" aria-label="Vídeo completo IRM Servicios">
     <button type="button" class="irm-video-modal__close" data-video-close aria-label="Cerrar vídeo">
@@ -140,6 +156,18 @@ const schema = [
       closeBtn.addEventListener('click', close);
       modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
       modal.addEventListener('close', () => vid.pause());
+
+      const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+      // Cursor spotlight sobre el video
+      const spot = document.querySelector('[data-spotlight]');
+      if (spot && matchMedia('(hover:hover)').matches && !reduced) {
+        spot.addEventListener('mousemove', (e) => {
+          const r = spot.getBoundingClientRect();
+          spot.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+          spot.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+        });
+      }
     })();
   </script>
 
@@ -195,7 +223,7 @@ const schema = [
       <div class="irm-reparacion" style="margin-top:2.5rem">
         <article class="irm-reparacion-card">
           <span class="irm-eyebrow" style="color:var(--irm-lima)">Plazo máximo de sustitución</span>
-          <div class="irm-cifra-grande">7<small>días como máximo si no se arregla antes</small></div>
+          <div class="irm-cifra-grande"><span data-count-to="7">7</span><small>días como máximo si no se arregla antes</small></div>
           <ul class="irm-checks">
             <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mantenimiento del robot incluido todo el año</li>
             <li><span class="irm-check-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Avería cubierta: la factura es nuestra</li>
@@ -211,15 +239,15 @@ const schema = [
   <section class="irm-section irm-bg-hueso" data-anim>
     <div class="irm-container">
       <span class="irm-eyebrow">Precio</span>
-      <h2>Cuánto cuesta el alquiler de un robot cortacésped: menos de 2 € al día</h2>
+      <h2>Cuánto cuesta el alquiler de un robot cortacésped: menos de 2 € al día + IVA</h2>
       <p style="max-width:62ch;color:var(--irm-gris)">Un solo pago al año según el tamaño de tu césped. Sin cuotas escondidas, sin mantenimiento aparte, sin sorpresas cuando algo se rompe.</p>
       <div class="irm-grid irm-grid-2" data-stagger style="margin-top:2.5rem">
         {TRAMOS.map((t) => (
           <article class={`irm-card irm-price-card ${t.destacado ? 'irm-price-card--dark' : ''}`}>
             <span class="irm-etiqueta">{t.etiqueta}</span>
             <div>
-              <span class="irm-cifra-tramo">{t.precioAnual} €<span style="font-size:1.125rem;font-weight:500;color:var(--irm-gris)">/año</span></span>
-              <p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día · pago anual*</p>
+              <span class="irm-cifra-tramo"><span data-count-to={t.precioAnual}>{t.precioAnual}</span> €<span style="font-size:1.125rem;font-weight:500;color:var(--irm-gris)">/año + IVA</span></span>
+              <p class="irm-nota" style="margin-top:.25rem">{precioDia(t.precioAnual)} € al día + IVA · pago anual*</p>
             </div>
             <ul class="irm-checks irm-checks--con-iconos">
               <li><span class="irm-check-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="7" rx="2"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/><path d="M9 10V7h6v3"/><circle cx="12" cy="13.5" r="1"/></svg></span>Robot e instalación sin cable</li>
@@ -231,26 +259,8 @@ const schema = [
           </article>
         ))}
       </div>
-      <p class="irm-nota" style="margin-top:1.5rem">*Precio anual, IVA incluido [CONFIRMAR]. Jardines de más de 1.000 m²: consúltanos.</p>
+      <p class="irm-nota" style="margin-top:1.5rem">*Precios + IVA (21 %): {conIva(TRAMOS[0].precioAnual)} € y {conIva(TRAMOS[1].precioAnual)} € al año con IVA incluido. Jardines de más de 1.000 m²: presupuesto a medida.</p>
       <p style="margin-top:.75rem">¿Comprarlo por tu cuenta? Entre 950 y 6.000 € más instalación y mantenimiento aparte → <a href="/precios/">compara en /precios/</a></p>
-    </div>
-  </section>
-
-  <!-- S4b · ANTES / DESPUÉS del corte diario -->
-  <section class="irm-section irm-bg-negro" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">El resultado</span>
-      <h2>Antes y después del <span class="irm-destacado">corte diario</span></h2>
-      <p style="max-width:62ch;color:#B5B9B2;margin-bottom:2rem">Arrastra el divisor para ver el cambio. A la izquierda, el césped como estaba. A la derecha, el césped con corte diario del robot: altura uniforme, sin montones de hierba y sin recogida.</p>
-      <BeforeAfter
-        srcBefore="/img/corte-diario-cesped-antes-despues.webp"
-        altBefore="Jardín con el césped sin cortar antes de instalar el robot cortacésped IRM"
-        srcAfter="/img/jardin-pergola-piscina-chalet.webp"
-        altAfter="Mismo jardín con césped a altura uniforme tras el corte diario del robot IRM"
-        labelBefore="Antes"
-        labelAfter="Después · 7 días"
-        aspect="16/9"
-      />
     </div>
   </section>
 
@@ -270,22 +280,6 @@ const schema = [
         </div>
         <div class="irm-foto" style="aspect-ratio:1/1;align-self:stretch;height:100%;min-height:460px"><img src="/img/robot-cortacesped-bordes-pasillo-patio.webp" alt="Robot cortacésped sin cable perimetral junto a un borde" loading="lazy" style="height:100%;object-fit:cover"></div>
       </div>
-    </div>
-  </section>
-
-  <!-- S6 · PROCESO + FRANJA CTA -->
-  <section class="irm-section irm-bg-hueso" data-anim>
-    <div class="irm-container">
-      <span class="irm-eyebrow">El proceso</span>
-      <h2>Cómo instalamos tu robot cortacésped en Madrid</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Desde que nos llamas hasta que el robot está cortando pasan pocos días y cero complicaciones. Nos desplazamos a cualquier punto de la Comunidad de Madrid: la instalación de un robot cortacésped en Madrid la hacemos nosotros, no un transportista.</p>
-      <div class="irm-steps" data-stagger>
-        <article class="irm-step"><h3>Nos llamas o reservas</h3><p style="color:var(--irm-gris)">Nos cuentas cuántos metros de césped tienes y cómo es el jardín. Con eso ya sabemos qué robot necesitas.</p></article>
-        <article class="irm-step"><h3>Demostración en tu jardín</h3><p style="color:var(--irm-gris)">Vamos a tu casa, estudiamos el terreno y te dejamos un robot cortando de prueba. 175 € que se descuentan.</p></article>
-        <article class="irm-step"><h3>Instalación y app</h3><p style="color:var(--irm-gris)">Instalamos la base, marcamos las zonas y te configuramos la app en el móvil. Todo en una visita.</p></article>
-        <article class="irm-step"><h3>Te olvidas del césped</h3><p style="color:var(--irm-gris)">A partir de ahí, el robot corta solo. Pagas la cuota anual por transferencia y no vuelves a pensar en ello.</p></article>
-      </div>
-      <div class="irm-cta-strip"><h3>¿Lo vemos en tu jardín?</h3><a href="/demostracion/" class="irm-btn irm-btn-primary irm-on-dark">Pide tu demostración <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></div>
     </div>
   </section>
 
@@ -330,115 +324,37 @@ const schema = [
     </div>
   </section>
 
-  <!-- S9 · ZONAS — mapa real con Leaflet + tiles CartoDB Dark Matter -->
-  <section class="irm-section irm-bg-negro irm-zonas-leaflet" data-anim>
+  <!-- S9 · ZONAS — radar de cobertura con los municipios en su posición real -->
+  <section class="irm-section irm-bg-negro irm-zonas" data-anim>
     <div class="irm-container">
       <span class="irm-eyebrow">Dónde instalamos</span>
       <h2>Zonas donde instalamos robots cortacésped en <span class="irm-destacado">Madrid</span></h2>
       <p style="max-width:62ch;color:#B5B9B2">Trabajamos en toda la Comunidad de Madrid, sobre todo en la periferia donde están los chalets con jardín. Estos son los 15 municipios donde ya tenemos robots instalados.</p>
-
-      <figure class="irm-mapa-wrapper">
-        <header class="irm-mapa-header">
-          <span class="irm-mapa-title">◉ Red IRM · Comunidad de Madrid</span>
-          <span class="irm-mapa-meta">8.030 km² · 179 municipios · 15 zonas IRM activas</span>
-        </header>
-
-        <div id="irm-leaflet-madrid" class="irm-leaflet-map" aria-label="Mapa interactivo de la Comunidad de Madrid con las 15 zonas donde IRM instala robots cortacésped"></div>
-      </figure>
-
-      <p class="irm-nota" style="margin-top:1.25rem;color:rgba(255,255,255,.45)">Pide tu demostración y comprobamos la cobertura exacta en tu dirección.</p>
+      <ZonasRadar />
+      <p class="irm-nota" style="margin-top:1.5rem;color:rgba(255,255,255,.55)">Pide tu demostración y comprobamos la cobertura exacta en tu dirección.</p>
     </div>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" is:inline></script>
-    <script is:inline>
-      (function () {
-        const municipios = [
-          { nombre: 'Pozuelo de Alarcón', lat: 40.4408, lon: -3.8138, km: 12 },
-          { nombre: 'Boadilla del Monte', lat: 40.4062, lon: -3.8771, km: 15 },
-          { nombre: 'Alcobendas', lat: 40.5471, lon: -3.6417, km: 16 },
-          { nombre: 'Rivas-Vaciamadrid', lat: 40.3263, lon: -3.5118, km: 18 },
-          { nombre: 'San Sebastián de los Reyes', lat: 40.5493, lon: -3.6306, km: 18 },
-          { nombre: 'Majadahonda', lat: 40.4725, lon: -3.8749, km: 20 },
-          { nombre: 'Las Rozas', lat: 40.4921, lon: -3.8737, km: 22 },
-          { nombre: 'Villaviciosa de Odón', lat: 40.3570, lon: -3.8991, km: 24 },
-          { nombre: 'Tres Cantos', lat: 40.6038, lon: -3.7142, km: 26 },
-          { nombre: 'Arganda del Rey', lat: 40.3024, lon: -3.4432, km: 27 },
-          { nombre: 'Villanueva de la Cañada', lat: 40.4454, lon: -4.0048, km: 30 },
-          { nombre: 'Torrelodones', lat: 40.5755, lon: -3.9305, km: 32 },
-          { nombre: 'Galapagar', lat: 40.5755, lon: -4.0088, km: 38 },
-          { nombre: 'Valdemorillo', lat: 40.5033, lon: -4.0661, km: 43 },
-          { nombre: 'Collado Villalba', lat: 40.6306, lon: -4.0056, km: 45 },
-        ];
-        const init = () => {
-          if (typeof L === 'undefined') { setTimeout(init, 50); return; }
-          const el = document.getElementById('irm-leaflet-madrid');
-          if (!el || el.dataset.ready === '1') return;
-          el.dataset.ready = '1';
-          const map = L.map('irm-leaflet-madrid', {
-            center: [40.45, -3.75],
-            zoom: 9,
-            scrollWheelZoom: false,
-            zoomControl: true,
-            attributionControl: false,
-          });
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            subdomains: 'abc',
-            maxZoom: 19,
-            className: 'irm-leaflet-tiles-dark',
-          }).addTo(map);
-          L.control.attribution({ prefix: false }).addTo(map);
-          // Madrid centro: hub lima grande + glow via círculos
-          L.circleMarker([40.4168, -3.7038], {
-            radius: 14, color: '#9BDD5F', weight: 2,
-            fillColor: '#9BDD5F', fillOpacity: .85,
-          }).bindTooltip('<strong>Madrid</strong><br/>Centro · Hub IRM', { permanent: false, direction: 'top', className: 'irm-leaflet-tt' }).addTo(map);
-          // Municipios
-          municipios.forEach((m) => {
-            L.circleMarker([m.lat, m.lon], {
-              radius: 7, color: '#9BDD5F', weight: 2.5,
-              fillColor: '#141615', fillOpacity: 1,
-            }).bindTooltip(`<strong>${m.nombre}</strong><br/>${m.km} km del centro`, { direction: 'top', className: 'irm-leaflet-tt' }).addTo(map);
-          });
-        };
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init);
-        } else {
-          init();
-        }
-      })();
-    </script>
   </section>
 
-  <!-- S10 · OPINIONES (burbujas) -->
+  <!-- S10 · OPINIONES — solo se muestra con testimonios reales (src/data/testimonios.ts) -->
+  {TESTIMONIOS.length > 0 && (
   <section class="irm-section" data-anim>
     <div class="irm-container">
       <span class="irm-eyebrow">Opiniones</span>
       <h2>Opiniones de clientes con robot cortacésped en Madrid</h2>
-      <p style="max-width:62ch;color:var(--irm-gris)">Lo que dicen quienes ya tienen un robot de jardín de IRM cortando en su casa. Nombres y jardines reales.</p>
+      <p style="max-width:62ch;color:var(--irm-gris)">Lo que dicen quienes ya tienen un robot de jardín de IRM cortando en su casa.</p>
       <div class="irm-testimonios">
-        <article class="irm-testimonio">
-          <div class="irm-foto irm-foto--card" style="margin-bottom:1rem"><img src="/img/jardin-amplio-piscina-testimonio.webp" alt="Jardín amplio con robot cortacésped" loading="lazy"></div>
-          <div class="irm-burbuja">¿Vale la pena si solo lo quiero para los sábados?</div>
-          <div class="irm-burbuja irm-burbuja--lima">Lo que más me ha sorprendido es que no se oye. Antes el sábado por la mañana era cortar el césped; ahora el robot sale a las siete y cuando me levanto ya está hecho.</div>
-          <div class="irm-testimonio-meta"><img class="irm-avatar irm-avatar--photo" src="https://randomuser.me/api/portraits/men/42.jpg" alt="Carlos, cliente de IRM en Pozuelo" width="48" height="48" loading="lazy" /><span><strong style="color:var(--irm-negro)">Carlos</strong> · Pozuelo · 450 m² · Particular</span></div>
-        </article>
-        <article class="irm-testimonio">
-          <div class="irm-foto irm-foto--card" style="margin-bottom:1rem"><img src="/img/finca-bodas-olivo-cesped.webp" alt="Finca de bodas con olivo centenario" loading="lazy"></div>
-          <div class="irm-burbuja">¿Y si tengo bodas todos los fines de semana?</div>
-          <div class="irm-burbuja irm-burbuja--lima">Tenemos boda casi todos los sábados de mayo a octubre y el césped tiene que estar perfecto siempre. Ahora está igual el martes de la visita que el sábado del evento.</div>
-          <div class="irm-testimonio-meta"><img class="irm-avatar irm-avatar--photo" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Marta, cliente de IRM en Guadarrama" width="48" height="48" loading="lazy" /><span><strong style="color:var(--irm-negro)">Marta</strong> · Guadarrama · 900 m² · Finca de bodas</span></div>
-        </article>
-        <article class="irm-testimonio">
-          <div class="irm-foto irm-foto--card" style="margin-bottom:1rem"><img src="/img/chalet-porche-cesped-testimonio.webp" alt="Chalet con porche" loading="lazy"></div>
-          <div class="irm-burbuja">¿Me vale un robot cortacésped para un campo de fútbol?</div>
-          <div class="irm-burbuja irm-burbuja--lima">Para nosotros era una partida más del presupuesto y una preocupación menos: un pago al año y, si pasa algo, lo cambian ellos. A mitad de liga eso vale oro.</div>
-          <div class="irm-testimonio-meta"><img class="irm-avatar irm-avatar--photo" src="https://randomuser.me/api/portraits/men/68.jpg" alt="Javier, cliente de IRM en Las Rozas" width="48" height="48" loading="lazy" /><span><strong style="color:var(--irm-negro)">Javier</strong> · Las Rozas · Club deportivo</span></div>
-        </article>
+        {TESTIMONIOS.map((t) => (
+          <article class="irm-testimonio">
+            {t.foto && <div class="irm-foto irm-foto--card"><img src={t.foto} alt={t.alt ?? ''} loading="lazy" /></div>}
+            <div class="irm-burbuja">{t.pregunta}</div>
+            <div class="irm-burbuja irm-burbuja--lima">{t.texto}</div>
+            <div class="irm-testimonio-meta"><span><strong>{t.nombre}</strong> · {t.municipio} · {t.detalle}</span></div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
+  )}
 
   <!-- S11 · FAQ -->
   <section class="irm-section irm-bg-hueso" data-anim>
@@ -448,10 +364,10 @@ const schema = [
       <div class="irm-faq" style="margin-top:2.5rem">
         <details open><summary>¿Tengo que comprar el robot?</summary><div class="irm-faq-body"><p>No. Es renting anual: pagas una cuota al año y el robot cortacésped, la instalación, el mantenimiento y las averías van incluidos. El robot sigue siendo de IRM Servicios, así que si se estropea o se queda viejo, es problema nuestro, no tuyo.</p></div></details>
         <details><summary>¿Qué pasa si se estropea?</summary><div class="irm-faq-body"><p>Nos llamas y en menos de 7 días lo tienes arreglado o te instalamos otro robot. No hay que llevarlo a ningún sitio ni esperar a un servicio técnico: vamos a tu casa, lo revisamos y, si no tiene arreglo rápido, lo sustituimos.</p></div></details>
-        <details><summary>¿Se puede pagar al mes?</summary><div class="irm-faq-body"><p>El renting es anual y se paga en un solo pago por transferencia. 660 €/año son menos de 2 € al día. Equivale a unos 55 €/mes, pero el pago es anual para que la cuota salga lo más baja posible.</p></div></details>
+        <details><summary>¿Se puede pagar al mes?</summary><div class="irm-faq-body"><p>El renting es anual y se paga en un solo pago por transferencia. 660 €/año + IVA son menos de 2 € al día + IVA. Equivale a unos 55 €/mes + IVA, pero el pago es anual para que la cuota salga lo más baja posible.</p></div></details>
         <details><summary>¿Puedo cogerlo solo en verano?</summary><div class="irm-faq-body"><p>No, el servicio es anual. El césped en Madrid crece de marzo a noviembre y en invierno el robot descansa en su base, pero el mantenimiento, la app y la garantía de sustitución siguen activos todo el año.</p></div></details>
         <details><summary>¿Vale para mi jardín con cuesta o varias zonas?</summary><div class="irm-faq-body"><p>En la mayoría de los casos, sí. Los robots que instalamos no necesitan cable perimetral, suben pendientes y pueden trabajar en zonas separadas. Lo comprobamos en la demostración.</p></div></details>
-        <details><summary>¿Qué pasa cuando termina el año?</summary><div class="irm-faq-body"><p>No hay permanencia más allá del año contratado y no te quedas con una máquina en el garaje. Si renuevas, seguimos igual; si no, retiramos el robot y la base y tu jardín queda como estaba.</p></div></details>
+        <details><summary>¿Qué pasa cuando termina el año?</summary><div class="irm-faq-body"><p>El renting se renueva solo cada año y el robot se queda en tu jardín: solo lo cambiamos si tiene una avería. No hay permanencia más allá del año contratado: si no quieres renovar, retiramos el robot y la base.</p></div></details>
         <p class="irm-faq-more" style="text-align:center;margin-top:2rem"><a href="/preguntas-frecuentes/">Más preguntas sobre el renting de robots cortacésped →</a></p>
       </div>
     </div>
@@ -475,7 +391,7 @@ const schema = [
         </div>
       </div>
 
-      <form class="irm-form-card" action="#" method="post">
+      <form class="irm-form-card" data-irm-form data-fuente="web_home" method="post" action="#">
         <h3 style="margin-top:0">Pide tu demostración</h3>
         <div class="irm-form-grid">
           <div class="irm-field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" required></div>
