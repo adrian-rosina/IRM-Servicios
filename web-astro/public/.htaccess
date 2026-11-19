@@ -1,0 +1,9 @@
+# Página 404 propia de la web (generada por Astro en /404.html)
+ErrorDocument 404 /404.html
+
+# Dominio canónico sin www: www.irmservicios.com -> irmservicios.com (301)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.irmservicios\.com$ [NC]
+RewriteRule ^(.*)$ https://irmservicios.com/$1 [R=301,L]
+</IfModule>
