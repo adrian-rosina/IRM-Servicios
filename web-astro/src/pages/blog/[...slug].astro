@@ -91,7 +91,16 @@ const fechaES = (d: Date) => d.toLocaleDateString('es-ES', { day: '2-digit', mon
 
     <!-- Cuerpo del artículo -->
     <div class="irm-container irm-post-body">
-      <div class="irm-article"><Content /></div>
+      <div class="irm-article">
+        <Content />
+        {post.data.cta && (
+          <aside class="irm-post-cta" aria-label={post.data.cta.titulo}>
+            <p class="irm-post-cta__titulo">{post.data.cta.titulo}</p>
+            <p class="irm-post-cta__texto">{post.data.cta.texto}</p>
+            <a href={post.data.cta.href} class="irm-btn irm-btn-primary irm-on-dark">{post.data.cta.boton} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          </aside>
+        )}
+      </div>
 
       <!-- Tags -->
       {post.data.tags.length > 0 && (

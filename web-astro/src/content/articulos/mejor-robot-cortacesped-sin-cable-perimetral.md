@@ -1,91 +1,96 @@
 ---
 titulo: "Mejor robot cortacésped sin cable perimetral: cómo elegirlo"
 title: "Mejor robot cortacésped sin cable: cómo elegir | IRM"
-description: "Qué mirar antes de elegir el mejor robot cortacésped sin cable perimetral: metros, pendiente, zonas, instalación y servicio. Guía honesta, sin fichas técnicas."
+description: "Mejor robot cortacésped sin cable perimetral: qué mirar antes de elegirlo según tus metros, la pendiente, las zonas del jardín, la instalación y el servicio."
 keyword: "mejor robot cortacésped sin cable perimetral"
 categoria: "Guía"
-minutos: 8
+minutos: 7
 portada: "/img/robot-cortacesped-bordes-pasillo-patio.webp"
 alt: "Robot cortacésped sin cable perimetral trabajando junto a un borde en un jardín de Madrid"
 fecha: 2026-10-11
+actualizado: 2026-11-14
 autor: "IRM Servicios"
 extracto: "No hay un mejor robot cortacésped sin cable perimetral del mercado. Hay el que encaja con tu jardín. Mandan tres cosas: los metros, la pendiente y las zonas separadas. Lo demás, lo ponemos nosotros."
 tags: ["mejor robot", "sin cable", "guía"]
+cta:
+  titulo: "Deja que elijamos el robot por ti"
+  texto: "Medimos tu jardín, comprobamos la pendiente y las zonas y te dejamos el robot que encaja, instalado y cortando. Si falla, otro en menos de 7 días."
+  boton: "Pide tu demostración"
+  href: "/demostracion/"
 ---
 
-Si tecleas en Google "mejor robot cortacésped sin cable perimetral" te saldrán listas de modelos con tablas comparativas y fichas técnicas que probablemente ya has leído. Lo que no te dicen esas listas es que un robot bueno en el adosado llano de un vecino se queda corto en un chalet de la sierra con cuesta. **El mejor robot cortacésped no depende solo del robot: depende sobre todo de tu jardín.** En [IRM Servicios](/) elegimos nosotros el robot que encaja con tu caso dentro del [alquiler anual de robots cortacésped en Madrid](/).
+Los robots cortacésped sin cable perimetral se orientan por posicionamiento por satélite, sensores o visión, y no necesitan un cable enterrado que marque el borde del jardín. Esto elimina la obra de instalación y permite cambiar las zonas de corte desde el móvil, pero también hace que el rendimiento dependa mucho más del jardín concreto que de la ficha técnica.
 
-En este artículo te decimos qué mirar antes de elegir (o antes de que alguien lo elija por ti) y por qué el servicio pesa tanto como el modelo.
+Por eso, para elegir el **mejor robot cortacésped sin cable perimetral** no basta con una lista de modelos. Un robot que va perfecto en el adosado llano de tu vecino se puede quedar corto en un chalet de la sierra con cuesta. En esta guía te contamos qué mirar, en qué orden y por qué el servicio pesa tanto como el aparato.
 
-## Qué significa "sin cable perimetral" y por qué importa
+## Qué mirar para elegir el mejor robot cortacésped sin cable perimetral
 
-Los robots cortacésped de siempre funcionan con un **cable enterrado alrededor del jardín** que les marca el límite. Hay que abrir una zanja, pasar el cable, taparlo, y rezar para que la azada no lo corte el día que podas los setos. Es la gran razón por la que mucha gente que miró "comprar un robot" acabó echando el freno: lo del cable da pereza.
+| Criterio | Qué mirar | Por qué importa |
+| --- | --- | --- |
+| Metros de césped | Que tu jardín entre con margen en el rango recomendado | Un robot justo de capacidad está siempre cortando y desgasta antes la batería |
+| Pendiente | El porcentaje máximo y si tu cuesta real lo cumple | La cifra de la ficha no sirve si tu talud es más empinado |
+| Zonas separadas | Si pasa solo de una zona a otra por un paso estrecho | Muchos chalets tienen jardín delantero y trasero |
+| Cobertura de señal | Árboles, muros y aleros que tapan el cielo | Son los puntos donde un robot sin cable puede perderse |
+| Instalación | Quién la hace y si te deja las zonas bien marcadas | Un robot mal instalado da problemas todos los días |
+| Servicio | Quién lo repara y en cuánto tiempo | Una avería en junio sin robot de sustitución son semanas sin cortar |
 
-**Los robots sin cable perimetral** usan otra cosa: GPS, sensores, visión o combinaciones de las tres, según el modelo. En vez de un cable que marque el borde, el robot aprende el jardín en la instalación (porque alguien se lo enseña) y las zonas se cambian desde la app.
+## Cómo funciona un robot sin cable perimetral
 
-### Las ventajas prácticas
+En lugar de un cable enterrado, el robot aprende el jardín el día de la instalación: se marcan los bordes y las zonas que debe evitar, como la piscina o los parterres, y queda todo guardado en la app. Las ventajas prácticas son claras:
 
-- **Cero obra**: ni zanja, ni cable, ni cable que se corte después.
-- **Instalación en una visita**, no en días.
-- **Las zonas se cambian desde el móvil**, no con una pala.
-- **Si cambias el jardín** (quitas una parterre, pones una piscina), no hay que levantar nada.
+- **Sin obra:** ni zanja ni cable que se corte después con la azada.
+- **Instalación en una visita.**
+- **Zonas que se cambian desde el móvil** si haces una piscina o quitas un parterre.
 
-### El punto fino que casi nadie te cuenta
+Te lo explicamos con detalle en la página del [robot cortacésped sin cable perimetral](/como-funciona/).
 
-El robot sin cable **necesita cobertura de la señal que use su sistema**: GPS vía satélite, baliza RTK, antena, red local, etc. En jardines muy frondosos, con muchos árboles encima o entre muros gruesos, algunos modelos tienen más puntos ciegos que otros. Esto no se mira en la ficha técnica: se mira en tu jardín.
+## Los cuatro factores que deciden en tu jardín
 
-## Qué define al "mejor" robot sin cable perimetral para ti
+### Los metros de césped
 
-### 1 · Los metros de césped
+Todos los robots tienen un rango recomendado. Si se queda corto, estará siempre cortando y no llegará a todo; si le sobra mucho, estás pagando capacidad que no usas. Para la mayoría de chalets de la periferia de Madrid, los tramos útiles son hasta 600 m² y hasta 1.000 m².
 
-Todos los robots tienen un rango recomendado. Si pones un robot pequeño en un jardín que le queda grande, va a estar siempre cortando y la batería va a durar menos. Si pones uno grande en un jardín pequeño, has pagado de más. Los tramos útiles para la mayoría de particulares de Madrid son **hasta 600 m²** y **hasta 1.000 m²**.
+### La pendiente
 
-### 2 · La pendiente
+Más de lo que parece: no basta con el porcentaje de la ficha. Importa si tu cuesta real lo cumple y en qué dirección tiene que trabajar el robot, subiendo o cruzando. Taludes de piscina, escalones de césped y parcelas de la sierra son terreno habitual en Madrid. Los robots que instalamos aceptan hasta un 30 % de pendiente.
 
-En la ficha técnica siempre te sale un **porcentaje máximo de pendiente**. Lo importante no es ese número en abstracto: lo importante es si tu cuesta real lo cumple y en qué dirección va (si el robot tiene que cortar subiendo o cruzando). Jardines de la sierra con desnivel, taludes de piscina y escalones de césped son terreno habitual en la periferia de Madrid: el robot que elijas tiene que llegar. Tienes más detalle en nuestra guía de [robot cortacésped para jardines con pendiente](/como-funciona/jardines-con-pendiente/).
+### Las zonas separadas
 
-### 3 · Las zonas separadas
+Lo típico en un chalet es un jardín delantero y otro trasero unidos por un paso estrecho de cemento o grava. No todos los robots sin cable pasan bien de una zona a otra sin que alguien los lleve la primera vez.
 
-Lo típico en un chalet: **jardín delantero y jardín trasero**, unidos por un paso estrecho de cemento o grava. O un prado con el césped alrededor de la piscina. O una finca con dos áreas separadas por un camino. No todos los robots sin cable se mueven bien entre zonas, y los que lo hacen no todos sin que haya que llevarlo de la mano la primera vez.
+### El entorno
 
-### 4 · El entorno (y lo que no es evidente)
+- **Niños, mascotas e invitados:** busca sensor de choque y parada de cuchillas al levantarlo.
+- **Pinares:** el robot trabaja bien con alguna acícula suelta, pero conviene que no se acumulen.
+- **Costa:** viento, arena y salitre exigen revisar el robot con más frecuencia.
+- **Vecinos cerca:** horarios programables para cortar cuando no moleste.
 
-- **Niños**, **mascotas**, **invitados**: busca sensores de choque + parada por elevación.
-- **Zonas con pinares**: el robot trabaja bien con alguna acícula suelta, aunque conviene que no se acumulen.
-- **Zonas de costa**: viento, arena y salitre; eso lo vemos nosotros en la demostración.
-- **Vecinos muy cerca**: busca un robot con horarios programables para cortar temprano o de noche sin molestar.
+## Por qué las comparativas de modelos se quedan cortas
 
-## Las comparativas que te saltas (y por qué)
+Las listas de los mejores robots comparan lo que es fácil de medir: superficie máxima, pendiente máxima o batería. Está bien saberlo, pero lo que decide si a los seis meses estás contento es otra cosa:
 
-Las listas de "los 5 mejores robots sin cable perimetral de 2026" tienden a comparar **lo que es fácil de medir**: ruido en decibelios, superficie máxima, pendiente máxima, batería. Está bien saberlo, pero no es por lo que uno acaba contento con un robot.
-
-Lo que **de verdad** marca la diferencia a los seis meses:
-
-- **Cómo se instaló**. Un robot mal instalado da la lata todos los días. Uno bien instalado funciona solo.
-- **Qué pasa cuando algo falla**. Las fichas no dicen cuánto tarda el servicio técnico en atender ni si te quedas sin cortar dos semanas en junio.
-- **Si el césped está bien o solo "cortado"**. Los bordes rematados, los pasos estrechos resueltos, la altura correcta.
-
-Nada de eso lo arregla un buen modelo si está mal puesto. Y lo arregla un modelo discreto si el servicio es sólido.
+- **Cómo se instaló.** Un robot bien instalado funciona solo; uno mal instalado da la lata cada semana.
+- **Qué pasa cuando falla.** Las fichas no dicen cuánto tarda el servicio técnico ni si te quedas sin cortar en pleno verano.
+- **Si el césped queda bien rematado.** Bordes, pasos estrechos y altura correcta.
 
 ## Cómo lo resolvemos en IRM
 
-En vez de darte una lista para que elijas tú, lo elegimos nosotros. Vamos a tu casa, medimos los metros, miramos la pendiente y las zonas y te decimos **qué modelo encaja con tu jardín**. Lo instalamos, te configuramos la app y lo dejamos cortando el mismo día. Y si no rinde en tu césped, **lo cambiamos**. El robot sigue siendo nuestro durante todo el renting.
+En el renting no tienes que elegir modelo: lo elegimos nosotros. Vamos a tu jardín, medimos los metros, comprobamos la pendiente y las zonas y te dejamos el robot que encaja, instalado sin cable, con la app configurada y cortando el mismo día. El mantenimiento y las averías van incluidos, y si el robot no tiene arreglo rápido te ponemos otro en menos de 7 días. Tienes las cuotas por tramos en la página de [robot cortacésped precio](/precios/).
 
-### Qué está incluido en los 660 €/año
+## Preguntas frecuentes
 
-- El robot cortacésped **adecuado a tus metros y a tu terreno**.
-- Instalación sin cable perimetral y sin obras.
-- La app configurada en tu móvil.
-- Mantenimiento todo el año: cuchillas, limpieza, ajustes.
-- Averías cubiertas.
-- **Sustitución en menos de 7 días** si no tiene arreglo rápido.
+### ¿Un robot sin cable funciona bajo los árboles?
 
-Las [cifras concretas por tramo las tienes en /precios/](/precios/) y [cómo funciona la instalación sin cable, en /como-funciona/](/como-funciona/).
+Depende del modelo y de cuánto tapen el cielo. En jardines muy frondosos o entre muros altos pueden aparecer puntos donde pierde precisión. Por eso conviene comprobarlo en tu jardín antes de decidir.
 
-## Opiniones de clientes con robot cortacésped sin cable perimetral
+### ¿Qué pendiente aguanta un robot sin cable perimetral?
 
-Lo que oímos repetir en el teléfono (y pronto en las [opiniones de clientes](/preguntas-frecuentes/#q3)) sobre su robot sin cable perimetral son dos cosas: "no se oye" y "ya no pienso en el césped". Y una tercera: "cuando pasó algo, llamé y lo arreglaron ellos". El robot que elijas importa; el servicio que lo acompaña, mucho más.
+Cada modelo indica un máximo en su ficha. Los que instalamos en IRM aceptan hasta un 30 %, y lo comprobamos con el robot funcionando en tu propio terreno.
 
-## En resumen
+### ¿Es mejor un robot con cable o sin cable?
 
-El mejor robot cortacésped sin cable perimetral **no existe en abstracto**: hay el que cubre tus metros, sube tu pendiente, pasa de una zona a otra y está bien instalado y bien atendido. Si quieres que te quitemos la elección y respondamos por él todo el año, reserva una [demostración robot cortacésped](/demostracion/) y lo vemos en tu jardín.
+Para la mayoría de jardines particulares, sin cable: no hay obra, la instalación es más rápida y las zonas se cambian desde el móvil. El cable solo tiene sentido en casos muy concretos de cobertura.
+
+## Conclusión
+
+El **mejor robot cortacésped sin cable perimetral** no existe en abstracto. Es el que cubre tus metros, sube tu pendiente, pasa de una zona a otra y, sobre todo, está bien instalado y bien atendido. Con el [alquiler robot cortacésped Madrid](/) de IRM, esa elección la hacemos nosotros y respondemos por el robot todo el año.

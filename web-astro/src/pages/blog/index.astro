@@ -1,14 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import RobotTrail from '../../components/RobotTrail.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import { getCollection } from 'astro:content';
 import { NEGOCIO } from '../../data/negocio';
 
 const posts = (await getCollection('articulos', ({ data }) => !data.draft))
   .sort((a, b) => +b.data.fecha - +a.data.fecha);
-const featured = posts[0];
-const rest = posts.slice(1);
+
+const categorias = Array.from(new Set(posts.map((p) => p.data.categoria))).sort();
+const slug = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const schema = [
   {
@@ -35,12 +35,10 @@ const schema = [
   },
 ];
 
-const fechaES = (d: Date) => d.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
-
 const faqs = [
   {q:'¿Qué temas se tratan en el blog de IRM Servicios?',a:'Guías honestas sobre robots cortacésped en Madrid: precio del renting, comparativas con jardinero, cómo elegir modelo, instalación sin cable perimetral, pendientes y zonas separadas.'},
-  {q:'¿Cada cuánto publicáis artículos nuevos?',a:'Publicamos cuando tenemos algo útil que decir. Mejor pocos artículos con datos reales que mucho contenido vacío. Guarda la página o suscríbete a nuestro Instagram para no perderte las novedades.'},
-  {q:'¿Puedo citar artículos del blog en redes o en otra web?',a:'Sí, con atribución y enlace al artículo original. Los datos y cifras los puedes usar; el texto literal, con cita.'},
+  {q:'¿Cada cuánto publicáis artículos nuevos?',a:'Publicamos cuando tenemos algo útil que decir. Mejor pocos artículos con datos reales que mucho contenido vacío.'},
+  {q:'¿Puedo citar artículos del blog en redes o en otra web?',a:'Sí, con atribución y enlace al artículo original.'},
 ];
 ---
 <BaseLayout
@@ -48,79 +46,59 @@ const faqs = [
   description="Guías honestas sobre robots cortacésped en renting en Madrid: precios, comparativas con jardinero, cómo elegir modelo, instalación sin cable perimetral."
   {schema}>
 
-  <!-- HERO blog -->
-  <section class="irm-section irm-bg-hueso irm-blog-hero" data-anim>
+  <!-- Grid principal con filtros -->
+  <section class="irm-section irm-blog-list" data-anim>
     <div class="irm-container">
-      <span class="irm-eyebrow">Blog · IRM Servicios</span>
-      <h1>Todo lo que necesitas saber sobre <span class="irm-destacado--claro">robots cortacésped</span> en Madrid</h1>
-      <p class="irm-entradilla" style="color:var(--irm-gris);max-width:62ch">Las dudas que nos llegan por teléfono, respondidas con cifras reales y sin rodeos: precios del alquiler anual, comparativas con jardinero, cómo funciona el renting y qué robot encaja con cada jardín.</p>
-      <div class="irm-blog-hero-meta">
-        <span class="irm-blog-hero-meta__item"><strong>{posts.length}</strong> artículos</span>
-        <span class="irm-blog-hero-meta__sep">·</span>
-        <span class="irm-blog-hero-meta__item">Actualizado {fechaES(new Date())}</span>
-        <span class="irm-blog-hero-meta__sep">·</span>
-        <span class="irm-blog-hero-meta__item">Por el equipo de IRM</span>
+      <h1 class="irm-blog-list__title">Últimas publicaciones</h1>
+
+      <div class="irm-blog-filters" role="tablist" aria-label="Filtrar por categoría">
+        <button type="button" class="irm-blog-filter is-active" data-filter="all" role="tab" aria-selected="true">Todo</button>
+        {categorias.map((cat) => (
+          <button type="button" class="irm-blog-filter" data-filter={slug(cat)} role="tab" aria-selected="false">{cat}</button>
+        ))}
       </div>
-    </div>
-  </section>
 
-  <RobotTrail />
-
-  <!-- Post destacado -->
-  {featured && (
-    <section class="irm-section" data-anim>
-      <div class="irm-container">
-        <span class="irm-eyebrow">Destacado</span>
-        <h2>Lo último</h2>
-        <a href={`/blog/${featured.id}/`} class="irm-blog-featured">
-          <div class="irm-blog-featured__img">
-            {featured.data.portada && <img src={featured.data.portada} alt={featured.data.alt ?? featured.data.titulo} loading="eager" fetchpriority="high" />}
-            <span class="irm-blog-featured__badge">{featured.data.categoria}</span>
-          </div>
-          <div class="irm-blog-featured__body">
-            <div class="irm-blog-meta">
-              <time datetime={featured.data.fecha.toISOString()}>{fechaES(featured.data.fecha)}</time>
-              {featured.data.minutos && <><span>·</span><span>{featured.data.minutos} min de lectura</span></>}
-              <span>·</span>
-              <span>{featured.data.autor}</span>
+      <div class="irm-blog-grid" data-blog-grid data-stagger>
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}/`} class="irm-blog-card" data-cat={slug(post.data.categoria)}>
+            <div class="irm-blog-card__img">
+              {post.data.portada && <img src={post.data.portada} alt={post.data.alt ?? post.data.titulo} loading="lazy" />}
+              <span class="irm-blog-card__badge">{post.data.categoria}</span>
             </div>
-            <h3>{featured.data.titulo}</h3>
-            <p>{featured.data.extracto}</p>
-            <span class="irm-blog-featured__cta">Leer el artículo <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-          </div>
-        </a>
+            <div class="irm-blog-card__body">
+              <h3>{post.data.titulo}</h3>
+            </div>
+          </a>
+        ))}
       </div>
-    </section>
-  )}
 
-  <!-- Grid resto -->
-  {rest.length > 0 && (
-    <section class="irm-section irm-bg-hueso" data-anim>
-      <div class="irm-container">
-        <span class="irm-eyebrow">Todos los artículos</span>
-        <h2>Más guías sobre robots cortacésped</h2>
-        <div class="irm-blog-grid" data-stagger>
-          {rest.map((post) => (
-            <a href={`/blog/${post.id}/`} class="irm-blog-card">
-              <div class="irm-blog-card__img">
-                {post.data.portada && <img src={post.data.portada} alt={post.data.alt ?? post.data.titulo} loading="lazy" />}
-                <span class="irm-blog-card__badge">{post.data.categoria}</span>
-              </div>
-              <div class="irm-blog-card__body">
-                <div class="irm-blog-meta">
-                  <time datetime={post.data.fecha.toISOString()}>{fechaES(post.data.fecha)}</time>
-                  {post.data.minutos && <><span>·</span><span>{post.data.minutos} min</span></>}
-                </div>
-                <h3>{post.data.titulo}</h3>
-                <p>{post.data.extracto}</p>
-                <span class="irm-blog-card__cta">Leer artículo →</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+      <p class="irm-blog-list__empty" data-blog-empty hidden>No hay artículos en esta categoría todavía.</p>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const filters = document.querySelectorAll('.irm-blog-filter');
+        const grid = document.querySelector('[data-blog-grid]');
+        const empty = document.querySelector('[data-blog-empty]');
+        if (!grid || !filters.length) return;
+        const cards = grid.querySelectorAll('.irm-blog-card');
+        filters.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const target = btn.getAttribute('data-filter');
+            filters.forEach((b) => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+            btn.classList.add('is-active'); btn.setAttribute('aria-selected', 'true');
+            let visible = 0;
+            cards.forEach((c) => {
+              const match = target === 'all' || c.getAttribute('data-cat') === target;
+              c.hidden = !match;
+              if (match) visible++;
+            });
+            if (empty) empty.hidden = visible > 0;
+          });
+        });
+      })();
+    </script>
+  </section>
 
   <!-- CTA -->
   <section class="irm-section irm-bg-negro" data-anim>
