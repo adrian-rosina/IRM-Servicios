@@ -13,7 +13,4 @@ npm run build      # genera la web estática en dist/
 npm run preview    # sirve dist/ para revisarla
 ```
 
-## Pendiente (segunda mitad del proyecto)
-- Migrar el resto de páginas del prototipo (prototipos/*.html) a componentes.
-- Completar las zonas de Segovia y Toledo en src/content/zonas/.
-- Formularios, cookies y medición; despliegue en irmservicios.com.
+
